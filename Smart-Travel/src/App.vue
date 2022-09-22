@@ -7,7 +7,7 @@ const showMobileNavbar = ref(true);
 <template>
   <nav>
     <div class="bg-indigo-900">
-      <div class="mx-auto max-w-9xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-8xl px-4 sm:px-5 lg:px-7">
         <div class="flex h-16 justify-between">
           <div class="flex">
 
@@ -22,8 +22,8 @@ const showMobileNavbar = ref(true);
           </div>
 <!--          register and login menu-->
           <div class="hidden md:ml-4 md:flex md:space-x-8 items-center">
-            <a class="relative flex items-center rounded-md border border-transparent bg-indigo-700 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> <router-link to="/login">Sign in</router-link></a>
-            <a class="relative flex items-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-900 shadow-sm hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> <router-link to="/register">Sign up</router-link></a>
+            <a class="relative flex items-center rounded-md border border-transparent bg-indigo-700 px-4 py-2 text-sm font-medium text-white  hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> <router-link to="/login">Sign in</router-link></a>
+            <a class="relative flex items-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> <router-link to="/register">Sign up</router-link></a>
 
         </div>
 <!--          Mobile navbar-->
