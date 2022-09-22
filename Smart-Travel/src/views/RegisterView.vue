@@ -46,3 +46,26 @@
 
 
 </template>
+
+<script setup>
+  import { ref } from 'vue'.
+  import firebase from 'firebase/compat/app'
+  import { useRouter } from 'vue-router'
+  const email = ref('')
+  const username = ref('')
+  const password = ref('')
+  const router =useRouter()
+  const submit = () => {
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(email.value, password.value)
+        .then((data) => {
+          console.log("User has Successfully Registered");
+          router.push('/login')
+    })
+        .catch(error => {
+          console.log(error.code)
+          alert(error.message)
+        })
+  }
+</script>
