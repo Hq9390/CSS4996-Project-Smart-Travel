@@ -6,23 +6,23 @@
         <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">Register</h2>
         <form action="#"  class="space-y-8">
           <div>
-            <label for="email" class=" block text-sm font-medium text-gray-700">Email address</label>
+            <label for="email" class=" block text-sm font-medium text-gray-700" >Email address</label>
             <div class="mt-1">
-              <input id="email" name="username" type="email" autocomplete="email" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input v-model="email" id="email" name="username" type="email" autocomplete="email" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
 
           <div class="space-y-1">
             <label for="username" class=" block text-sm font-medium text-gray-700">Username</label>
             <div class="mt-1">
-              <input id="username" name="username" type="username" autocomplete="username" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input v-model="name" id="username" name="username" type="username" autocomplete="username" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
 
           <div class="space-y-1">
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <div class="mt-1">
-              <input id="password" name="password" type="password" autocomplete="current-password" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input v-model="password" id="password" name="password" type="password" autocomplete="current-password" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
 
@@ -37,7 +37,7 @@
 
 
           <div>
-            <button type="submit" value="register" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Register</button>
+            <button @click="register" type="submit" value="register" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Register</button>
           </div>
         </form>
       </div>
@@ -46,3 +46,40 @@
 
 
 </template>
+
+<script setup>
+
+import { getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+
+import {ref} from "vue";
+import {useRouter} from "vue-router";
+
+const auth = getAuth();
+const email = ref("");
+const name = ref("");
+const password = ref("");
+const router = useRouter()
+const register = () =>  {
+  createUserWithEmailAndPassword(getAuth(), email.value, password.value)
+  updateProfile(auth.currentUser,{ }).then((user) => {
+        if(user) {
+          console.log('Successfully registered')
+          console.log(user);
+        }
+        router.push("/");
+
+      })
+      .catch((error) => {
+        console.log(error.code);
+        alert(error.message);
+      });
+
+};
+
+
+</script>
+
+
+
+
+
