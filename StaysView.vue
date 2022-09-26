@@ -4,30 +4,31 @@
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div class="mt-6 space-y-8 ">
          
-        <form action="#"  class="space-y-8">
-          <div>
-            <label for="place" class=" block text-sm font-medium text-gray-700" >Going to</label>
+        <form action="#"  method = "POST" class="space-y-8">
+          
+           <div class="sm:col-span-2">
+            <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Going to</label>
             <div class="mt-1">
-              <input v-model="destination" id="destination" name="destination" type="destination" autocomplete="destination" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input type="text" name="city" id="city" autocomplete="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              </div>
+            </div>
+          
+          
+          <div class="sm:col-span-2">
+            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Check-in</label>
+            <div class="mt-1">
+              <input type="text" name="date" id="date" autocomplete="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
           </div>
-          <br>
+            
 
-          <div class="space-y-1">
-            <label for="arrival-date" class=" block text-sm font-medium text-gray-700">Check-in</label>
+          <div class="sm:col-span-2">
+            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Check-out</label>
             <div class="mt-1">
-              <input v-model="arrival" id="arrival" name="arrival" type="arrival" autocomplete="arrival-date" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input type="text" name="date" id="date" autocomplete="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
           </div>
-            <br>
-
-          <div class="space-y-1">
-            <label for="departure-date" class="block text-sm font-medium text-gray-700">Check-out</label>
-            <div class="mt-1">
-              <input v-model="departure" id="departure" name="departure" type="departure" autocomplete="departure-date" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
-            </div>
-          </div>
-           <br>  
+            
 
           <div>
             <button @click="search" type="submit" value="search" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Search</button>
@@ -39,7 +40,23 @@
         <h3>TOP CITIES TO VISIT</h3>
       </div>
   </div>
+</div>
+  <br>
+  <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
+    <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
+      <div class="mt-12 border-t border-gray-200 pt-8">
+        <div class="flex w-full justify-center">
+          <img
+              src="../images/logo.png"
+              class="  w-55 h-40" >
+          
+        </div>
+        <p class="text-base text-gray-400 flex w-full justify-center">&copy; 2022 Smart Travel, Inc. All rights reserved.</p>
+      </div>
+    </div>
+
+  </footer>
 
 </template>
 
