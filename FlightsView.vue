@@ -21,13 +21,29 @@
             </div>
           <div class="sm:col-span-2">
             <label for="person" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Travelers </label>
-            <div class="mt-1">
-              <input type="text" name="person" id="person" autocomplete="person" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+             <select id="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option> -- </option>
+                <option>1 adult 0 children</option>
+                <option>1 adults 1 children</option>
+				<option>1 adults 2 children</option>
+				<option>1 adults 3 children</option>
+				<option>2 adults 0 children</option>
+				<option>2 adults 1 children</option>
+				<option>2 adults 2 children</option>
+				<option>2 adults 3 children</option>
+				</select>
             </div>
           <div class="sm:col-span-2">
             <label for="number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Cabin class</label>
             <div class="mt-1">
-              <input type="text" name="number" id="number" autocomplete="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              <label for="seat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Cabin class</label>
+               <select> id="seat" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option> -- </option>
+                <option>First class</option>
+                <option>Business class</option>
+                <option>Coach</option>
+               </select>
+              
             </div>
 
       
@@ -35,6 +51,9 @@
             <button @click="" type="submit" value="submit" class="flex w-full justify-center py-2 w-full p-2.5 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Search</button>
           </div>
         </form>
+        <br>
+
+        <h3> TOP CITIES TO VISIT </h3>
       </div>
 
     </div>
@@ -47,8 +66,8 @@
         <div class="flex w-full justify-center">
           <img
               src="../images/logo.png"
-              class="  w-55 h-40"
-          />
+              class="  w-55 h-40" >
+          
         </div>
         <p class="text-base text-gray-400 flex w-full justify-center">&copy; 2022 Smart Travel, Inc. All rights reserved.</p>
       </div>
