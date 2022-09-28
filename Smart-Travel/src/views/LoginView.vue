@@ -22,16 +22,14 @@
           <div  class="flex items-center justify-between">
             <p v-if="errMsg"> {{errMsg}} </p>
 
-            <div class="text-sm flex w-full justify-center" > Not a member yet??
-              <a  class="  font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1 " ><router-link to="/register"> Register Here </router-link></a>
+            <div class="text-sm flex w-full justify-center" > Not Registered?
+
+              <a  class="  font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1 " > <router-link to="/register"> Register Here </router-link></a>
             </div>
           </div>
 
               <div class="text-sm flex w -full justify-center" >
                 <a  class="  font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1 " > <router-link to="/forgot-password"> Forgot Password </router-link></a>
-
-
-
               </div>
           <div>
 
