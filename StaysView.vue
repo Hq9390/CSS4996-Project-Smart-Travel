@@ -14,21 +14,20 @@
             </div>
           
           
-          <div class="sm:col-span-2">
-            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Check-in</label>
-            <div class="mt-1">
-              <input type="text" name="date" id="date" autocomplete="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            </div>
-          </div>
-            
-
-          <div class="sm:col-span-2">
-            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Check-out</label>
-            <div class="mt-1">
-              <input type="text" name="date" id="date" autocomplete="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            </div>
-          </div>
-            
+          <div class="sm:col-span-">
+		  <label for = "check-in" class = "block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> Check-in </label>
+		  <div class="mt-1">
+		  <input type = "date" id = "check-in" name= "check-in" autocomplete="check-in" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"  />
+	   </div>
+	   </div>
+	   
+	   <div class="sm:col-span-">
+		  <label for = "check-out" class = "block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"> Check-out </label>
+		  <div class="mt-1">
+		  <input type = "date" id = "check-out" name= "check-out" autocomplete="check-out" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"  />
+	   </div>
+	   </div>
+   
 
           <div>
             <button @click="search" type="submit" value="search" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Search</button>
