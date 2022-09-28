@@ -4,7 +4,7 @@
     <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <div class="mx-auto w-full max-w-sm lg:w-96">
         <form action="#"  @submit.prevent="submit" class="space-y-8">
-        <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900">Forgot Password</h2>
+        <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900">Forgot password</h2>
           <div>
             <label for="email" class=" block text-sm font-medium text-gray-700">Email address</label>
             <div class="mt-1">
@@ -12,7 +12,7 @@
             </div>
           </div>
           <div class ="space-y-1">
-          <button @click="forgotpassword" value="Reset Password Email" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700  " > Reset Password </button>
+          <button @click="forgotpassword" value="Reset Password Email" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700  " > Reset password </button>
         </div>
           <div  class="flex items-center justify-between">
             <p v-if="errMsg"> {{errMsg}} </p>
@@ -27,15 +27,17 @@
 
 import {getAuth, sendPasswordResetEmail } from 'firebase/auth'
 import {ref} from "vue";
+import {useRouter} from "vue-router";
 const email = ref("");
 const errMsg = ref()
-
+const router = useRouter()
 const forgotpassword = () => {
 
   sendPasswordResetEmail(getAuth(), email.value )
       .then((user) => {
         console.log('Please Check Your Email')
         console.log(user)
+        router.push('/login')
 
       })
       .catch((error) => {
