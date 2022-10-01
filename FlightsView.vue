@@ -1,0 +1,84 @@
+<template>
+  <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+    <div class="mx-auto w-full max-w-sm lg:w-96">
+      <div class="mt-10 space-y-10 ">
+        <form action="#" method="POST" class="space-y-10 ">
+          <div class="sm:col-span-2">
+            <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Enter the airport you are traveling from (ex: MCO)</label>
+            <div class="mt-1">
+              <form method="GET" action="/o1">
+              <input type="text" name="o1" id="o1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+              </form>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="cities" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
+              <select id="cities" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Choose what kind of city you want to visit</option>
+                <option value="D">Downtown</option>
+                <option value="H">Historical</option>
+                <option value="B">Beach</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Enter the departing airport code (ex: DTW)</label>
+              <div class="flex flex-row">
+                <span class="flex items-center bg-gray-50  rounded rounded-r-none px-3 font-bold text-grey-darker">$</span>
+                <form method="GET" action="/d1">
+                  <input type="text" name="d1" id="d1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                </form>
+                <input type="number" name="price" class="bg-grey-50 text-grey-darker py-2 w-full p-2.5 font-normal rounded text-grey-900 border dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 rounded-l-none font-bold">
+              </div>
+            </div>
+
+          </div>
+          <div>
+            <button @click="" type="submit" value="submit" class="flex w-full justify-center py-2 w-full p-2.5 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
+    <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
+
+      <div class="mt-12 border-t border-gray-200 pt-8">
+        <div class="flex w-full justify-center">
+          <img
+              src="../images/logo.png"
+              class="  w-55 h-40"
+          />
+        </div>
+        <p class="text-base text-gray-400 flex w-full justify-center">&copy; 2022 Smart Travel, Inc. All rights reserved.</p>
+      </div>
+    </div>
+
+  </footer>
+</template>
+
+<script>
+
+import {application} from "express";
+
+const axios = require("axios");
+application.get('/o1', '/d1', '/dd1', (req) => {
+const o1 = req.param('o1');
+const d1 = req.param('d1');
+const dd1 = req.param('dd1')
+const options = {
+method: 'GET',
+url: 'https://travel-advisor.p.rapidapi.com/flights/create-session',
+params: {o1: 'DMK', d1: 'CNX', dd1: '2022-03-15', currency: 'USD', ta: '1', c: '0'},
+headers: {
+  'X-RapidAPI-Key': '41ceb7b31cmsh5651d830cf91333p1c49b5jsn43c158f93845',
+  'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+}
+}
+});
+
+axios.request(options).then(function (response) {
+console.log(response.data);
+}).catch(function (error) {
+console.error(error);
+});
+</script>
