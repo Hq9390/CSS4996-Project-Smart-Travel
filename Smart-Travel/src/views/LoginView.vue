@@ -18,9 +18,11 @@
               <input v-model="password" id="password" name="password" type="password" autocomplete="current-password" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
-
+          <div class="text-gray-900 text-sm">
+          <p v-if="errMsg"> {{errMsg}} </p>
+          </div>
           <div  class="flex items-center justify-between">
-            <p v-if="errMsg"> {{errMsg}} </p>
+
 
             <div class="text-sm flex w-full justify-center" > Not Registered?
 
