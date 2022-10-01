@@ -29,7 +29,7 @@
 
 
           <div class="flex items-center justify-between">
-
+            <p v-if="errMsg"> {{errMsg}} </p>
 
             <div class="text-sm flex w-full justify-center font-light " > Already have an account??
 
@@ -58,6 +58,7 @@ const email = ref("");
 const name = ref("");
 const password = ref("");
 const router = useRouter()
+const errMsg = ref()
 const register = () =>  {
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
       .then((user) => {
@@ -68,9 +69,26 @@ const register = () =>  {
       })
       .catch((error) => {
         console.log(error.code);
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            errMsg.value = "email already in use";
+            console.log('email already in-use')
+            break;
+          case "auth/invalid-email":
+            errMsg.value = "invalid email";
+            console.log('invalid email')
+            break;
+          case "auth/weak-password":
+            errMsg.value = "weak password";
+            console.log('weak password')
+            break;
 
+        }
       });
+
+
 };
+
 
 </script>
 
