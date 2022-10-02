@@ -8,6 +8,8 @@ import './styles/app.css';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 const firebaseConfig = {
     apiKey: "AIzaSyA6DHcoIKMPyvX9ZaVIGv4p3HbfSTFQ0ak",
@@ -29,5 +31,5 @@ const app = createApp(App)
 
 // app.use(createPinia())
 app.use(router)
-
+app.component('Datepicker', Datepicker);
 app.mount('#app')

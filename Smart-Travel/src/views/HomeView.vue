@@ -3,36 +3,54 @@
   <div class="bg-white">
     <div class="mx-auto max-w-4xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
 
-      <form action="#" method="GET" class="text-center ">
+      <form action="#" class="text-center ">
+        <div class="space-y-10 md:grid md:grid-cols-2 md:gap-3 md:space-y-0 lg:grid-cols-2">
+          <label for="room" class="sr-only">Room</label>
+          <input v-model="room"
+                 type="number"
+                 name="room"
+                 placeholder="Room"
+                 class="block w-full rounded-md border-gray-500 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
+          <label for="guest" class="sr-only">Guest</label>
+          <input v-model="guest"
+                 type="number"
+                 name="guest"
+                 placeholder="Guest"
+                 class="block w-full rounded-md border-gray-500 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+          />
+
+
+        </div>
+
         <div class="space-y-10 md:grid md:grid-cols-2 md:gap-5 md:space-y-0 lg:grid-cols-4">
         <div class="col-span-2">
           <label for="location" class="sr-only">Going to</label>
-          <div class="mt-1">
-            <input  v-model="searchQuery"
-                    @input="getSearchResults" type="text" name="location" id="location" autocomplete="location" class="block w-full rounded-md border-gray-500 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Going to" />
+          <div class="mt-1 input-container">
+            <input  v-model="location"
+                    type="text"
+                    name="location" id="location"
+                    class="location-input
+                    block w-full rounded-md border-gray-500 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    placeholder="Going to" />
 
           </div>
-          <ul>
-            <li
-                v-for="searchResult in searchResults "
-                :key="searchResult.id"
-                class="py-2 cursor-pointer"
-                @click="previewCity(searchResult)"
-            >
-              {{ searchResult.place_name }}
-            </li>
-          </ul>
+
         </div>
         <div>
           <label for="check-in" class="sr-only">Check in</label>
           <div class="mt-1">
-            <input  type="date" name="check-in" id="full-name" autocomplete="name" class="block w-full rounded-md border-gray-500 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Check-in" />
+            <input
+                v-model="checkinDate"
+                type="date" name="check-in" id="full-name" autocomplete="name" class="block w-full rounded-md border-gray-500 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Check-in" />
           </div>
         </div>
         <div>
           <label for="check-out" class="sr-only">Check out</label>
           <div class="mt-1">
-            <input  type="date" name="full-name" id="full-name" autocomplete="name" class="block w-full rounded-md border-gray-500 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Check-out" />          </div>
+            <input
+                v-model="checkoutDate"
+                type="date" name="full-name" id="full-name" autocomplete="name" class="block w-full rounded-md border-gray-500 py-3 px-4 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Check-out" />          </div>
         </div>
         </div>
 
