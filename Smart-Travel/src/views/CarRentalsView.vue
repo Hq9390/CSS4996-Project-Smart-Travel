@@ -1,6 +1,7 @@
 <template>
 
 
+
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
@@ -17,3 +18,4 @@
 
   </footer>
 </template>
+

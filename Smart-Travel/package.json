@@ -11,7 +11,12 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.7",
+    "@vuepic/vue-datepicker": "^3.4.8",
+    "axios": "^0.27.2",
+    "date-fns": "^2.29.3",
     "firebase": "^9.9.0",
+    "flowbite": "^1.5.3",
+    "flowbite-datepicker": "^1.2.2",
     "pinia": "^2.0.21",
     "vue": "^3.2.38",
     "vue-router": "^4.1.5"

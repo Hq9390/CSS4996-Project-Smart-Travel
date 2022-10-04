@@ -4,27 +4,49 @@
       <div class="mt-10 space-y-10 ">
         <form action="#" method="POST" class="space-y-10 ">
           <div class="sm:col-span-2">
-            <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Enter the city you are are traveling from</label>
+            <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Enter the city you are traveling from</label>
             <div class="mt-1">
               <input type="text" name="city" id="city" autocomplete="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
             </div>
             <div class="sm:col-span-2">
-            <label for="cities" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
-            <select id="cities" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option selected>Choose what kind of city you want to visit</option>
-              <option value="D">Downtown</option>
-              <option value="H">Historical</option>
-              <option value="B">Beach</option>
-            </select>
+              <div class="mt-6">
+              <label for="cities" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
+              <select id="cities" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected>Choose what kind of city you want to visit</option>
+                <option value="D">Downtown</option>
+                <option value="H">Historical</option>
+                <option value="B">Beach</option>
+              </select>
+              </div>
             </div>
             <div class="sm:col-span-2">
+              <div class="mt-6">
               <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Enter your budget</label>
               <div class="flex flex-row">
                 <span class="flex items-center bg-gray-50  rounded rounded-r-none px-3 font-bold text-grey-darker">$</span>
                 <input type="number" name="price" class="bg-grey-50 text-grey-darker py-2 w-full p-2.5 font-normal rounded text-grey-900 border dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 rounded-l-none font-bold">
               </div>
+              </div>
             </div>
+            <div class="sm:col-span-2">
+              <div class="mt-6">
+              <label for="date" class="block text-sm font-medium text-gray-700">Enter your departure date</label>
 
+
+                <input v-model="departure" class="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="date" />
+              </div>
+              <div class="mt-6">
+              <label for="date" class="block text-sm font-medium text-gray-700">Enter your returning date</label>
+
+
+                <input
+                    v-model="returning"
+                    class="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    type="date"
+                />
+              </div>
+
+            </div>
           </div>
           <div>
             <button @click="" type="submit" value="submit" class="flex w-full justify-center py-2 w-full p-2.5 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit</button>
@@ -50,3 +72,24 @@
 
   </footer>
 </template>
+
+<script>
+import { ref, onMounted } from 'vue';
+
+export default {
+  setup() {
+    const date = ref();
+
+    // For demo purposes assign range from the current date
+    onMounted(() => {
+      const startDate = new Date();
+      const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+      date.value = [startDate, endDate];
+    })
+
+    return {
+      date,
+    }
+  }
+}
+</script>
