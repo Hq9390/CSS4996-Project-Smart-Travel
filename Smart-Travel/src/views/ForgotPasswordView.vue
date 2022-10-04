@@ -34,13 +34,7 @@
         <p class="text-base text-gray-400 flex w-full justify-center">&copy; 2022 Smart Travel, Inc. All rights reserved.</p>
       </div>
     </div>
-
   </footer>
-          <p v-if="errMsg"> {{errMsg}} </p>
-          <div class ="space-y-1">
-          <button @click="forgotpassword" value="Reset Password Email" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700  " > Reset Password </button>
-        </div>
-
         </form>
 </template>
 
@@ -53,8 +47,6 @@ import {useRouter} from "vue-router";
 const email = ref("");
 const errMsg = ref()
 const router = useRouter()
-const email = ref("");
-const errMsg = ref()
 
 const forgotpassword = () => {
 
