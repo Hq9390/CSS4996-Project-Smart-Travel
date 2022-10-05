@@ -6,10 +6,10 @@
   <form action="#" class="text-center flex">
     <div>
       <div class=" md:grid py-15 md:grid-cols-3 md:gap-3 md:space-y-0">
-        <input class = "block mb-2 rounded-lg text-sm font-medium text-gray-900 dark:text-gray-400"
-                    type="text" v-model="searchLocation" placeholder="Pickup Location"/>
-        <Datepicker input placeholder="Pickup Date" class=" block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"> </Datepicker>
-        <Datepicker input placeholder="Return Date" class = " block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"> </Datepicker>
+        <input id = "pickupId" class = "block mb-2 rounded-lg text-sm font-medium text-gray-900 dark:text-gray-400"
+               type ="text" v-model="searchLocation" placeholder="Pickup Location"/>
+        <Datepicker  id = "pickupDate" input placeholder="Pickup Date" class=" block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"> </Datepicker>
+        <Datepicker  id = "returnDate" input placeholder="Return Date" class = " block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"> </Datepicker>
         <div v-for="pickup in locationpickup" :key="pickup.id"> {{ pickup.label }}</div>
       </div>
       <button @click="search" value="Search for Vehicle" class= "mt-6 w-1/2 items-center py-2  p-2.5 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 text-center"> Search </button>
@@ -34,8 +34,23 @@
 </template>
 <script>
 import Datepicker from "@vuepic/vue-datepicker";
+
 export default {
-  components: {Datepicker}
+  components: {Datepicker},
+  name: 'CarRentals',
+  data() {
+    return{
+      apiKey: '<cc68175e3amsh222151b1246494ap126e49jsnb4e35549a93b>',
+      pickupId: '',
+      pickupDate:'date' ,
+      returnDate:'date',
+    }
+  },
+  methods:{
+
+  }
+
+
 }
 </script>
 
