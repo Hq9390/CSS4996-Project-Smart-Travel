@@ -36,7 +36,7 @@
          <br>
 
 
-        <h3>TOP CITIES TO VISIT</h3>
+        <h3> <class="text-xl font-medium text-gray-900 mt-6 " > TOP CITIES TO VISIT</h3>
       </div>
   </div>
 </div>
