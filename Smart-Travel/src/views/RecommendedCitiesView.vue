@@ -33,16 +33,24 @@
               <label for="date" class="block text-sm font-medium text-gray-700">Enter your departure date</label>
 
 
-                <input v-model="departure" class="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" type="date" />
+                <datepicker
+                    v-model="departuredate "
+                    class="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                    type="date"  autoApply :format="format"
+                    :min-date='new Date()'
+                    placeholder="Select Departure Date"
+                />
               </div>
               <div class="mt-6">
               <label for="date" class="block text-sm font-medium text-gray-700">Enter your returning date</label>
 
 
-                <input
-                    v-model="returning"
+                <datepicker
+                    v-model="returndate"
                     class="block w-full rounded-md border-gray-300 py-3 px-4 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-                    type="date"
+                    type="date"  autoApply :format="format"
+                    :min-date='new Date()'
+                    placeholder="Select Returning Date"
                 />
               </div>
 
@@ -74,21 +82,19 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 
 export default {
   setup() {
-    const date = ref();
+    const departuredate = ref();
+    const returndate =ref();
+    const format = ref('dd MMMM yyyy');
 
-    // For demo purposes assign range from the current date
-    onMounted(() => {
-      const startDate = new Date();
-      const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
-      date.value = [startDate, endDate];
-    })
 
     return {
-      date,
+      departuredate,
+      returndate,
+      format,
     }
   }
 }
