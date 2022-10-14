@@ -22,7 +22,7 @@ onMounted(() => {
     });
 const handleSignOut = () => {
   signOut(auth).then(() => {
-    router.push("/flights")
+    router.push("/login")
 
       });
 };
@@ -50,6 +50,7 @@ let showMobileNavbar = ref(true);
             <a v-if=" ! isLoggedIn" class="relative flex items-center rounded-md border border-transparent bg-indigo-700 px-4 py-2 text-sm font-medium text-white  hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> <router-link to="/login">Sign in</router-link></a>
             <a v-if=" ! isLoggedIn" class="relative flex items-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> <router-link to="/register">Sign up</router-link></a>
             <button @click="handleSignOut " v-if="isLoggedIn" class="relative flex items-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-900 hover:bg-indigo-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Sign out</button>
+            <a v-if=" isLoggedIn" class="relative flex items-center rounded-md border border-transparent bg-indigo-700 px-4 py-2 text-sm font-medium text-white  hover:bg-indigo-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> <router-link to="/profile">Profile</router-link></a>
         </div>
 <!--          Mobile navbar-->
           <div class="md:hidden flex items-center">
