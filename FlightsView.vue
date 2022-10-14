@@ -1,41 +1,57 @@
-<template>
-  <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-    <div class="mx-auto w-full max-w-sm lg:w-96">
-      <div class="mt-10 space-y-10 ">
-        <form action="#" method="POST" class="space-y-10 ">
-          <div class="sm:col-span-2">
-            <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Enter the airport you are traveling from (ex: MCO)</label>
-            <div class="mt-1">
-              <form method="GET" action="/o1">
-              <input type="text" name="o1" id="o1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-              </form>
-            </div>
-            <div class="sm:col-span-2">
-              <label for="cities" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
-              <select id="cities" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Choose what kind of city you want to visit</option>
-                <option value="D">Downtown</option>
-                <option value="H">Historical</option>
-                <option value="B">Beach</option>
-              </select>
-            </div>
-            <div class="sm:col-span-2">
-              <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Enter the departing airport code (ex: DTW)</label>
-              <div class="flex flex-row">
-                <span class="flex items-center bg-gray-50  rounded rounded-r-none px-3 font-bold text-grey-darker">$</span>
-                <form method="GET" action="/d1">
-                  <input type="text" name="d1" id="d1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                </form>
-                <input type="number" name="price" class="bg-grey-50 text-grey-darker py-2 w-full p-2.5 font-normal rounded text-grey-900 border dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 rounded-l-none font-bold">
-              </div>
-            </div>
 
+<template >
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
+
+      <form action="#" class="text-center ">
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
+          <div class="sm:col-span-1">
+            <label for="Origin" class="block text-sm font-medium text-gray-700">Origin</label>
+            <input v-model="origin"
+                   type="text"
+                   name="origin"
+                   placeholder="origin"
+                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+            />
           </div>
-          <div>
-            <button @click="" type="submit" value="submit" class="flex w-full justify-center py-2 w-full p-2.5 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit</button>
+          <div class="sm:col-span-1">
+            <label for="Destination" class="block text-sm font-medium text-gray-700">Destination</label>
+            <input v-model="destination"
+                   type="text"
+                   name="destination"
+                   placeholder="destination"
+                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+
+            />
           </div>
-        </form>
-      </div>
+          <div class="sm:col-span-6"></div>
+        </div>
+
+        <div class="mt-6">
+          <div class="space-y-10 md:grid md:grid-cols-2 md:gap-5 md:space-y-0 lg:grid-cols-4">
+
+            <label for="location" class="sr-only">Going to</label>
+
+            <input  v-model="location"
+                    type="text"
+                    name="location" id="location"
+                    class=" block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+                    placeholder="Going to" />
+
+            <datepicker
+                v-model="date"
+                class=" block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+                autoApply :format="format"
+                :min-date='new Date()'
+                placeholder="Check-out"
+            />
+
+            <button @click="" type="submit" value="submit" class=" block   py-2  p-4 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm  font-medium text-white shadow-sm hover:bg-indigo-700 ">Search</button>
+          </div>
+        </div>
+
+
+      </form>
 
     </div>
   </div>
@@ -54,31 +70,56 @@
     </div>
 
   </footer>
+
 </template>
-
 <script>
+import { ref } from 'vue';
+//import axios from "axios"
 
-import {application} from "express";
+export default {
+  setup() {
+   // const CheckIn = ref();
+  //  const CheckOut =ref();
+    const format = ref('dd MMMM yyyy');
+
+
+    return {
+      date,
+      format,
+    };
+  },
+  data(){
+    return {
+
+    };
+  },
+
+
+}
 
 const axios = require("axios");
-application.get('/o1', '/d1', '/dd1', (req) => {
-const o1 = req.param('o1');
-const d1 = req.param('d1');
-const dd1 = req.param('dd1')
+
 const options = {
-method: 'GET',
-url: 'https://travel-advisor.p.rapidapi.com/flights/create-session',
-params: {o1: 'DMK', d1: 'CNX', dd1: '2022-03-15', currency: 'USD', ta: '1', c: '0'},
-headers: {
-  'X-RapidAPI-Key': '41ceb7b31cmsh5651d830cf91333p1c49b5jsn43c158f93845',
-  'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
-}
-}
-});
+  method: 'GET',
+  url: 'https://skyscanner50.p.rapidapi.com/api/v1/searchFlights',
+  params: {
+    origin: 'LOND',
+    destination: 'NYCA',
+    date: '<REQUIRED>',
+    adults: '1',
+    currency: 'USD',
+    countryCode: 'US',
+    market: 'en-US'
+  },
+  headers: {
+    'X-RapidAPI-Key': '41ceb7b31cmsh5651d830cf91333p1c49b5jsn43c158f93845',
+    'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
+  }
+};
 
 axios.request(options).then(function (response) {
-console.log(response.data);
+  console.log(response.data);
 }).catch(function (error) {
-console.error(error);
+  console.error(error);
 });
 </script>
