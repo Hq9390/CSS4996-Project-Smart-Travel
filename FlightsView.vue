@@ -74,54 +74,90 @@
 </template>
 <script>
 import { ref } from 'vue';
-//import axios from "axios"
-
+import  axios from "axios";
+import moment from 'moment';
 export default {
   setup() {
-   // const CheckIn = ref();
-  //  const CheckOut =ref();
-    const format = ref('dd MMMM yyyy');
-
-
+    const format = ref('yyyy-MM-dd');
     return {
       date,
-      destination,
-      location,
       format,
     };
   },
-  data(){
+  data() {
     return {
-
+      hover: false,
+      origin: '',
+      destination: '',
+      searchResults: [],
+      searchQuery: '',
+      date: '',
+      adults: 1,
+      flights: [],
+      detailOpen: false,
+      selectedFlight: null,
     };
   },
+  methods: {
+    closeDetails() {
+      this.selectedFlight = null;
+      let datetest = moment(this.date).format('YYYY-MM-DD');
+      console.log(datetest);
+    },
+    openDetails(hotel) {
+      console.log('selected ');
+      this.selectedFlight = hotel;
+    },
+    getSearchResults() {
+      let self = this;
+      // const axios = require("axios");
+      const options = {
+        method: 'GET',
+        url: 'https://skyscanner50.p.rapidapi.com/api/v1/searchFlights',
+        params: {query: this.location},
+        headers: {
+          'X-RapidAPI-Key': '41ceb7b31cmsh5651d830cf91333p1c49b5jsn43c158f93845',
+          'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
+        }
+      };
 
-
+      axios.request(options).then(function (response) {
+        let entityId = response.data.data[0].entityId;
+        console.log(entityId);
+        self.getFlights(entityId);
+      }).catch(function (error) {
+        console.error(error);
+      });
+    },
+    getFlights(entityId) {
+      let self = this;
+      console.log('called');
+      console.log(this.date);
+      const options = {
+        method: 'GET',
+        url: 'https://skyscanner50.p.rapidapi.com/api/v1/searchFlights',
+        params: {
+          origin: 'LOND',
+          destination: 'NYCA',
+          date: moment(this.date).format('YYYY-MM-DD'),
+          adults: '1',
+          currency: 'USD',
+          countryCode: 'US',
+          market: 'en-US'
+        },
+        headers: {
+          'X-RapidAPI-Key': '41ceb7b31cmsh5651d830cf91333p1c49b5jsn43c158f93845',
+          'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
+        }
+      };
+      axios.request(options).then(function (response) {
+        console.log(response.data.data.flights);
+        self.hotels = response.data.data.flights;
+      }).catch(function (error) {
+        console.error(error);
+      });
+    }
+  }
 }
 
-const axios = require("axios");
-
-const options = {
-  method: 'GET',
-  url: 'https://skyscanner50.p.rapidapi.com/api/v1/searchFlights',
-  params: {
-    origin: 'LOND',
-    destination: 'NYCA',
-    date: '<REQUIRED>',
-    adults: '1',
-    currency: 'USD',
-    countryCode: 'US',
-    market: 'en-US'
-  },
-  headers: {
-    'X-RapidAPI-Key': '41ceb7b31cmsh5651d830cf91333p1c49b5jsn43c158f93845',
-    'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
-  }
-};
-
-axios.request(options).then(function (response) {
-  console.log(response.data);
-}).catch(function (error) {
-  console.error(error);
-});
 </script>
