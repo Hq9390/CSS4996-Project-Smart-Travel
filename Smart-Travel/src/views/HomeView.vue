@@ -55,27 +55,34 @@
           </div>
         </div>
 
-
-
-
       </form>
 
     </div>
   </div>
+  <div class="container w-100 lg:w-4/5 mx-auto flex flex-col">
   <div v-if="selectedHotel == null">
-    <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-      <li v-for="hotel in hotels" :key="hotel.hotelId" class="relative">
-        <div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-          <img :src="hotel.heroImage" alt="" class=" object-cover group-hover:opacity-75" height="100"/>
-          <span class="sr-only">View details for {{ hotel.name }}</span>
+    <ul role="list"  class="divide-y divide-gray-200">
+      <li v-for="hotel in hotels" :key="hotel.hotelId" class="flex flex-col md:flex-row overflow-hidden
+          bg-white rounded-lg shadow-xl  mt-4 w-100 mx-2">
+        <div class="h-64 w-auto md:w-1/2">
+          <img :src="hotel.heroImage" alt="" class=" inset-0 h-full w-full object-cover object-center" />
         </div>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ hotel.name }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ hotel.price }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ hotel.guest }}</p>
+         <div class="w-full py-4 px-6 text-gray-800 flex flex-col justify-between">
+
+          <span class="sr-only">View details for {{ hotel.name }}</span>
+
+        <p class="text-gray-900 font-bold text-xl mb-2">{{ hotel.name }}</p>
+        <p class="text-gray-900 font-bold text-xl mb-20">{{ hotel.price }}</p>
+        <p class="text-gray-900 font-bold text-xl mb-2">{{ guest }}</p>
+        <p class="text-gray-900 font-bold text-xl mb-2">{{ hotel.stars }}</p>
+
         <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click.prevent="openDetails(hotel)">Details</button>
+          </div>
+
         <!--      <p class="pointer-events-none block text-sm font-medium text-gray-500">{{ file.size }}</p>-->
       </li>
     </ul>
+  </div>
   </div>
 
   <div v-if="selectedHotel !== null">

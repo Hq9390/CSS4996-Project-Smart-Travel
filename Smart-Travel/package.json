@@ -21,6 +21,7 @@
     "flowbite-datepicker": "^1.2.2",
     "moment": "^2.29.4",
     "pinia": "^2.0.21",
+    "v-calendar": "^2.4.1",
     "vue": "^3.2.38",
     "vue-hotel-datepicker": "^4.5.1",
     "vue-router": "^4.1.5",
