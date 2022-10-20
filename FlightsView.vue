@@ -55,6 +55,22 @@
 
     </div>
   </div>
+
+  <div v-if="selectedFlight !== null">
+
+    <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click="closeDetails">close details</button>
+
+    <div><b>Flights</b>{{selectedFlight.flights}}</div>
+    <div><b>Flight Price</b>{{selectedFlight.currency}}</div>
+    <div><b>Adults: </b>{{Adult}}</div>
+    <div><b>Starting Location: </b>{{origin}}</div>
+    <div><b>Destination: </b>{{destination}}</div>
+    <div><b>Hotel stars</b>{{selectedFlight.countryCode}}</div>
+    <div><img :src="selectedFlight.heroImage" alt="" class="pointer-events-none object-cover group-hover:opacity-75" width="200"/></div>
+    <div><b>other images</b></div>
+    <span v-for="image in selectedFlight.images"><img :src="image" alt="" class="pointer-events-none object-cover group-hover:opacity-75" width="300"/></span>
+
+  </div>
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
@@ -92,7 +108,7 @@ export default {
       searchResults: [],
       searchQuery: '',
       date: '',
-      adults: 1,
+      adult: 1,
       flights: [],
       detailOpen: false,
       selectedFlight: null,
@@ -104,9 +120,9 @@ export default {
       let datetest = moment(this.date).format('YYYY-MM-DD');
       console.log(datetest);
     },
-    openDetails(hotel) {
+    openDetails(flight) {
       console.log('selected ');
-      this.selectedFlight = hotel;
+      this.selectedFlight = flight;
     },
     getSearchResults() {
       let self = this;
@@ -137,10 +153,10 @@ export default {
         method: 'GET',
         url: 'https://skyscanner50.p.rapidapi.com/api/v1/searchFlights',
         params: {
-          origin: 'LOND',
-          destination: 'NYCA',
+          origin: '',
+          destination: '',
           date: moment(this.date).format('YYYY-MM-DD'),
-          adults: '1',
+          adults: this.adult,
           currency: 'USD',
           countryCode: 'US',
           market: 'en-US'
@@ -152,7 +168,7 @@ export default {
       };
       axios.request(options).then(function (response) {
         console.log(response.data.data.flights);
-        self.hotels = response.data.data.flights;
+        self.flights = response.data.data.flights;
       }).catch(function (error) {
         console.error(error);
       });
