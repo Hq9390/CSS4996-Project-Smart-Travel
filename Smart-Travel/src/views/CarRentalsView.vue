@@ -29,6 +29,23 @@
                      :min-date='new Date()'>
         </Datepicker>
 
+        <input v-model = "pickupTime"
+               @input="getpickupTime"
+               class = "block mb-2 rounded-lg text-sm font-medium text-gray-900 dark:text-gray-400"
+               type = 'time'
+               placeholder="Pickup Time"
+               name="pickupTime"
+               id="pickupTime"
+        />
+
+        <input v-model = "returnTime"
+               @input="getreturnTime"
+               class = "block mb-2 rounded-lg text-sm font-medium text-gray-900 dark:text-gray-400"
+               type = 'time'
+               placeholder="Return Time"
+               name="returnTime"
+               id="returnTime"
+        />
       </div>
       <button @click.prevent="getSearch()" value="submit" class= "mt-6 w-1/2 items-center py-2  p-2.5 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 text-center"> Search </button>
     </div>
@@ -44,6 +61,8 @@
   </div>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.name }}</p>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.location }}</p>
+        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.pickupTime }}</p>
+        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.returnTime }}</p>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.price }}</p>
         <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click.prevent="openDetails(car)">Car Details </button>
       </li>
@@ -59,8 +78,8 @@
     <div><b>Car Location:</b>{{carSelection.location}}</div>
     <div><b>Pickup Date: </b>{{pickupDate}}</div>
     <div><b>Return Date: </b>{{returnDate}}</div>
-    <div><b>Pickup Time: </b>{{carSelection.pickupTime}}</div>
-    <div><b>Return Time: </b>{{carSelection.returnTime}}</div>
+    <div><b>Pickup Time: </b>{{pickupTime}}</div>
+    <div><b>Return Time: </b>{{returnTime}}</div>
     <div><b>other images</b></div>
     <span v-for="image in carSelection.images"><img :src="image" alt="" class="pointer-events-none object-cover group-hover:opacity-75" width="300"/></span>
 
@@ -94,11 +113,15 @@ export default {
   setup(){
     const pickupDate = ref();
     const returnDate = ref();
+    const pickupTime = ref();
+    const returnTime = ref();
     const format = ref ('yyyy-MM-dd');
 
     return {
       pickupDate,
       returnDate,
+      pickupTime,
+      returnTime,
       format,
 
     };
@@ -122,6 +145,8 @@ export default {
       this.carSelection =  null;
       let datatest = moment(this.pickupDate).format('YYYY-MM-DD');
       console.log(datatest);
+      let dataset2 = moment(this.pickupTime).format('HH:mm');
+      console.log(dataset2);
     },
     openDetails(car){
       console.log('selected');
@@ -159,7 +184,7 @@ let self =this;
         params: {
           pickUpEntityId: pickUpEntityId,
           pickUpDate: moment(this.pickupDate).format('YYYY-MM-DD'),
-          pickUpTime: '2000'
+          pickUpTime: moment(this.pickupTime).format('HH:mm'),
         },
         headers: {
           'X-RapidAPI-Key': '2756954a36mshd7f9836f6a3787bp186d1djsn79f785078e5b',
