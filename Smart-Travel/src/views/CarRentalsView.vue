@@ -15,7 +15,7 @@
         />
 
 
-        <Datepicker  v-model="pickupDate"
+        <Datepicker  v-model="pickUpDate"
                      placeholder="Pickup Date"
                      autoApply :format="format"
                      :min-date='new Date()'
@@ -29,8 +29,8 @@
                      :min-date='new Date()'>
         </Datepicker>
 
-        <input v-model = "pickupTime"
-               @input="getpickupTime"
+        <input v-model = "pickUpTime"
+               @input="getPickupTime"
                class = "block mb-2 rounded-lg text-sm font-medium text-gray-900 dark:text-gray-400"
                type = 'time'
                placeholder="Pickup Time"
@@ -39,7 +39,7 @@
         />
 
         <input v-model = "returnTime"
-               @input="getreturnTime"
+               @input="getReturnTime"
                class = "block mb-2 rounded-lg text-sm font-medium text-gray-900 dark:text-gray-400"
                type = 'time'
                placeholder="Return Time"
@@ -57,13 +57,16 @@
     <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
       <li v-for="car in cars" :key="car.pickUpEntityId" class="relative">
         <div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-          <span class="sr-only">View details for {{ car.name }}</span>
+          <span class="sr-only">View details for {{ car.pickUpEntityId }}</span>
   </div>
+        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.pickUpEntityId }}</p>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.name }}</p>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.location }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.pickupTime }}</p>
+        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.pickUpTime }}</p>
+        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.pickUpDate }}</p>
+        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.returnDate }}</p>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.returnTime }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.price }}</p>
+
         <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click.prevent="openDetails(car)">Car Details </button>
       </li>
     </ul>
@@ -74,14 +77,12 @@
     <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click="closeDetails">close details</button>
 
     <div><b>Car Name: </b>{{carSelection.name}}</div>
-    <div><b>Car Price: </b>{{carSelection.price}}</div>
     <div><b>Car Location:</b>{{carSelection.location}}</div>
-    <div><b>Pickup Date: </b>{{pickupDate}}</div>
+    <div><b>Pickup Date: </b>{{pickUpDate}}</div>
     <div><b>Return Date: </b>{{returnDate}}</div>
-    <div><b>Pickup Time: </b>{{pickupTime}}</div>
+    <div><b>Pickup Time: </b>{{pickUpTime}}</div>
     <div><b>Return Time: </b>{{returnTime}}</div>
-    <div><b>other images</b></div>
-    <span v-for="image in carSelection.images"><img :src="image" alt="" class="pointer-events-none object-cover group-hover:opacity-75" width="300"/></span>
+
 
 
   </div>
@@ -111,16 +112,16 @@ export default {
   name: 'CarRentals',
 
   setup(){
-    const pickupDate = ref();
+    const pickUpDate = ref();
     const returnDate = ref();
-    const pickupTime = ref();
+    const pickUpTime = ref();
     const returnTime = ref();
     const format = ref ('yyyy-MM-dd');
 
     return {
-      pickupDate,
+      pickUpDate,
       returnDate,
-      pickupTime,
+      pickUpTime,
       returnTime,
       format,
 
@@ -131,7 +132,9 @@ export default {
       hover:false,
       pickUpEntityId: '',
       returnTime: '',
-      pickupTime:'',
+      pickUpTime:'',
+      pickUpDate: '',
+      returnDate: '',
       location:'',
       cars:[],
       carSelection:null,
@@ -167,7 +170,7 @@ let self =this;
 
   axios.request(options).then(function (response) {
     let pickUpEntityId = response.data.data[0].pickUpEntityId;
-    console.log(response.data);
+    console.log(pickUpEntityId);
     self.getCars(pickUpEntityId);
 
   }).catch(function (error) {
@@ -177,14 +180,17 @@ let self =this;
     getCars(pickUpEntityId){
       let self = this;
       console.log('called');
-      console.log(this.pickupDate);
+      console.log(this.pickUpDate);
       const options = {
         method: 'GET',
         url: 'https://skyscanner50.p.rapidapi.com/api/v1/searchCars',
         params: {
           pickUpEntityId: pickUpEntityId,
-          pickUpDate: moment(this.pickupDate).format('YYYY-MM-DD'),
-          pickUpTime: moment(this.pickupTime).format('HH:mm'),
+          pickUpDate: moment(this.pickUpDate).format('YYYY-MM-DD'),
+          pickUpTime: moment(this.pickUpTime).format('HH:mm'),
+          returnEntityId:'1',
+          returnDate:moment(this.returnDate).format('YYYY-MM-DD'),
+          returnTime: moment(this.returnTime).format('HH:mm'),
         },
         headers: {
           'X-RapidAPI-Key': '2756954a36mshd7f9836f6a3787bp186d1djsn79f785078e5b',
@@ -193,8 +199,8 @@ let self =this;
       };
 
       axios.request(options).then(function (response) {
-        console.log(response.data.data.cars);
-        self.cars = response.data.data.cars;
+        console.log(response.data);
+        self.cars = response.data;
 
       }).catch(function (error) {
         console.error(error);
