@@ -4,7 +4,7 @@
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div class="mt-6 space-y-8 ">
         <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">Register</h2>
-        <form action="#"  class="space-y-8">
+        <form action="#"  @submit.prevent="submit"  class="space-y-8">
           <div>
             <label for="email" class=" block text-sm font-medium text-gray-700" >Email address</label>
             <div class="mt-1">
@@ -13,17 +13,21 @@
           </div>
 
           <div class="space-y-1">
-            <label for="username" class=" block text-sm font-medium text-gray-700">Username</label>
+            <label for="firstname" class=" block text-sm font-medium text-gray-700">Enter first and last Name</label>
             <div class="mt-1">
-              <input v-model="name" id="username" name="username" type="username" autocomplete="username" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input v-model="name" id="name" name="name" type="name" autocomplete="name" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
+
 
           <div class="space-y-1">
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <div class="mt-1">
               <input v-model="password" id="password" name="password" type="password" autocomplete="current-password" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
+          </div>
+          <div class="text-gray-900 text-sm">
+          <p v-if="errMsg"> {{errMsg}} </p>
           </div>
 
           <div class="flex items-center justify-between">
@@ -33,13 +37,40 @@
 
               <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/login">Sign in here</router-link></a>
             </div>
-            </div>
+          </div>
 
 
           <div>
             <button @click="register" type="submit" value="register" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Register</button>
           </div>
         </form>
+        <div class="mt-6">
+          <div class="relative">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-gray-300" />
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="bg-white px-2 text-gray-500">Or continue with</span>
+            </div>
+          </div>
+          <div class="mt-8">
+            <div>
+              <div>
+
+                <div class="flex w-full justify-center  mt-1 grid grid-cols-1 gap-3">
+                  <div>
+                    <p> <button  @click="signInWithGoogle" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+
+
+                      <svg class="h-5 w-5 text-red-500 "  aria-hidden="true"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M17.788 5.108A9 9 0 1021 12h-8" />
+                        > </svg></button>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -48,42 +79,56 @@
 </template>
 
 <script setup>
-
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  updateProfile
-} from 'firebase/auth'
-
+import { getAuth, createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import {ref} from "vue";
 import {useRouter} from "vue-router";
-
 const auth = getAuth();
 const email = ref("");
 const name = ref("");
 const password = ref("");
 const router = useRouter()
-const register = () =>  {
+const errMsg = ref()
+const register = () => {
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-  updateProfile(auth.currentUser,{ }).then((user) => {
-        if(user) {
-          console.log('Successfully registered')
-          console.log(user);
-        }
-        router.push("/");
+  updateProfile(auth.currentUser, {displayName: name.value}).then((user) => {
+    console.log('Successfully Registered')
+    console.log(user);
+    router.push("/");
 
-      })
+  })
       .catch((error) => {
         console.log(error.code);
-        alert(error.message);
+        switch (error.code) {
+          case "auth/email-already-in-use":
+            errMsg.value = "email already in use";
+            console.log('email already in-use')
+            break;
+          case "auth/invalid-email":
+            errMsg.value = "invalid email";
+            console.log('invalid email')
+            break;
+          case "auth/weak-password":
+            errMsg.value = "weak password";
+            console.log('weak password')
+            break;
+
+        }
       });
+};
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(getAuth(),provider)
+        .then((result) =>{
+        console.log(result.user);
+        router.push("/")
+    })
+        .catch((error) => {
+
+
+  });
 
 };
 
 
 </script>
-
-
-
-
 
