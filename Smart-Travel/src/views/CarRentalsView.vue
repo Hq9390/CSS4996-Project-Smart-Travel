@@ -30,12 +30,12 @@
         </Datepicker>
 
         <input v-model = "pickUpTime"
-               @input="getPickupTime"
+               @input="getPickUpTime"
                class = "block mb-2 rounded-lg text-sm font-medium text-gray-900 dark:text-gray-400"
                type = 'time'
                placeholder="Pickup Time"
-               name="pickupTime"
-               id="pickupTime"
+               name="pickUpTime"
+               id="pickUpTime"
         />
 
         <input v-model = "returnTime"
@@ -57,15 +57,12 @@
     <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
       <li v-for="car in cars" :key="car.pickUpEntityId" class="relative">
         <div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-          <span class="sr-only">View details for {{ car.pickUpEntityId }}</span>
+          <span class="sr-only">View details for {{ car.groups.idmt5.car_name}}</span>
+          {{ car.groups.idmt5.min_price}}
   </div>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.pickUpEntityId }}</p>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.name }}</p>
         <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.location }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.pickUpTime }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.pickUpDate }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.returnDate }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ car.returnTime }}</p>
 
         <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click.prevent="openDetails(car)">Car Details </button>
       </li>
@@ -77,7 +74,7 @@
     <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click="closeDetails">close details</button>
 
     <div><b>Car Name: </b>{{carSelection.name}}</div>
-    <div><b>Car Location:</b>{{carSelection.location}}</div>
+    <div><b>Car Location: </b>{{carSelection.location}}</div>
     <div><b>Pickup Date: </b>{{pickUpDate}}</div>
     <div><b>Return Date: </b>{{returnDate}}</div>
     <div><b>Pickup Time: </b>{{pickUpTime}}</div>
@@ -116,6 +113,7 @@ export default {
     const returnDate = ref();
     const pickUpTime = ref();
     const returnTime = ref();
+
     const format = ref ('yyyy-MM-dd');
 
     return {
@@ -146,10 +144,8 @@ export default {
   methods:{
     closeDetails(){
       this.carSelection =  null;
-      let datatest = moment(this.pickupDate).format('YYYY-MM-DD');
-      console.log(datatest);
-      let dataset2 = moment(this.pickupTime).format('HH:mm');
-      console.log(dataset2);
+      let datetest = moment(this.pickUpDate).format('YYYY-MM-DD');
+      console.log(datetest);
     },
     openDetails(car){
       console.log('selected');
@@ -188,7 +184,6 @@ let self =this;
           pickUpEntityId: pickUpEntityId,
           pickUpDate: moment(this.pickUpDate).format('YYYY-MM-DD'),
           pickUpTime: moment(this.pickUpTime).format('HH:mm'),
-          returnEntityId:'1',
           returnDate:moment(this.returnDate).format('YYYY-MM-DD'),
           returnTime: moment(this.returnTime).format('HH:mm'),
         },
