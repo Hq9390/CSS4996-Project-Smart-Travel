@@ -1,4 +1,4 @@
-<template >
+<template>
   <div class="bg-white">
     <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
 
@@ -28,12 +28,12 @@
         <div class="mt-6">
           <div class="space-y-10 md:grid md:grid-cols-2 md:gap-5 md:space-y-0 lg:grid-cols-4">
 
-            <input  v-model="location"
-                    @input="getLocationResult"
-                    type="text"
-                    name="location" id="location"
-                    class=" block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-                    placeholder="Going to"
+            <input v-model="location"
+                   @input="getLocationResult"
+                   type="text"
+                   name="location" id="location"
+                   class=" block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+                   placeholder="Going to"
             />
 
             <datepicker
@@ -50,59 +50,117 @@
                 :min-date='new Date()'
                 placeholder="Check-out"
             />
-
-            <button @click.prevent="getSearchResults()" value="submit" class=" block   py-2  p-4 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm  font-medium text-white shadow-sm hover:bg-indigo-700 ">Search</button>
+            <div>
+              <button @click.prevent="getSearchResults()" value="submit"
+                      class=" block   py-2  p-4 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm  font-medium text-white shadow-sm hover:bg-indigo-700 ">
+                Search
+              </button>
+            </div>
           </div>
         </div>
-
-
-
 
       </form>
 
     </div>
   </div>
-  <div v-if="selectedHotel == null">
-    <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-      <li v-for="hotel in hotels" :key="hotel.hotelId" class="relative">
-        <div class="group aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-100">
-          <img :src="hotel.heroImage" alt="" class=" object-cover group-hover:opacity-75" height="100"/>
-          <span class="sr-only">View details for {{ hotel.name }}</span>
-        </div>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ hotel.name }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ hotel.price }}</p>
-        <p class="pointer-events-none mt-2 block truncate text-sm font-medium text-gray-900">{{ hotel.guest }}</p>
-        <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click.prevent="openDetails(hotel)">Details</button>
-        <!--      <p class="pointer-events-none block text-sm font-medium text-gray-500">{{ file.size }}</p>-->
-      </li>
-    </ul>
-  </div>
+  <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
+    <div v-if="selectedHotel == null">
+
+        <ul role="list" class="divide-y divide-gray-200">
+          <li v-for="hotel in hotels" :key="hotel.hotelId" class="flex flex-col md:flex-row overflow-hidden
+          bg-white rounded-lg shadow-xl h-50 mt-4 w-100 mx-2">
+            <div class="p-3 rounded-md shadow-lg md:w-3/4">
+              <img :src="hotel.heroImage" alt="hotel.name" height='30'
+                   class=" inset-0 w-90 h-80 w-full object-cover object-center"/>
+            </div>
+            <div class="w-full py-4 px-5 text-gray-800 flex flex-col justify-between">
+              <span class="sr-only">View details for {{ hotel.name }}</span>
+              <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
+              <div class="flex items-center">
+
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
+                     class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 384 512">
+                  <path fill="currentColor"
+                        d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
+                </svg>
+                <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p></div>
+
+              <!--            <p class="text-xs text-gray-600">{{ hotel.translations.beach }} </p>-->
+              <div class="text-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
+              <p class="text-xs text-green-700">
+                {{ hotel.stars }}/5 stars</p>
+              <div>
+                <button type="button"
+                        class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        @click.prevent="openDetails(hotel)">Details
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
 
   <div v-if="selectedHotel !== null">
+    <div v-if="hotelDetails !== null">
 
-    <button type="button" class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" @click="closeDetails">close details</button>
+      <div class="container w-100 lg:w-4/5 mx-auto flex flex-col">
+        <div class="flex lg:flex lg:items-center lg:justify-between">
+          <div class="min-w-0 flex-1">
 
-    <div><b>Hotel Name</b>{{selectedHotel.name}}</div>
-    <div><b>Hotel Price</b>{{selectedHotel.price}}</div>
-    <div><b>Guests: </b>{{guest}}</div>
-    <div><b>Check-in: </b>{{CheckIn}}</div>
-    <div><b>Check-out: </b>{{CheckOut}}</div>
-    <div><b>Hotel stars</b>{{selectedHotel.stars}}</div>
-    <div><b>Hotel Distance</b>{{selectedHotel.distance}}</div>
-    <div><img :src="selectedHotel.heroImage" alt="" class="pointer-events-none object-cover group-hover:opacity-75" width="200"/></div>
-    <div><b>other images</b></div>
-    <span v-for="image in selectedHotel.images"><img :src="image" alt="" class="pointer-events-none object-cover group-hover:opacity-75" width="300"/></span>
+            <div class=" space-y-2">
+              <div class="text-lg font-semibold text-gray-600">{{ selectedHotel.name }}</div>
+              <div class="flex items-center">
+                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
+                     class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
+                     viewBox="0 0 384 512">
+                  <path fill="currentColor"
+                        d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
+                </svg>
+                <p class="text-s text-gray-600">{{ hotelDetails.location.address}}</p></div>
+              <p class="text-xs text-gray-700">{{ selectedHotel.stars }}-star property </p>
+
+              <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-9">
+
+                <div class="mt-2 flex items-center text-sm text-gray-300">
+
+            <span v-for="image in selectedHotel.images">
+              <div class="w-full p-1 md:p-2">
+              <img :src="image" alt="" class="inset-0 w-50 h-60 w-full object-cover object-center block object-cover object-center rounded-lg" height="200" width="300"/>
+              </div>
+            </span>
+                </div>
+              </div>
+<!--              {{ hotelDetails.reviewRatingSummary.cleanlinessMessage }}-->
+              <p class="text-gray-700 text-base">
+              {{ hotelDetails.goodToKnow.description.content}}
+              </p>
+             <div>{{ hotelDetails.amenities.title}}: <br>
+
+              {{ hotelDetails.amenities.content[0].description }}
+             </div>
+
+              <div><b>Hotel Price: </b>{{ selectedHotel.price }}</div>
+
+              <div><b>Guests: </b>{{ guest }}</div>
+
+
+              <button type="button"
+                      class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      @click="closeDetails">close details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 
 
-
-  <!--  <div v-if="hotels.length">-->
-  <!--    <span v-for="hotel in hotels">-->
-  <!--      {{hotel.name}}-->
-  <!--      <img :src="hotel.heroImage" alt="" width="200">-->
-  <!--    </span>-->
-  <!--  </div>-->
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
@@ -113,7 +171,8 @@
               class="  w-55 h-40"
           />
         </div>
-        <p class="text-base text-gray-400 flex w-full justify-center">&copy; 2022 Smart Travel, Inc. All rights reserved.</p>
+        <p class="text-base text-gray-400 flex w-full justify-center">&copy; 2022 Smart Travel, Inc. All rights
+          reserved.</p>
       </div>
     </div>
 
@@ -121,14 +180,15 @@
 
 </template>
 <script>
-import { ref } from 'vue';
-import  axios from "axios";
+import {ref} from 'vue';
+import axios from "axios";
 import moment from 'moment';
+
 
 export default {
   setup() {
     const CheckIn = ref();
-    const CheckOut =ref();
+    const CheckOut = ref();
     const format = ref('yyyy-MM-dd');
 
 
@@ -138,30 +198,31 @@ export default {
       format,
     };
   },
-  data(){
+  data() {
     return {
       hover: false,
-      location:'',
+      location: '',
       searchResults: [],
       searchQuery: '',
-      room:'',
-      guest:1,
-      hotels:[],
-      detailOpen:false,
-      selectedHotel:null,
-
+      room: '',
+      guest: 1,
+      hotels: [],
+      detailOpen: false,
+      selectedHotel: null,
+      hotelDetails: {}
     };
   },
 
   methods: {
-    closeDetails(){
+    closeDetails() {
       this.selectedHotel = null;
-      let datetest = moment(this.CheckIn).format('YYYY-MM-DD');
+      this.hotelDetails = null;
       console.log(datetest);
     },
     openDetails(hotel) {
       console.log('selected ');
       this.selectedHotel = hotel;
+      this.getHotelsDetails(hotel.hotelId);
     },
     getSearchResults() {
       let self = this;
@@ -185,7 +246,7 @@ export default {
         console.error(error);
       });
     },
-    getHotels(entityId){
+    getHotels(entityId) {
       let self = this;
       console.log('called');
       console.log(this.CheckIn);
@@ -194,7 +255,7 @@ export default {
         url: 'https://skyscanner50.p.rapidapi.com/api/v1/searchHotel',
         params: {
           entityId: entityId,
-          adults:this.guest,
+          adults: this.guest,
           checkin: moment(this.CheckIn).format('YYYY-MM-DD'),
           checkout: moment(this.CheckOut).format('YYYY-MM-DD'),
           waitTime: '2000',
@@ -206,16 +267,36 @@ export default {
           'X-RapidAPI-Key': '2756954a36mshd7f9836f6a3787bp186d1djsn79f785078e5b',
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
         }
+
+      }
+
+      axios.request(options).then(function (response) {
+        self.hotels = response.data.data.hotels;
+      }).catch(function (error) {
+        console.error(error);
+      });
+
+    },
+    getHotelsDetails(hotelId) {
+      let self = this;
+      console.log('called');
+      const options = {
+        method: 'GET',
+        url: 'https://skyscanner50.p.rapidapi.com/api/v1/getHotelDetails',
+        params: {hotelId: hotelId, currency: 'USD', countryCode: 'US', market: 'en-US'},
+        headers: {
+          'X-RapidAPI-Key': '2756954a36mshd7f9836f6a3787bp186d1djsn79f785078e5b',
+          'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
+        }
       };
 
       axios.request(options).then(function (response) {
-        console.log(response.data.data.hotels);
-        self.hotels = response.data.data.hotels;
-
+        self.hotelDetails = response.data.data;
       }).catch(function (error) {
         console.error(error);
       });
     }
+
   }
 }
 
