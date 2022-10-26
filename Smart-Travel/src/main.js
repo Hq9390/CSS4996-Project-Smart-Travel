@@ -23,10 +23,7 @@ const firebaseConfig = {
 };
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 export const database = firebaseApp.firestore();
-
 export const auth = firebaseApp.auth();
-
-
 const app = createApp(App)
 
 // app.use(createPinia())

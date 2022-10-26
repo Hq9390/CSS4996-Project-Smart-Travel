@@ -62,13 +62,14 @@
       </div>
     </form>
   </div>
+  <div class="bg-gray-200">
 
   <div v-if="carSelection == null">
+    <div class=" w-full lg:max-w-full lg:flex">
+    <ul role="list"  >
+      <li v-for="(car, k, index) in cars" class="">
 
-    <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-      <li v-for="(car, k, index) in cars" class="relative">
-
-        {{ car.car_name }}
+       <div class=" text-bold font-medium text-gray-900" >{{ car.car_name }}</div>
 
         <button type="button"
                 class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -76,6 +77,7 @@
         </button>
       </li>
     </ul>
+  </div>
   </div>
 
   <div v-if="carSelection !== null">
@@ -86,11 +88,9 @@
     </button>
 
 
-    <span v-for="image in carSelection.images"><img :src="image" alt=""
-                                                    class="pointer-events-none object-cover group-hover:opacity-75"
-                                                    width="300"/></span>
 
 
+  </div>
   </div>
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">

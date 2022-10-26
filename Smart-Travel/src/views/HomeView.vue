@@ -25,7 +25,7 @@
           <div class="sm:col-span-6"></div>
         </div>
 
-        <div class="mt-6">
+        <div class="mt-4">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <div class="flex flex-1 flex-col col-span-2">
             <input v-model="location"
@@ -66,6 +66,7 @@
 
     </div>
   </div>
+  <div class="bg-gray-200">
   <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
     <div v-if="selectedHotel == null">
 
@@ -142,10 +143,10 @@
               <p class="text-gray-700 text-base">
                 {{ hotelDetails.goodToKnow.description.content }}
               </p>
-              <div>{{ hotelDetails.amenities.title }}: <br>
+<!--              <div>{{ hotelDetails.amenities.title }}: <br>-->
 
-                {{ hotelDetails.amenities.content[0].description }}
-              </div>
+<!--                {{ hotelDetails.amenities.content[0].description }}-->
+<!--              </div>-->
 
               <div><b>Hotel Price: </b>{{ selectedHotel.price }}</div>
 
@@ -163,7 +164,7 @@
     </div>
 
   </div>
-
+  </div>
 
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">

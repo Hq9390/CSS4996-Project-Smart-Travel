@@ -134,6 +134,7 @@
     </div>
 
   </div>
+  <div class="bg-gray-200">
 
   <div v-if="selectedFlight == null" >
     <ul role="list"  class="divide-y divide-gray-200">
@@ -141,7 +142,7 @@
       <li v-for="flight in flights" >
 
 
-        <div class="flex  flex-col  overflow-hidden
+        <div class="flex flex-col overflow-hidden
           bg-white rounded-lg shadow-2xl  mt-4 w-100 mx-2">
           <button type="button" @click="openDetails(flight)">
 
@@ -171,7 +172,7 @@
       <button type="button" class="mt-6 w-1/2 items-center py-2  p-2.5 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 text-center" @click="closeDetails(flight)">Close Details</button>
     </div>
   </div>
-
+  </div>
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
