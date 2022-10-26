@@ -60,22 +60,23 @@
         </div>
 
       </form>
-
     </div>
   </div>
-  <div class="w-60 h-full shadow-md bg-white px-1 absolute block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400">
+  <div class=" grid grid-flow-col h-screen shadow-md bg-white px-1 absolute block mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400">
 
-    <div class="flex justify-left">
-    <div class = " border border-gray-300 rounded-sm">
+    <div class="flex justify-center">
 
-      <label class="inline-block lock w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"> Star Rating </label>
-      <div class = " border border-gray-300 rounded-sm ">
+    <div class = " border-rounded-sm">
 
-      <div class="form-check">
+      <div class = " border border-gray-300 w-57 rounded-sm ">
+        <label class="inline-block lock w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"> Star Rating </label>
+
+        <div class="form-check">
         <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate">
         <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">
           Five Stars
         </label>
+
       </div>
 
       <div class="form-check">
@@ -118,17 +119,19 @@
     </div>
   </div>
 
-  <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
+  <div name = display hotel class="container w-90 lg:w-4/5 mx-auto flex flex-col">
 
     <div v-if="selectedHotel == null">
 
         <ul role="list" class="divide-y divide-gray-200">
           <li v-for="hotel in hotels" :key="hotel.hotelId" class="flex flex-col md:flex-row overflow-hidden
           bg-white rounded-lg shadow-xl h-50 mt-4 w-100 mx-2">
+
             <div class="p-3 rounded-md shadow-lg md:w-3/4">
               <img :src="hotel.heroImage" alt="hotel.name" height='30'
                    class=" inset-0 w-90 h-80 w-full object-cover object-center"/>
             </div>
+
             <div class="w-full py-4 px-5 text-gray-800 flex flex-col justify-between">
               <span class="sr-only">View details for {{ hotel.name }}</span>
               <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
@@ -215,6 +218,7 @@
     </div>
 
   </div>
+
 
 
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
