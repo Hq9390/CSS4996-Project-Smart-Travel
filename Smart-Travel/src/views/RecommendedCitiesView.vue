@@ -1,49 +1,49 @@
 <template>
-  <div class="bg-white">
-    <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
 
-      <form action="#" class="text-center">
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-          <div class="flex flex-1 flex-col">
-            <label for="city" class="text-sm font-medium text-gray-700">Enter your departure airport</label>
-            <input type="text" v-model="travelingFrom" name="airport" id="city" autocomplete="city"
-                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"/>
-          </div>
-          <div class="flex flex-1 flex-col">
-            <label for="cities" class="text-sm font-medium text-gray-700">Choose the city type</label>
-            <select id="cities" v-model="cityType"
-                    class="block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400">
+  <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
 
-              <option value="D">Downtown</option>
-              <option value="H">Historical</option>
-              <option value="B">Beach</option>
-            </select>
-
-          </div>
-          <div class="flex flex-1 flex-col">
-
-            <label for="date" class="text-sm font-medium text-gray-700">Enter your departure date</label>
-
-            <datepicker
-                v-model="departuredate "
-                class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-                autoApply :format="format"
-                :min-date='new Date()'
-                placeholder="Departure Date"
-            />
-          </div>
-          <div class="flex flex-1 flex-col">
-            <label for="date" class="text-sm font-medium text-gray-700">Enter your returning date</label>
-            <datepicker
-                v-model="returndate"
-                class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-                autoApply :format="format"
-                :min-date='new Date()'
-                placeholder="Returning Date"
-            />
-          </div>
+    <form action="#" class="text-center">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+        <div class="flex flex-1 flex-col">
+          <label for="city" class="text-sm font-medium text-gray-700">Enter your departure airport</label>
+          <input type="text" v-model="travelingFrom" name="airport" id="city" autocomplete="city"
+                 class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"/>
         </div>
-        <div class="mt-4">
+        <div class="flex flex-1 flex-col">
+          <label for="cities" class="text-sm font-medium text-gray-700">Choose the city type</label>
+          <select id="cities" v-model="cityType"
+                  class="block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400">
+
+            <option value="D">Downtown</option>
+            <option value="H">Historical</option>
+            <option value="B">Beach</option>
+          </select>
+
+        </div>
+        <div class="flex flex-1 flex-col">
+
+          <label for="date" class="text-sm font-medium text-gray-700">Enter your departure date</label>
+
+          <datepicker
+              v-model="departuredate "
+              class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+              autoApply :format="format"
+              :min-date='new Date()'
+              placeholder="Departure Date"
+          />
+        </div>
+        <div class="flex flex-1 flex-col">
+          <label for="date" class="text-sm font-medium text-gray-700">Enter your returning date</label>
+          <datepicker
+              v-model="returndate"
+              class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+              autoApply :format="format"
+              :min-date='new Date()'
+              placeholder="Returning Date"
+          />
+        </div>
+      </div>
+      <div class="mt-4">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
           <div class="flex flex-1 flex-col items-center">
 
@@ -54,57 +54,68 @@
             </button>
           </div>
         </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="bg-gray-200">
+    <div class="mt-6">
+      <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
+
+          <div v-if="selectedCity === null">
+            <ul role="list" class=" grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              <li v-for="city in cities"
+                  class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+                <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
+                  <img :src="city.images[0]" alt="" class="mx-auto h-190 w-200 flex-shrink-0 ">
+
+                  <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
 
-      </form>
 
-      <div class="mt-8">
-      <div v-if="selectedCity === null">
-        <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-        <li v-for="city in cities" class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
-          <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
-            <img :src="city.images[0]" alt="" class="mx-auto h-180 w-200 flex-shrink-0 ">
-
-          <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
-          </div>
-        </li>
-        </ul>
-      </div>
-      <div v-if="selectedCity != null">
-        <h1 class="mt-6 text-xl  text-gray-900 font-bold">{{ selectedCity.city_name }}</h1>
-        <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-10">
-          <div class="mt-2 flex items-center text-sm text-gray-300">
-        <span v-for="image in selectedCity.images" >
+  <div v-if="selectedCity != null">
+    <h1 class="mt-6 text-xl  text-gray-900 font-bold">{{ selectedCity.city_name }}</h1>
+    <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-10">
+      <div class="mt-2 flex items-center text-sm text-gray-300">
+        <span v-for="image in selectedCity.images">
           <div class="w-full p-1 md:p-2">
-          <img :src="image" alt="" class="inset-0  object-cover object-center block object-cover object-center rounded-lg" height="350" width="250">
+          <img :src="image" alt=""
+               class="inset-0  object-cover object-center block object-cover object-center rounded-lg" height="350"
+               width="250">
           </div>
         </span>
-          </div>
-        </div>
-        <h2  class="text-sm text-gray-900">{{ selectedCity.description }}</h2>
-        <div class="mt-8">
-        <div class="bg-gray-200  px-4 py-5 sm:px-6">
-          <div class="flex space-x-3">
-            <div class="text-xl text-gray-900 font-bold"> Pricing:
-          <h4 class="text-lg font-medium text-gray-900 ">Hotel Prices</h4>
-          <p class="text-sm text-gray-900">Lowest Hotel Price: {{ lowestHotelPrice }}</p>
-          <p class="text-sm text-gray-900">Highest Hotel Price: {{ highestHotelPrice }}</p>
-
-          <h4 class="text-lg font-medium text-gray-900">Flight Prices</h4>
-          <p class="text-sm text-gray-900">Lowest Flight Price: ${{ lowestFlightPrice }}</p>
-          <p class="text-sm text-gray-900">Highest Flight Price: ${{ highestFlightPrice }}</p>
-            </div>
-          </div>
-        </div>
-        </div>
-        <div class="mt-8">
-        <button @click="closeDetails" class="block py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700"> Close Details</button>
-        </div>
-      </div>
-
       </div>
     </div>
+    <h2 class="text-sm text-gray-900">{{ selectedCity.description }}</h2>
+    <div class="mt-8">
+      <div class="bg-gray-400  px-4 py-5 sm:px-6">
+        <div class="flex space-x-3">
+          <div class="text-xl text-gray-900 font-bold"> Pricing:
+            <h4 class="text-lg font-medium text-gray-900 ">Hotel Prices</h4>
+            <p class="text-sm text-gray-900">Lowest Hotel Price: {{ lowestHotelPrice }}</p>
+            <p class="text-sm text-gray-900">Highest Hotel Price: {{ highestHotelPrice }}</p>
+
+            <h4 class="text-lg font-medium text-gray-900">Flight Prices</h4>
+            <p class="text-sm text-gray-900">Lowest Flight Price: ${{ lowestFlightPrice }}</p>
+            <p class="text-sm text-gray-900">Highest Flight Price: ${{ highestFlightPrice }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-8">
+      <button @click="closeDetails"
+              class="block py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700">
+        Close Details
+      </button>
+    </div>
   </div>
+    </div>
+  </div>
+
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
@@ -121,6 +132,8 @@
     </div>
 
   </footer>
+
+
 </template>
 
 <script>

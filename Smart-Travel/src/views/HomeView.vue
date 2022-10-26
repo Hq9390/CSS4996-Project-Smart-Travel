@@ -1,31 +1,31 @@
 <template>
-  <div class="bg-white">
-    <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
 
-      <form action="#" class="text-center ">
-        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
-          <div class="sm:col-span-1">
-            <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
-            <input v-model="room"
-                   type="number"
-                   name="room"
-                   placeholder="Room"
-                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-            />
-          </div>
-          <div class="sm:col-span-1">
-            <label for="guest" class="block text-sm font-medium text-gray-700">Guest</label>
-            <input v-model="guest"
-                   type="number"
-                   name="guest"
-                   placeholder="Guest"
-                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-            />
-          </div>
-          <div class="sm:col-span-6"></div>
+  <div class="  mx-auto max-w-6xl py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
+
+    <form action="#" class="text-center ">
+      <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
+        <div class="sm:col-span-1">
+          <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
+          <input v-model="room"
+                 type="number"
+                 name="room"
+                 placeholder="Room"
+                 class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+          />
         </div>
+        <div class="sm:col-span-1">
+          <label for="guest" class="block text-sm font-medium text-gray-700">Guest</label>
+          <input v-model="guest"
+                 type="number"
+                 name="guest"
+                 placeholder="Guest"
+                 class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+          />
+        </div>
+        <div class="sm:col-span-6"></div>
+      </div>
 
-        <div class="mt-4">
+      <div class="mt-4">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <div class="flex flex-1 flex-col col-span-2">
             <input v-model="location"
@@ -36,7 +36,7 @@
                    placeholder="Going to"
             />
           </div>
-<div class="flex flex-1 flex-col">
+          <div class="flex flex-1 flex-col">
             <datepicker
                 v-model="CheckIn "
                 class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
@@ -44,8 +44,8 @@
                 :min-date='new Date()'
                 placeholder="Check-in"
             />
-</div>
-            <div class="flex flex-1 flex-col">
+          </div>
+          <div class="flex flex-1 flex-col">
             <datepicker
                 v-model="CheckOut"
                 class=" col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
@@ -53,82 +53,83 @@
                 :min-date='new Date()'
                 placeholder="Check-out"
             />
-            </div>
-            <div class="flex flex-1 flex-col">
-              <button @click.prevent="getSearchResults()" value="submit"
-                      class=" col-span-1 w-1/2 block py-2 p-4 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm  font-medium text-white shadow-sm hover:bg-indigo-700 ">
-                Search
-              </button>
-            </div>
+          </div>
+          <div class="flex flex-1 flex-col">
+            <button @click.prevent="getSearchResults()" value="submit"
+                    class=" col-span-1 w-1/2 block py-2 p-4 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm  font-medium text-white shadow-sm hover:bg-indigo-700 ">
+              Search
+            </button>
           </div>
         </div>
-      </form>
+      </div>
+    </form>
 
-    </div>
   </div>
+
   <div class="bg-gray-200">
-  <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
-    <div v-if="selectedHotel == null">
+    <div class="mt-8">
+      <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
+        <div v-if="selectedHotel == null">
 
-      <ul role="list" class="divide-y divide-gray-200">
-        <li v-for="hotel in hotels" :key="hotel.hotelId" class="flex flex-col md:flex-row overflow-hidden
+          <ul role="list" class="divide-y divide-gray-200">
+            <li v-for="hotel in hotels" :key="hotel.hotelId" class="flex flex-col md:flex-row overflow-hidden
           bg-white rounded-lg shadow-xl h-50 mt-4 w-100 mx-2">
-          <div class="p-3 rounded-md shadow-lg md:w-3/4">
-            <img :src="hotel.heroImage" alt="hotel.name" height='30'
-                 class=" inset-0 w-90 h-80 w-full object-cover object-center"/>
-          </div>
-          <div class="w-full py-4 px-5 text-gray-800 flex flex-col justify-between">
-            <span class="sr-only">View details for {{ hotel.name }}</span>
-            <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
-            <div class="flex items-center">
+              <div class="p-3 rounded-md shadow-lg md:w-3/4">
+                <img :src="hotel.heroImage" alt="hotel.name" height='30'
+                     class=" inset-0 w-90 h-80 w-full object-cover object-center"/>
+              </div>
+              <div class="w-full py-4 px-5 text-gray-800 flex flex-col justify-between">
+                <span class="sr-only">View details for {{ hotel.name }}</span>
+                <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
+                <div class="flex items-center">
 
-              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
-                   class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
-                   viewBox="0 0 384 512">
-                <path fill="currentColor"
-                      d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-              </svg>
-              <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p></div>
+                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
+                       class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
+                       viewBox="0 0 384 512">
+                    <path fill="currentColor"
+                          d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
+                  </svg>
+                  <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p></div>
 
-            <!--            <p class="text-xs text-gray-600">{{ hotel.translations.beach }} </p>-->
-            <div class="text-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
-            <p class="text-xs text-green-700">
-              {{ hotel.stars }}/5 stars</p>
-            <div>
-              <button type="button"
-                      class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      @click.prevent="openDetails(hotel)">Details
-              </button>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
+                <!--            <p class="text-xs text-gray-600">{{ hotel.translations.beach }} </p>-->
+                <div class="text-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
+                <p class="text-xs text-green-700">
+                  {{ hotel.stars }}/5 stars</p>
+                <div>
+                  <button type="button"
+                          class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                          @click.prevent="openDetails(hotel)">Details
+                  </button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
 
 
-  <div v-if="selectedHotel !== null">
-    <div v-if="hotelDetails !== null">
+      <div v-if="selectedHotel !== null">
+        <div v-if="hotelDetails !== null">
 
-      <div class="container w-100 lg:w-4/5 mx-auto flex flex-col">
-        <div class="flex lg:flex lg:items-center lg:justify-between">
-          <div class="min-w-0 flex-1">
+          <div class="container w-100 lg:w-4/5 mx-auto flex flex-col">
+            <div class="flex lg:flex lg:items-center lg:justify-between">
+              <div class="min-w-0 flex-1">
 
-            <div class=" space-y-2">
-              <div class="text-lg font-semibold text-gray-600">{{ selectedHotel.name }}</div>
-              <div class="flex items-center">
-                <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
-                     class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
-                     viewBox="0 0 384 512">
-                  <path fill="currentColor"
-                        d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-                </svg>
-                <p class="text-s text-gray-600">{{ hotelDetails.location.address }}</p></div>
-              <p class="text-xs text-gray-700">{{ selectedHotel.stars }}-star property </p>
+                <div class=" space-y-2">
+                  <div class="text-lg font-semibold text-gray-600">{{ selectedHotel.name }}</div>
+                  <div class="flex items-center">
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
+                         class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 384 512">
+                      <path fill="currentColor"
+                            d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
+                    </svg>
+                    <p class="text-s text-gray-600">{{ hotelDetails.location.address }}</p></div>
+                  <p class="text-xs text-gray-700">{{ selectedHotel.stars }}-star property </p>
 
-              <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-9">
+                  <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-9">
 
-                <div class="mt-2 flex items-center text-sm text-gray-300">
+                    <div class="mt-2 flex items-center text-sm text-gray-300">
 
             <span v-for="image in selectedHotel.images">
               <div class="w-full p-1 md:p-2">
@@ -137,33 +138,36 @@
                    height="200" width="300"/>
               </div>
             </span>
+                    </div>
+                  </div>
+                  <!--              {{ hotelDetails.reviewRatingSummary.cleanlinessMessage }}-->
+                  <p class="text-gray-700 text-base">
+                    {{ hotelDetails.goodToKnow.description.content }}
+                  </p>
+                  <!--              <div>{{ hotelDetails.amenities.title }}: <br>-->
+
+                  <!--                {{ hotelDetails.amenities.content[0].description }}-->
+                  <!--              </div>-->
+
+                  <div><b>Hotel Price: </b>{{ selectedHotel.price }}</div>
+
+                  <div><b>Guests: </b>{{ guest }}</div>
+
+
+                  <button type="button"
+                          class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                          @click="closeDetails">close details
+                  </button>
+
                 </div>
               </div>
-              <!--              {{ hotelDetails.reviewRatingSummary.cleanlinessMessage }}-->
-              <p class="text-gray-700 text-base">
-                {{ hotelDetails.goodToKnow.description.content }}
-              </p>
-<!--              <div>{{ hotelDetails.amenities.title }}: <br>-->
-
-<!--                {{ hotelDetails.amenities.content[0].description }}-->
-<!--              </div>-->
-
-              <div><b>Hotel Price: </b>{{ selectedHotel.price }}</div>
-
-              <div><b>Guests: </b>{{ guest }}</div>
-
-
-              <button type="button"
-                      class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                      @click="closeDetails">close details
-              </button>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
-  </div>
   </div>
 
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">

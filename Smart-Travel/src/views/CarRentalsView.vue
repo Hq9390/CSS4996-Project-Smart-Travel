@@ -3,7 +3,7 @@
   <div class=" mt-6 mx-auto max-w-6xl py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
 
     <form action="#" class="text-center">
-      <div class="mt-6">
+
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2  md:grid-cols-4 lg:grid-cols-6">
           <div class="flex flex-1 flex-col ">
             <input v-model="location"
@@ -59,37 +59,50 @@
             </button>
           </div>
         </div>
-      </div>
+
     </form>
   </div>
   <div class="bg-gray-200">
-
+    <div class="mt-8">
+      <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
   <div v-if="carSelection == null">
-    <div class=" w-full lg:max-w-full lg:flex">
-    <ul role="list"  >
-      <li v-for="(car, k, index) in cars" class="">
+    <div class="flex">
+    <ul role="list" class="divide-y divide-gray-200" >
+      <li v-for="(car, k, index) in cars" >
+        <div class="w-full w-96 py-4 px-5 text-gray-800 flex flex-col justify-between bg-white mt-8 ">
+          
+       <div class=" text-bold font-medium text-gray-900" > Car Name: {{ car.car_name }}</div>
+          <div class=" text-bold font-medium text-gray-900" > Car class: {{ car.cls }}</div>
+          <div class=" text-bold font-medium text-gray-900" > Seats: {{ car.max_seats}}</div>
 
-       <div class=" text-bold font-medium text-gray-900" >{{ car.car_name }}</div>
 
+
+        <div>
         <button type="button"
-                class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                class="mt-4 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 @click.prevent="openDetails(car)">Car Details
         </button>
+        </div>
+        </div>
       </li>
+
     </ul>
   </div>
   </div>
-
+      </div>
   <div v-if="carSelection !== null">
-
+    <div class="mx-3">Car Name: {{ carSelection.car_name }}
+    </div>
+<div class="mx-3">
     <button type="button"
-            class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            class=" mt-4 w-30 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             @click="closeDetails">close details
     </button>
 
+</div>
 
 
-
+  </div>
   </div>
   </div>
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
