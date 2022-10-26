@@ -38,10 +38,10 @@ let showMobileNavbar = ref(true);
 
       <!--   Menu-->
             <div class=" hidden md:ml-4 md:flex md:space-x-8">
-                <a class=" inline-flex items-center py-5 px-2 text-white hover:text-indigo-400">  <router-link to="/">Stays</router-link></a>
-                <a class=" inline-flex items-center py-5 px-2 text-white hover:text-indigo-400">  <router-link to="/flights">Flights</router-link></a>
-                <a class=" inline-flex items-center py-5 px-2 text-white hover:text-indigo-400">  <router-link to="/recommendations">Recommended Cities</router-link></a>
-                <a class=" inline-flex items-center py-5 px-2 text-white hover:text-indigo-400">  <router-link to="/car-rentals">Car Rentals</router-link></a>
+                <a class=" inline-flex items-center py-5 px-2 text-white hover:text-indigo-300">  <router-link to="/" >Stays</router-link></a>
+                <a class=" inline-flex items-center py-5 px-2 text-white hover:text-indigo-300">  <router-link to="/flights">Flights</router-link></a>
+                <a class=" inline-flex items-center py-5 px-2 text-white hover:text-indigo-300">  <router-link to="/recommendations">Recommended Cities</router-link></a>
+                <a class=" inline-flex items-center py-5 px-2 text-white hover:text-indigo-300">  <router-link to="/car-rentals">Car Rentals</router-link></a>
 
             </div>
           </div>
@@ -82,6 +82,7 @@ let showMobileNavbar = ref(true);
         <a v-if=" ! isLoggedIn" class="block py-2 px-4 text-white"> <router-link to="/login">Sign in</router-link></a>
         <a v-if=" ! isLoggedIn" class="block py-2 px-4 text-white"> <router-link to="/register">Sign up</router-link></a>
         <button @click="handleSignOut " v-if="isLoggedIn" class="block py-2 px-4 text-white">Sign out</button>
+      <a v-if="isLoggedIn" class="block py-2 px-4 text-white">  <router-link to="/profile">Profile</router-link></a>
 
       </div>
 
@@ -95,5 +96,8 @@ let showMobileNavbar = ref(true);
 </template>
 
 
-<style>
+<style scoped>
+a.active {
+  color: #a3bffa;
+}
 </style>

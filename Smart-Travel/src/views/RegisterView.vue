@@ -54,8 +54,7 @@
             </div>
           </div>
           <div class="mt-8">
-            <div>
-              <div>
+
 
                 <div class="flex w-full justify-center  mt-1 grid grid-cols-1 gap-3">
                   <div>
@@ -65,8 +64,7 @@
                       <svg class="h-5 w-5 text-red-500 "  aria-hidden="true"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M17.788 5.108A9 9 0 1021 12h-8" />
                         > </svg></button>
                     </p>
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
