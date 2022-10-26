@@ -78,7 +78,7 @@
 
 
   <div v-if="selectedCity != null">
-    <h1 class="mt-6 text-xl  text-gray-900 font-bold">{{ selectedCity.city_name }}</h1>
+    <h1 class="mt-6 text-xl  text-gray-900 font-bold mx-3">{{ selectedCity.city_name }}</h1>
     <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-10">
       <div class="mt-2 flex items-center text-sm text-gray-300">
         <span v-for="image in selectedCity.images">
@@ -90,7 +90,7 @@
         </span>
       </div>
     </div>
-    <h2 class="text-sm text-gray-900">{{ selectedCity.description }}</h2>
+    <h2 class=" mx-3 text-sm text-gray-900">{{ selectedCity.description }}</h2>
     <div class="mt-8">
       <div class="bg-gray-400  px-4 py-5 sm:px-6">
         <div class="flex space-x-3">
