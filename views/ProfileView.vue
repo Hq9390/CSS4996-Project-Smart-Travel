@@ -12,6 +12,10 @@
         </div>
       </div>
 
+<!--  <div id="app">-->
+<!--    <input v-model="searchQuery">-->
+<!--    <div v-for="r of resultQuery" :key="r.id">{{r.title}}</div>-->
+<!--  </div>-->
 
 </template>
 

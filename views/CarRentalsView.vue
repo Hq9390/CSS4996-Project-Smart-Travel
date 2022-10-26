@@ -135,7 +135,7 @@ export default {
       location:'',
       cars:[],
       carSelection:null,
-      //Search:[],
+      Search:[],
       searchQuery: '',
       detailOpen:false,
     };
