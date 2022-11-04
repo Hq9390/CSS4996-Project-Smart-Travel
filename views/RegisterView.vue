@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="text-gray-900 text-sm">
-          <p v-if="errMsg"> {{errMsg}} </p>
+            <p v-if="errMsg"> {{errMsg}} </p>
           </div>
 
           <div class="flex items-center justify-between">
@@ -54,19 +54,17 @@
             </div>
           </div>
           <div class="mt-8">
-            <div>
+
+
+            <div class="flex w-full justify-center  mt-1 grid grid-cols-1 gap-3">
               <div>
-
-                <div class="flex w-full justify-center  mt-1 grid grid-cols-1 gap-3">
-                  <div>
-                    <p> <button  @click="signInWithGoogle" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
+                <p> <button  @click="signInWithGoogle" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50">
 
 
-                      <svg class="h-5 w-5 text-red-500 "  aria-hidden="true"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M17.788 5.108A9 9 0 1021 12h-8" />
-                        > </svg></button>
-                    </p>
-                  </div>
-                </div>
+                  <svg class="h-5 w-5 text-red-500 "  aria-hidden="true"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M17.788 5.108A9 9 0 1021 12h-8" />
+                    > </svg></button>
+                </p>
+
               </div>
             </div>
           </div>
@@ -94,7 +92,6 @@ const register = () => {
     console.log('Successfully Registered')
     console.log(user);
     router.push("/");
-
   })
       .catch((error) => {
         console.log(error.code);
@@ -111,24 +108,17 @@ const register = () => {
             errMsg.value = "weak password";
             console.log('weak password')
             break;
-
         }
       });
 };
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(getAuth(),provider)
-        .then((result) =>{
+const signInWithGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(getAuth(),provider)
+      .then((result) =>{
         console.log(result.user);
         router.push("/")
-    })
-        .catch((error) => {
-
-
-  });
-
+      })
+      .catch((error) => {
+      });
 };
-
-
 </script>
-

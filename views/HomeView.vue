@@ -1,7 +1,8 @@
 <template>
   <div class="bg-white">
-    <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
 
+    <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
+      <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">Find a Hotel</h2>
       <form action="#" class="text-center ">
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
           <div class="sm:col-span-1">
@@ -60,10 +61,10 @@
 
             <div class="sm:col-span-1">
               <div class="mt-1">
-<!--                <input type="dropdown" name="filters" id="filters" v-model="filters" value="SL">-->
-<!--                <input type="dropdown" name="filters" id="filters" v-model="filters" value="SH">-->
-<!--                <input type="dropdown" name="filters" id="filters" v-model="filters" value="PL">-->
-<!--                <input type="dropdown" name="filters" id="filters" v-model="filters" value="PH">-->
+                <!--                <input type="dropdown" name="filters" id="filters" v-model="filters" value="SL">-->
+                <!--                <input type="dropdown" name="filters" id="filters" v-model="filters" value="SH">-->
+                <!--                <input type="dropdown" name="filters" id="filters" v-model="filters" value="PL">-->
+                <!--                <input type="dropdown" name="filters" id="filters" v-model="filters" value="PH">-->
                 <label for="filter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Filter</label>
                 <select name = filter id="filter" class="bg-gray-50 border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-400 focus:border-blue-400 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-300 dark:placeholder-gray-200 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400" v-model="selectedFilter">
                   <option selected>-None-</option>
@@ -80,16 +81,16 @@
             <div class="sm:col-span-1">
               <div class="mt-1">
                 <div id = "ser">
-                <label for="Search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Search</label>
-                <input type="text"
-                       name="Search"
-                       class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-                       v-model = "searchQ"
-                />
-                <div class="space-y-8 md:grid md:grid-cols-2 md:gap-5 md:space-y-0 lg:grid-cols-4">
-                  <div class="mt-1">
+                  <label for="Search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Search</label>
+                  <input type="text"
+                         name="Search"
+                         class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+                         v-model = "searchQ"
+                  />
+                  <div class="space-y-8 md:grid md:grid-cols-2 md:gap-5 md:space-y-0 lg:grid-cols-4">
+                    <div class="mt-1">
+                    </div>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
@@ -246,9 +247,7 @@ export default {
       searchQ: ""
     };
   },
-
-
-      methods: {
+  methods: {
     closeDetails() {
       this.selectedHotel = null;
       this.hotelDetails = null;
@@ -259,18 +258,18 @@ export default {
       this.selectedHotel = hotel;
       this.getHotelsDetails(hotel.hotelId);
     },
-        SL: function(){
-      this.hotels.sort((a,b)=>(a.stars > b.stars) ? 1: -1)
-        },
-        SH: function(){
-          this.hotels.sort((a,b)=>(a.stars < b.stars) ? 1: -1)
-        },
-        PL: function(){
-          this.hotels.sort((a,b)=>(a.price > b.price) ? 1: -1)
-        },
-        PH: function(){
-          this.hotels.sort((a,b)=>(a.price < b.price) ? 1: -1)
-        },
+    SL: function(){
+      this.data.sort((a,b)=>(a.star > b.star) ? 1: -1)
+    },
+    SH: function(){
+      this.data.sort((a,b)=>(a.star < b.star) ? 1: -1)
+    },
+    PL: function(){
+      this.data.sort((a,b)=>(a.price > b.price) ? 1: -1)
+    },
+    PH: function(){
+      this.data.sort((a,b)=>(a.price < b.price) ? 1: -1)
+    },
     getSearchResults() {
       let self = this;
       // const axios = require("axios");
@@ -308,7 +307,6 @@ export default {
           countryCode: 'US',
           market: 'en-US'
         },
-
         headers: {
           'X-RapidAPI-Key': '2756954a36mshd7f9836f6a3787bp186d1djsn79f785078e5b',
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
@@ -338,46 +336,38 @@ export default {
         console.error(error);
       });
     },
-
-
-        computed: {
-          sortedArray: function () {
-            function compare(a, b) {
-              if (a.price < b.price)
-                return -1;
-              if (a.price > b.price)
-                return 1;
-            }
-
-            return this.arrays.sort(compare);
-          }
-        },
-
-
-        computed2: {
-          sortedArray2: function () {
-            function compare(a, b) {
-              if (a.stars < b.stars)
-                return 1;
-              if (a.stars > b.stars)
-                return 1;
-            }
-
-            return this.arrays().sort(compare)
-          }
-        },
-        computed3: {
-          filteredHotels() {
-            if(this.hotels) {
-              return this.hotels.filter((hotel) => {
-                return hotel.name.match(this.search);
-              });
-            }
-            return false;
-          }
+    computed: {
+      sortedArray: function () {
+        function compare(a, b) {
+          if (a.price < b.price)
+            return -1;
+          if (a.price > b.price)
+            return 1;
         }
+        return this.arrays.sort(compare);
       }
+    },
+    computed2: {
+      sortedArray2: function () {
+        function compare(a, b) {
+          if (a.star < b.star)
+            return 1;
+          if (a.star > b.star)
+            return 1;
+        }
+        return this.arrays().sort(compare)
+      }
+    },
+    computed3: {
+      filteredHotels() {
+        if(this.hotels) {
+          return this.hotels.filter((hotel) => {
+            return hotel.name.match(this.search);
+          });
+        }
+        return false;
+      }
+    }
+  }
 }
-
-
 </script>

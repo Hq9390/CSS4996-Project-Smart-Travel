@@ -2,7 +2,7 @@
 
   <div class="bg-white">
     <div class="mx-auto max-w-6xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
-
+      <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">Find a Flight</h2>
       <form action="#" class="text-center ">
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
 
@@ -125,7 +125,7 @@
 
 
 
-    <div v-if="selectedFlight == null" >
+  <div v-if="selectedFlight == null" >
     <ul role="list"  class="divide-y divide-gray-200">
 
       <li v-for="flight in flights" >
@@ -214,7 +214,6 @@ export default {
       return moment(input).format('YYYY-MM-DD')
     }
   },
-
   computed: {
     filterNames: function (){
       return this.filterFlightByNameDelta(this.filterFlightByNameSouthWest(this.filterFlightByNameSpirit(this.filterFlightByNameUnitedAirlines(this.filterFlightByNameAmericanAirlines()))))
@@ -230,23 +229,21 @@ export default {
       console.log('selected');
       this.selectedFlight = flight;
     },
-
-    filterFlightByNameDelta: function (flights) {
-      return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.Delta.toLowerCase()))
-    },
-    filterFlightByNameSouthWest: function(flights){
-      return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.SouthWest.toLowerCase()))
-    },
-    filterFlightByNameSpirit: function(flights){
-      return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.Spirit.toLowerCase()))
-    },
-    filterFlightByNameUnitedAirlines: function(flights){
-      return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.UnitedAirlines.toLowerCase()))
-    },
-    filterFlightByNameAmericanAirlines: function(flights){
-      return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.AmericanAirlines.toLowerCase()))
-    },
-
+    // filterFlightByNameDelta: function (flights) {
+    //   return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.Delta.toLowerCase()))
+    // },
+    // filterFlightByNameSouthWest: function(flights){
+    //   return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.SouthWest.toLowerCase()))
+    // },
+    // filterFlightByNameSpirit: function(flights){
+    //   return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.Spirit.toLowerCase()))
+    // },
+    // filterFlightByNameUnitedAirlines: function(flights){
+    //   return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.UnitedAirlines.toLowerCase()))
+    // },
+    // filterFlightByNameAmericanAirlines: function(flights){
+    //   return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.AmericanAirlines.toLowerCase()))
+    // },
     getSearchResults() {
       let self = this;
       console.log('called');

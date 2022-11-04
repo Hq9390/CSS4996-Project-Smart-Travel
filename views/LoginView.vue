@@ -3,7 +3,7 @@
   <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div class="mt-6 space-y-8 ">
-
+        <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">Sign In</h2>
 
                 <form action="#"  @submit.prevent="submit" class="space-y-8">
           <div>

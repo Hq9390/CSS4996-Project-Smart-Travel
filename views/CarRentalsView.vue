@@ -1,7 +1,7 @@
 <template>
 
   <div class=" mt-6 mx-auto max-w-4xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-
+    <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">Find a Car Rental</h2>
     <form action="#" class="text-center flex">
       <div>
         <div class=" md:grid py-15 md:grid-cols-3 md:gap-3 md:space-y-0">
@@ -115,7 +115,6 @@ export default {
     const pickupTime = ref();
     const returnTime = ref();
     const format = ref ('yyyy-MM-dd');
-
     return {
       pickupDate,
       returnDate,
@@ -167,7 +166,6 @@ export default {
         let pickUpEntityId = response.data.data[0].pickUpEntityId;
         console.log(pickUpEntityId);
         self.getCars(pickUpEntityId);
-
       }).catch(function (error) {
         console.error(error);
       });
@@ -194,7 +192,6 @@ export default {
       axios.request(options).then((response) =>  {
         console.log(response.data);
         self.data = response.data;
-
       }).catch(function (error) {
         console.error(error);
       });
