@@ -12,7 +12,6 @@
     <h2 class="text-3xl font-bold flex w-full justify-center  text-indigo-900">About Me</h2>      
     <div >Name: {{user.displayName}} </div>
     <div >Email: {{user.email}} </div>
-    <div> Describe Yourself: {{user.comment}}</div> 
           </div>
 
 
@@ -49,7 +48,6 @@ if (user !== null) {
     console.log("  Provider-specific UID: " + profile.uid);
     console.log("  Name: " + profile.displayName);
     console.log("  Email: " + profile.email);
-    console.log("  Describe-Yourself: " + profile.comment);
     console.log("  Photo URL: " + profile.photoURL);
   });
 }
