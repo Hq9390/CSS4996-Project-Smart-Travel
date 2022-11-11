@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import FlightsView from '../views/FlightsView.vue'
-import RecommendedCitiesView from '../views/RecommendedCitiesView.vue'
 import CarRentalsView from '../views/CarRentalsView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ForgotPasswordView from '../views/ForgotPasswordView.vue'
+import StaysView from '../views/StaysView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +14,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'hotels',
+      name: 'recommended',
       component: HomeView
     },
     {
@@ -23,9 +23,9 @@ const router = createRouter({
       component: FlightsView
     },
     {
-      path: '/recommendations',
-      name: 'recommendations',
-      component: RecommendedCitiesView
+      path: '/stays',
+      name: 'stays',
+      component: StaysView
     },
     {
       path: '/car-rentals',

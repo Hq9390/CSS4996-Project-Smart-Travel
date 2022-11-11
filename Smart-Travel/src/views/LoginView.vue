@@ -64,7 +64,6 @@ const login = () =>  {
         console.log('Successfully Logged in')
         console.log(user);
         router.push("/");
-
       })
           .catch((error) => {
             console.log(error.code);
@@ -81,13 +80,11 @@ const login = () =>  {
               case "auth/wrong-password":
                 errMsg.value = "Incorrect password";
                 console.log('Incorrect password')
-
                 break;
               default:
                 errMsg.value = "Email or password was incorrect";
                 break;
             }
           });
-
 };
 </script>
