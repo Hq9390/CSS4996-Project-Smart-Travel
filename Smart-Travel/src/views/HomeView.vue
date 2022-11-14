@@ -5,9 +5,26 @@
     <form action="#" class="text-center">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <div class="flex flex-1 flex-col">
-          <label for="city" class="text-sm font-medium text-gray-700">Enter your departure airport</label>
-          <input type="text" v-model="travelingFrom" name="airport" id="city" autocomplete="city"
-                 class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"/>
+          <label for="city" class="text-sm font-medium text-gray-700">Enter your city</label>
+          <vue3-simple-typeahead
+              id="typeahead_id"
+
+              :items="[{name: 'New York(JFK)', 'code': 'JFK'},{name: 'Detroit(DTW)', 'code': 'DTW'},{name: 'Las Vegas(LAS)', 'code': 'LAS'},
+              {name: 'Los Angeles(LAX)', 'code': 'LAX'},{name: 'Istanbul(IST)', 'code': 'IST'},{name: 'Phoenix Arizon(PHX)', 'code': 'PHX'},
+              {name: 'Atlanta', 'code': 'ATL'},{name: 'Florida', 'code': 'FLL'},
+              {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},{name:'New York(JFK)', 'code': 'JFK'}
+
+
+              ]"
+              :minInputLength="1"
+              :itemProjection="projection"
+              class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+              @selectItem="airportSelected"
+              @onInput="updateCurrentOptions"
+          >
+          </vue3-simple-typeahead>
+<!--          <input type="text" v-model="travelingFrom" name="airport" id="city" autocomplete="city"-->
+<!--                 class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"/>-->
         </div>
         <div class="flex flex-1 flex-col">
           <label for="cities" class="text-sm font-medium text-gray-700">Choose the city type</label>
@@ -61,7 +78,7 @@
   <div class="mt-6 bg-gray-200">
     <div class="mt-10">
       <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
-
+<div v-show="cities.length" class="mt-12" >
         <div v-if="selectedCity === null">
           <ul role="list" class=" grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
             <li v-for="city in cities" v-bind:key="city.id"
@@ -79,25 +96,28 @@
 
             </li>
 
+
+
           </ul>
+
 
         </div>
 
       </div>
 
-
+        <div v-show="cities.length"  class="mt-12">
       <div v-if="selectedCity != null">
         <h1 class="mt-10 text-xl  text-gray-900 font-bold mx-3">{{ selectedCity.city_name }}</h1>
-        <div class="">
-          <div class=" mx-3 mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:grid-cols-2 lg:gap-x-8 xl:grid-cols-3">
+
+          <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
         <span v-for="image in selectedCity.images" class="group relative">
-          <div class="h-full w-full object-cover object-center lg:h-3/12 lg:w-3/12">
+          <div class=" mx-3 h-full w-full object-cover object-center lg:h-full lg:w-full">
           <img :src="image" alt=""
-               class="h-full w-full object-cover object-center lg:h-3/12 lg:w-3/12">
+               class="h-full w-full object-cover object-center lg:h-full lg:w-full">
           </div>
         </span>
           </div>
-        </div>
+
         <h2 class=" mt-6 mx-3 text-base text-gray-900">{{ selectedCity.description }}</h2>
         <div class="mt-4 mx-3">
         <a  :href=" selectedCity.descriptionLink" target="_blank"> <button class=" font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1">Click here for more info about the city </button></a>
@@ -126,7 +146,8 @@
       </div>
     </div>
   </div>
-
+  </div>
+  </div>
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
@@ -157,6 +178,7 @@ import { collection, query, doc, where, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 export default {
+
   setup() {
     const departuredate = ref();
     const returndate = ref();
@@ -180,11 +202,68 @@ export default {
       highestHotelPrice: 0,
       lowestFlightPrice: 0,
       highestFlightPrice: 0,
+      options:[],
+      currentAirportOptions:[],
+
 
     }
   },
-  methods: {
+  mounted() {
+    // fetch("../assets/cities.json")
+    //     .then(response => response.json())
+    //     .then(data => (this.options = data));
 
+  },
+  methods: {
+    projection(value) {
+
+      return value.name
+    },
+    airportSelected(value){
+      this.travelingFrom = value.code;
+    },
+    updateCurrentOptions(value){
+      const uri = '';
+
+      const options = {
+        method: 'POST',
+        url: 'https://www.air-port-codes.com/api/v1/autocomplete',
+        data: {key: 'term', value : 'new york'},
+        headers: {
+          "Referer": "https://www.google.com/",
+          "Referrer-Policy": "strict-origin-when-cross-origin",
+
+
+          'APC-Auth': '2d392726d7',
+        }
+      };
+
+      // axios.request(options).then(function (response) {
+      //   console.log(response.data);
+      // }).catch(function (error) {
+      //   console.error(error);
+      // });
+
+
+    },
+    validateSelection(selection) {
+      this.travelingFrom = selection.IATA;
+      console.log(selection.name+' has been selected');
+    },
+    getDropdownValues(keyword) {
+
+      let url = "https://airlabs.co/api/v9/suggest?q="+ keyword+ "&api_key=3e3da33c-a4ed-4ced-900a-92db4a73b0e6\n"
+      axios.get(url, {})
+          .then(function (response) {
+            console.log(response.data.airports_by_cities);
+          })
+
+      // console.log('You could refresh options by querying the API with '+keyword);
+    },
+
+    unsave(city) {
+
+    },
     closeDetails() {
       this.selectedCity = null;
       this.hotels = [];

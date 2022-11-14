@@ -10,6 +10,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import SimpleTypeahead from 'vue3-simple-typeahead';
 
 const firebaseConfig = {
     apiKey: "AIzaSyA6DHcoIKMPyvX9ZaVIGv4p3HbfSTFQ0ak",
@@ -25,6 +26,7 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 export const database = firebaseApp.firestore();
 export const auth = firebaseApp.auth();
 const app = createApp(App)
+app.use(SimpleTypeahead);
 
 // app.use(createPinia())
 app.use(router)

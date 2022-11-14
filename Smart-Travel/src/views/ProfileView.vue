@@ -55,12 +55,8 @@
 <!--              <div class="sm:col-span-2">-->
 <!--                <dt class="text-sm font-medium text-gray-500">About</dt>-->
 <!--              </div>-->
-
-
             </dl>
           </div>
-
-
           <div v-if="tabs[1].current === true">
             <div class=" mt-6 container w-90 lg:w-4/5 mx-auto flex flex-col">
               <ul role="list" class=" grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
@@ -73,15 +69,10 @@
                 <a  :href=" favorite.descriptionLink" target="_blank">
 
                   <button
-
                      class="  font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1"
                   >
                     <p class="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true"/> Click here for more city info.
-
                   </button></a>
-
-
-
               </div>
 <!--              {{favorite.description}}-->
             </li>
@@ -163,7 +154,6 @@ const profile = {
 onMounted(async () =>{
   const cityRef = doc(database, 'favorites', 'user.email');
 
-// Remove the 'capital' field from the document
   await updateDoc(cityRef, {
     favorite: deleteField()
   });

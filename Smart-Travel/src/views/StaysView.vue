@@ -63,7 +63,6 @@
         </div>
       </div>
     </form>
-
   </div>
 
   <div class="bg-gray-200">
@@ -71,41 +70,72 @@
       <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
         <div v-if="selectedHotel == null">
 
-          <ul role="list" class="divide-y divide-gray-200">
-            <li v-for="hotel in hotels" :key="hotel.hotelId" class="flex flex-col md:flex-row overflow-hidden
+
+          <ul v-show="hotels.length" role="list">
+            <Disclosure as="section" aria-labelledby="filter-heading" class="grid items-center border-t border-b border-gray-200">
+              <h2 id="filter-heading" class="sr-only">Filters</h2>
+
+
+              <div class="col-start-1 row-start-1 py-4">
+                <div class="mx-auto flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
+                  <Menu as="div" class="relative inline-block">
+
+                    <div enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                      <label for="orderBy" class="block  px-14 w-full text-sm font-medium border-0 border-b-2 text-gray-700">Sort By</label>
+                        <select id="orderBy" name="orderBy" v-model="orderBy"  @input="orderBySelected"
+                                class=" text-sm font-medium text-gray-700  block py-2 px-7 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 ">
+
+                          <option class="text-sm font-medium text-gray-700" value="pricea">Price Ascending</option>
+                          <option class="text-sm font-medium text-gray-700" value="priced">price Descending</option>
+                          <option class="text-sm font-medium text-gray-700" value="starsa">Stars Ascending</option>
+                          <option class="text-sm font-medium text-gray-700" value="starsd">Stars Descending</option>
+
+                        </select>
+
+
+                    </div>
+                  </Menu>
+                </div>
+              </div>
+            </Disclosure>
+            <div class="min-w-0 flex-1 text-sm">
+            </div>
+            <div  class="divide-y divide-gray-200">
+              <li v-for="hotel in hotels" :key="hotel.hotelId" class="flex flex-col md:flex-row overflow-hidden
           bg-white rounded-lg shadow-xl h-50 mt-4 w-100 mx-2">
-              <div class="p-3 rounded-md shadow-lg md:w-3/4">
-                <img :src="hotel.heroImage" alt="hotel.name" height='30'
-                     class=" inset-0 w-90 h-80 w-full object-cover object-center"/>
-              </div>
-              <div class="w-full py-4 px-5 text-gray-800 flex flex-col justify-between">
-                <span class="sr-only">View details for {{ hotel.name }}</span>
-                <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
-                <div class="flex items-center">
-
-                  <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
-                       class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
-                       viewBox="0 0 384 512">
-                    <path fill="currentColor"
-                          d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
-                  </svg>
-                  <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p></div>
-
-                <!--            <p class="text-xs text-gray-600">{{ hotel.translations.beach }} </p>-->
-                <div class="text-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
-                <div class="flex items-center">
-                  <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating"
-                            :class="[hotel.stars > rating ? 'text-yellow-400' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']"
-                            aria-hidden="true"/>
+                <div class="p-3 rounded-md shadow-lg md:w-3/4">
+                  <img :src="hotel.heroImage" alt="hotel.name" height='30'
+                       class=" inset-0 w-90 h-80 w-full object-cover object-center"/>
                 </div>
-                <div>
-                  <button type="button"
-                          class="inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                          @click.prevent="openDetails(hotel)">Details
-                  </button>
+                <div class="w-full py-4 px-5 text-gray-800 flex flex-col justify-between">
+                  <span class="sr-only">View details for {{ hotel.name }}</span>
+                  <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
+                  <div class="flex items-center">
+
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
+                         class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
+                         viewBox="0 0 384 512">
+                      <path fill="currentColor"
+                            d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
+                    </svg>
+                    <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p></div>
+
+                  <!--            <p class="text-xs text-gray-600">{{ hotel.translations.beach }} </p>-->
+                  <div class="text-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
+                  <div class="flex items-center">
+                    <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating"
+                              :class="[hotel.stars > rating ? 'text-yellow-400' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']"
+                              aria-hidden="true"/>
+                  </div>
+                  <div>
+                    <button type="button"
+                            class="inline-flex items-center rounded-md border border-transparent bg-indigo-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            @click.prevent="openDetails(hotel)">Details
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
+            </div>
           </ul>
         </div>
       </div>
@@ -139,20 +169,20 @@
 
                     <!--                    <p class="text-xs text-gray-700">{{ selectedHotel.stars }}-star property </p>-->
 
-                      <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+                    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
 
             <span v-for="image in selectedHotel.images" class="group relative">
               <div class="h-full w-full object-cover object-center lg:h-full lg:w-full">
               <img :src="image" alt=""
                    class="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                   />
+              />
               </div>
             </span>
 
                     </div>
                     <!--              {{ hotelDetails.reviewRatingSummary.cleanlinessMessage }}-->
                     <div class="mt-4 text-gray-700 text-base">
-                      {{ hotelDetails.goodToKnow.description.content }}
+                      {{hotelDetails.goodToKnow.description.content}}
                     </div>
                     <!--              <div>{{ hotelDetails.amenities.title }}: <br>-->
 
@@ -162,14 +192,13 @@
                     <div class="border-b border-gray-200 px-4 py-5 sm:px-6">
                       <div class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
                         <div class="ml-4 mt-2">
-
                         </div>
                         <div class="ml-4 mt-2 flex-shrink-0">
                           <a :href="'http://' + HotelPrice.rates[0].deeplink" target="_blank">
                             <button
                                 class="relative inline-flex items-center rounded-md border border-gray-300 bg-indigo-900 px-2 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:z-10 focus:border-indigo-700 focus:outline-none focus:ring-1 focus:ring-indigo-500">
                               Book Now
-                              <ChevronRightIcon class=" h-5 w-5" aria-hidden="true"/>
+                              <ChevronDoubleRightIcon class=" h-5 w-5" aria-hidden="true"/>
                             </button>
                           </a>
                         </div>
@@ -206,13 +235,12 @@
           reserved.</p>
       </div>
     </div>
-
   </footer>
-
 </template>
 <script setup>
 import {StarIcon} from '@heroicons/vue/20/solid'
-import {ChevronLeftIcon, ChevronRightIcon} from '@heroicons/vue/20/solid'
+import {ChevronRightIcon} from '@heroicons/vue/20/solid'
+import { ChevronDoubleRightIcon } from "@heroicons/vue/20/solid"
 
 const CheckIn = ref();
 const CheckOut = ref();
@@ -230,7 +258,6 @@ const reviews = [
 import {ref} from 'vue';
 import axios from "axios";
 import moment from 'moment';
-
 
 export default {
   // setup() {
@@ -261,10 +288,49 @@ export default {
       hotelDetails: {},
       maxHotelPrice: null,
       minHotelPrice: null,
+      orderBy: '',
     };
   },
 
   methods: {
+    orderBySelected(event){
+      this.orderBy = event.target.value;
+
+      if(event.target.value === 'pricea') {
+        console.log('sorting by price ascending')
+
+        this.hotels.sort((a, b) => (this.cleanNumber(a.price) > this.cleanNumber(b.price)) ? 1 : -1)
+      }
+
+      if(event.target.value === 'priced') {
+        console.log('sorting by price descending')
+        this.hotels.sort((a, b) => (this.cleanNumber(a.price) < this.cleanNumber(b.price)) ? 1 : -1)
+      }
+
+      if(event.target.value === 'starsa') {
+        console.log('sorting by stars ascending')
+        this.hotels.sort((a, b) => (a.stars > b.stars) ? 1 : -1)
+
+      }
+
+      if(event.target.value === 'starsd') {
+        console.log('sorting by stars descending')
+        this.hotels.sort((a, b) => (a.stars < b.stars) ? 1 : -1)
+      }
+
+
+    },
+    cleanNumber(value) {
+      if(value) {
+        value = value.replace("$", "");
+        value = value.replace(",", "");
+        return parseInt(value);
+
+      }
+      console.log('something went seriously wrong here');
+
+      return 0;
+    } ,
     closeDetails() {
       this.selectedHotel = null;
       this.hotelDetails = null;

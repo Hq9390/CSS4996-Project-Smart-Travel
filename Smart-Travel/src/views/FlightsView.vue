@@ -39,6 +39,7 @@
         <div class="mt-4 sm:mt-4">
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
             <div class="flex flex-1 flex-col col-span-2" >
+
               <input  v-model="leaving"
                       type="text"
                       name="leaving" id="leaving"
@@ -149,12 +150,12 @@
 
 
               <div class="flex flex-col overflow-hidden
-          bg-white rounded-lg shadow-2xl  mt-4 w-100 mx-2">
+          bg-white rounded-lg  mt-4 w-100 mx-2">
                 <button type="button" @click="openDetails(flight)">
 
                   <div class=" mx-3 flow-root">
-                    <p class="float-right text-xl leading-tight text-gray-600 font-semibold">${{flight.price.amount}}</p>
-                    <p class="float-left">{{flight.legs[0].departure}} - {{flight.legs[0].arrival}}</p>
+                    <p class="float-right text-xl leading-tight text-gray-600 font-bold">${{flight.price.amount}}</p>
+                    <p class="font-bold float-left">{{getFormattedDate(flight.legs[0].departure)}} - {{getFormattedDate(flight.legs[0].arrival)}}</p>
 
                   </div>
                   <div class="text-left mx-3">
@@ -220,6 +221,7 @@ export default {
       leaving: '',
       going: '',
       searchResults: [],
+      FlightDetails:[],
       MultipleStops: [],
       searchQuery: '',
       date: '',
@@ -241,6 +243,9 @@ export default {
   },
 
   methods: {
+    getFormattedDate(date) {
+      return moment(date).format("HH:mm")
+    },
     setCurrentTab(tab) {
 
       for (var i = 0, iLen = this.tabs.length; i < iLen; i++) {
@@ -289,18 +294,46 @@ export default {
         options.params.returnDate =  moment(this.returnDate).format('YYYY-MM-DD');
       }
       axios.request(options).then(function (response) {
-        self.flights = response.data.data;
+        let itineraryId = response.data.data[0].id;
+        console.log(itineraryId);
+        self. getFlightDetails(itineraryId);
+      }).catch(function (error) {
+        console.error(error);
+      });
+    },
+    getFlightDetails(itineraryId){
+      let legsData =[ {"origin":this.leaving,"destination":this.going,"date": moment(this.Departure).format('YYYY-MM-DD')}];
+
+      const options = {
+        method: 'GET',
+        url: 'https://skyscanner50.p.rapidapi.com/api/v1/getFlightDetails',
+        params: {
+          itineraryId: itineraryId,
+          legs: '[{"origin":"this.leaving,"destination":this.going,"date":"2023-02-07"},{"date":"2023-02-14","destination":"LOND","origin":"NYCA"}]',
+          adults: this.adult,
+          currency: 'USD',
+          countryCode: 'US',
+          market: 'en-US'
+        },
+        headers: {
+          'X-RapidAPI-Key': '2756954a36mshd7f9836f6a3787bp186d1djsn79f785078e5b',
+          'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
+        }
+      };
+
+      axios.request(options).then(function (response) {
+        self.FlightDetails = response.data.data.flights;
       }).catch(function (error) {
         console.error(error);
       });
     },
     getMultipleStops() {
-      let legsData =[ {"origin":this.leaving,"destination":this.going,"date": moment(this.Departure).format('YYYY-MM-DD')}];
-      if (this.tabs[0].current !== true){
-        legsData.push(
-            {"origin":this.going,"destination":this.leaving,"date": moment(this.returnDate).format('YYYY-MM-DD')}
-        );
-      }
+      let legsData =[ {"origin":"LOND","destination":"NYCA","date":"2023-02-07"},{"origin":"NYCA","destination":"LAXA","date":"2023-02-13"},{"origin":"LAXA","destination":"LOND","date":"2023-02-18"}];
+      // if (this.tabs[0].current !== true){
+      //   legsData.push(
+      //       {"origin":this.going,"destination":this.leaving,"date": moment(this.returnDate).format('YYYY-MM-DD')}
+      //   );
+      // }
       let self = this;
       console.log('called');
       const options = {
