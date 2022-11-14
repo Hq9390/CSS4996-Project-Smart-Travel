@@ -26,6 +26,23 @@
       </div>
 
       <div class="mt-4">
+<!--        <vue3-simple-typeahead-->
+<!--            id="typeahead_id"-->
+
+<!--            :items="[{name: 'New York'},{name: 'Florida'},{name: 'Detroit'},{name: 'Las Vegas'},-->
+<!--              {name: 'Los Angeles'},{name: 'Istanbul'},{name: 'Phoenix Arizona'},-->
+<!--              {name: 'Atlanta'},{name: 'Florida'},-->
+<!--              {name:'Cambridge Bay'}, {name:'Windsor'},{name:'New York'}-->
+<!--              ]"-->
+<!--            :minInputLength="1"-->
+<!--            :itemProjection="projection"-->
+<!--            class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "-->
+<!--            @selectItem="citySelected"-->
+<!--            @onInput="updateCurrentOptions"-->
+<!--            placeholder="Going to"-->
+
+<!--        >-->
+<!--        </vue3-simple-typeahead>-->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <div class="flex flex-1 flex-col col-span-2">
             <input v-model="location"

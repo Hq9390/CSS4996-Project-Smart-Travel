@@ -294,22 +294,27 @@ export default {
         options.params.returnDate =  moment(this.returnDate).format('YYYY-MM-DD');
       }
       axios.request(options).then(function (response) {
-        let itineraryId = response.data.data[0].id;
-        console.log(itineraryId);
-        self. getFlightDetails(itineraryId);
+        let entityId = response.data.data[0].id;
+        console.log(entityId);
+        self. getFlightDetails(entityId);
       }).catch(function (error) {
         console.error(error);
       });
     },
     getFlightDetails(itineraryId){
       let legsData =[ {"origin":this.leaving,"destination":this.going,"date": moment(this.Departure).format('YYYY-MM-DD')}];
+      if (this.option !== 'ONEWAY'){
+        legsData.push(
+            {"origin":this.going,"destination":this.leaving,"date": moment(this.returnDate).format('YYYY-MM-DD')}
+        );
+      }
 
       const options = {
         method: 'GET',
         url: 'https://skyscanner50.p.rapidapi.com/api/v1/getFlightDetails',
         params: {
           itineraryId: itineraryId,
-          legs: '[{"origin":"this.leaving,"destination":this.going,"date":"2023-02-07"},{"date":"2023-02-14","destination":"LOND","origin":"NYCA"}]',
+          legs: legsData,
           adults: this.adult,
           currency: 'USD',
           countryCode: 'US',
