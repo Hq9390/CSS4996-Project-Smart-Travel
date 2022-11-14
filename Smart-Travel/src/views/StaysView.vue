@@ -26,6 +26,23 @@
       </div>
 
       <div class="mt-4">
+        <!--        <vue3-simple-typeahead-->
+        <!--            id="typeahead_id"-->
+
+        <!--            :items="[{name: 'New York'},{name: 'Florida'},{name: 'Detroit'},{name: 'Las Vegas'},-->
+        <!--              {name: 'Los Angeles'},{name: 'Istanbul'},{name: 'Phoenix Arizona'},-->
+        <!--              {name: 'Atlanta'},{name: 'Florida'},-->
+        <!--              {name:'Cambridge Bay'}, {name:'Windsor'},{name:'New York'}-->
+        <!--              ]"-->
+        <!--            :minInputLength="1"-->
+        <!--            :itemProjection="projection"-->
+        <!--            class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "-->
+        <!--            @selectItem="citySelected"-->
+        <!--            @onInput="updateCurrentOptions"-->
+        <!--            placeholder="Going to"-->
+
+        <!--        >-->
+        <!--        </vue3-simple-typeahead>-->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <div class="flex flex-1 flex-col col-span-2">
             <input v-model="location"
@@ -82,15 +99,15 @@
 
                     <div enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                       <label for="orderBy" class="block  px-14 w-full text-sm font-medium border-0 border-b-2 text-gray-700">Sort By</label>
-                        <select id="orderBy" name="orderBy" v-model="orderBy"  @input="orderBySelected"
-                                class=" text-sm font-medium text-gray-700  block py-2 px-7 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 ">
+                      <select id="orderBy" name="orderBy" v-model="orderBy"  @input="orderBySelected"
+                              class=" text-sm font-medium text-gray-700  block py-2 px-7 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 ">
 
-                          <option class="text-sm font-medium text-gray-700" value="pricea">Price Ascending</option>
-                          <option class="text-sm font-medium text-gray-700" value="priced">price Descending</option>
-                          <option class="text-sm font-medium text-gray-700" value="starsa">Stars Ascending</option>
-                          <option class="text-sm font-medium text-gray-700" value="starsd">Stars Descending</option>
+                        <option class="text-sm font-medium text-gray-700" value="pricea">Price Ascending</option>
+                        <option class="text-sm font-medium text-gray-700" value="priced">price Descending</option>
+                        <option class="text-sm font-medium text-gray-700" value="starsa">Stars Ascending</option>
+                        <option class="text-sm font-medium text-gray-700" value="starsd">Stars Descending</option>
 
-                        </select>
+                      </select>
 
 
                     </div>

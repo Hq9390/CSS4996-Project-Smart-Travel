@@ -9,22 +9,21 @@
           <vue3-simple-typeahead
               id="typeahead_id"
 
-              :items="[{name: 'New York(JFK)', 'code': 'JFK'},{name: 'Detroit(DTW)', 'code': 'DTW'},{name: 'Las Vegas(LAS)', 'code': 'LAS'},
+              :items="[{name: 'New York(JFK)', 'code': 'JFK'},{name: 'Florida(MCO)', 'code': 'MCO'},{name: 'Detroit(DTW)', 'code': 'DTW'},{name: 'Las Vegas(LAS)', 'code': 'LAS'},
               {name: 'Los Angeles(LAX)', 'code': 'LAX'},{name: 'Istanbul(IST)', 'code': 'IST'},{name: 'Phoenix Arizon(PHX)', 'code': 'PHX'},
               {name: 'Atlanta', 'code': 'ATL'},{name: 'Florida', 'code': 'FLL'},
               {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},{name:'New York(JFK)', 'code': 'JFK'}
-
-
               ]"
               :minInputLength="1"
               :itemProjection="projection"
-              class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
+              class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
               @selectItem="airportSelected"
               @onInput="updateCurrentOptions"
+
           >
           </vue3-simple-typeahead>
-<!--          <input type="text" v-model="travelingFrom" name="airport" id="city" autocomplete="city"-->
-<!--                 class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"/>-->
+          <!--          <input type="text" v-model="travelingFrom" name="airport" id="city" autocomplete="city"-->
+          <!--                 class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"/>-->
         </div>
         <div class="flex flex-1 flex-col">
           <label for="cities" class="text-sm font-medium text-gray-700">Choose the city type</label>
@@ -78,36 +77,28 @@
   <div class="mt-6 bg-gray-200">
     <div class="mt-10">
       <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
-<div v-show="cities.length" class="mt-12" >
-        <div v-if="selectedCity === null">
-          <ul role="list" class=" grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            <li v-for="city in cities" v-bind:key="city.id"
-                class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
-              <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
-                <img :src="city.images[0]" alt="" class="mx-auto h-190 w-200 flex-shrink-0 ">
+        <div v-show="cities.length" class="mt-12" >
+          <div v-if="selectedCity === null">
+            <ul role="list" class=" grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              <li v-for="city in cities" v-bind:key="city.id"
+                  class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+                <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
+                  <img :src="city.images[0]" alt="" class="mx-auto h-190 w-200 flex-shrink-0 ">
+                  <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
+                </div>
+                <div v-if=" isLoggedIn">
 
-                <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
-
-              </div>
-
-              <button v-if="city.is_saved === undefined" type="button" class="savebtn" @click="onclickSave(city)" >Save</button>
-
-              <button v-if="city.is_saved === true" class="savebtn"  >Saved</button>
-
-            </li>
-
-
-
-          </ul>
-
-
+                  <button v-if=" city.is_saved === undefined" type="button" class="savebtn" @click="onclickSave(city)" >Save</button>
+                  <button v-if="city.is_saved === true" class="savebtn"  >Saved</button>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-
-      </div>
-
         <div v-show="cities.length"  class="mt-12">
-      <div v-if="selectedCity != null">
-        <h1 class="mt-10 text-xl  text-gray-900 font-bold mx-3">{{ selectedCity.city_name }}</h1>
+        </div>
+        <div v-if="selectedCity != null">
+          <h1 class=" text-xl  text-gray-900 font-bold mx-3">{{ selectedCity.city_name }}</h1>
 
           <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
         <span v-for="image in selectedCity.images" class="group relative">
@@ -117,36 +108,39 @@
           </div>
         </span>
           </div>
+          <h2 class=" mt-6 mx-3 text-base text-gray-900">{{ selectedCity.description }}</h2>
+          <div class="mt-4 mx-3">
+            <a  :href=" selectedCity.descriptionLink" target="_blank"> <button class=" font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1">Click here for more info about the city </button></a>
+          </div>
+          <div class="mt-8">
+            <div class="bg-gray-400  px-4 py-5 sm:px-6">
+              <div class="flex space-x-3">
+                <div class="text-xl text-gray-900 font-bold"> Pricing:
+                  <h4 class="text-lg font-medium text-gray-900 ">Hotel Prices</h4>
+                  <p class="text-sm text-gray-900">Lowest Hotel Price: {{ lowestHotelPrice }}</p>
+                  <p class="text-sm text-gray-900">Highest Hotel Price: {{ highestHotelPrice }}</p>
 
-        <h2 class=" mt-6 mx-3 text-base text-gray-900">{{ selectedCity.description }}</h2>
-        <div class="mt-4 mx-3">
-        <a  :href=" selectedCity.descriptionLink" target="_blank"> <button class=" font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1">Click here for more info about the city </button></a>
-        </div>
-        <div class="mt-8">
-          <div class="bg-gray-400  px-4 py-5 sm:px-6">
-            <div class="flex space-x-3">
-              <div class="text-xl text-gray-900 font-bold"> Pricing:
-                <h4 class="text-lg font-medium text-gray-900 ">Hotel Prices</h4>
-                <p class="text-sm text-gray-900">Lowest Hotel Price: {{ lowestHotelPrice }}</p>
-                <p class="text-sm text-gray-900">Highest Hotel Price: {{ highestHotelPrice }}</p>
-
-                <h4 class="text-lg font-medium text-gray-900">Flight Prices</h4>
-                <p class="text-sm text-gray-900">Lowest Flight Price: ${{ lowestFlightPrice }}</p>
-                <p class="text-sm text-gray-900">Highest Flight Price: ${{ highestFlightPrice }}</p>
+                  <h4 class="text-lg font-medium text-gray-900">Flight Prices</h4>
+                  <p class="text-sm text-gray-900">Lowest Flight Price: ${{ lowestFlightPrice }}</p>
+                  <p class="text-sm text-gray-900">Highest Flight Price: ${{ highestFlightPrice }}</p>
+                </div>
               </div>
             </div>
+
+            <div class="mt-8">
+              <button @click="closeDetails"
+                      class="block py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700">
+                Close Details
+              </button>
+            </div>
+            <div class="mt-8">
+
+            </div>
           </div>
-        </div>
-        <div class="mt-8">
-          <button @click="closeDetails"
-                  class="block py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700">
-            Close Details
-          </button>
+
         </div>
       </div>
     </div>
-  </div>
-  </div>
   </div>
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
@@ -162,12 +156,31 @@
           reserved.</p>
       </div>
     </div>
-
   </footer>
-
-
 </template>
+<script setup>
 
+import {onMounted, ref} from "vue";
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+
+
+const format = ref('dd MMMM yyyy');
+const departuredate = ref();
+const returndate = ref();
+const isLoggedIn = ref(false)
+let auth
+onMounted(() => {
+  auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      isLoggedIn.value = true;
+    } else {
+      isLoggedIn.value = false;
+    }
+  });
+
+});
+</script>
 <script>
 import {ref} from 'vue';
 import {database} from "@/main";
@@ -176,19 +189,10 @@ import moment from "moment";
 import axios from "axios";
 import { collection, query, doc, where, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-
+import 'vue3-simple-typeahead/dist/vue3-simple-typeahead.css';
 export default {
 
-  setup() {
-    const departuredate = ref();
-    const returndate = ref();
-    const format = ref('dd MMMM yyyy');
-    return {
-      departuredate,
-      returndate,
-      format,
-    }
-  },
+
   data() {
     return {
       cities: [],
