@@ -39,7 +39,6 @@
         <div class="mt-4 sm:mt-4">
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
             <div class="flex flex-1 flex-col col-span-2" >
-
               <input  v-model="leaving"
                       type="text"
                       name="leaving" id="leaving"
@@ -221,7 +220,7 @@ export default {
       leaving: '',
       going: '',
       searchResults: [],
-      FlightDetails:[],
+
       MultipleStops: [],
       searchQuery: '',
       date: '',
@@ -294,46 +293,13 @@ export default {
         options.params.returnDate =  moment(this.returnDate).format('YYYY-MM-DD');
       }
       axios.request(options).then(function (response) {
-        let entityId = response.data.data[0].id;
-        console.log(entityId);
-        self. getFlightDetails(entityId);
-      }).catch(function (error) {
-        console.error(error);
-      });
-    },
-    getFlightDetails(itineraryId){
-      let legsData =[ {"origin":this.leaving,"destination":this.going,"date": moment(this.Departure).format('YYYY-MM-DD')}];
-      if (this.option !== 'ONEWAY'){
-        legsData.push(
-            {"origin":this.going,"destination":this.leaving,"date": moment(this.returnDate).format('YYYY-MM-DD')}
-        );
-      }
-
-      const options = {
-        method: 'GET',
-        url: 'https://skyscanner50.p.rapidapi.com/api/v1/getFlightDetails',
-        params: {
-          itineraryId: itineraryId,
-          legs: legsData,
-          adults: this.adult,
-          currency: 'USD',
-          countryCode: 'US',
-          market: 'en-US'
-        },
-        headers: {
-          'X-RapidAPI-Key': '2756954a36mshd7f9836f6a3787bp186d1djsn79f785078e5b',
-          'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
-        }
-      };
-
-      axios.request(options).then(function (response) {
-        self.FlightDetails = response.data.data.flights;
+        self.flights = response.data.data;
       }).catch(function (error) {
         console.error(error);
       });
     },
     getMultipleStops() {
-      let legsData =[ {"origin":"LOND","destination":"NYCA","date":"2023-02-07"},{"origin":"NYCA","destination":"LAXA","date":"2023-02-13"},{"origin":"LAXA","destination":"LOND","date":"2023-02-18"}];
+      let legsData =[ {"origin":this.leaving,"destination":this.going,"date": moment(this.Departure).format('YYYY-MM-DD')}];
       // if (this.tabs[0].current !== true){
       //   legsData.push(
       //       {"origin":this.going,"destination":this.leaving,"date": moment(this.returnDate).format('YYYY-MM-DD')}
@@ -359,7 +325,7 @@ export default {
       };
 
       axios.request(options).then(function (response) {
-        self.MultipleStops = response.data.data.flights;
+        self.MultipleStops = response.data.data;
       }).catch(function (error) {
         console.error(error);
       });
