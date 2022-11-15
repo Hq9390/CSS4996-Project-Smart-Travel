@@ -85,6 +85,10 @@
                 <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
                   <img :src="city.images[0]" alt="" class="mx-auto h-190 w-200 flex-shrink-0 ">
                   <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
+                  <div class="text-sm flex w-full justify-center font-light " > Already been there?
+
+                    <a  class=" -ml-1 mr-2 h-5 w-5 text-gray-400" ><router-link to="/rating">Leave a review</router-link></a>
+                  </div>
                 </div>
                 <div v-if=" isLoggedIn">
 

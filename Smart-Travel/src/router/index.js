@@ -7,6 +7,7 @@ import LoginView from '../views/LoginView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ForgotPasswordView from '../views/ForgotPasswordView.vue'
 import StaysView from '../views/StaysView.vue'
+import RatingView from '../views/RatingView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,6 +53,11 @@ const router = createRouter({
       name: 'forgot-password',
       component: ForgotPasswordView
     },
+    {
+      path: '/rating',
+      name: 'rating',
+      component: RatingView
+    }
   ]
 })
 
