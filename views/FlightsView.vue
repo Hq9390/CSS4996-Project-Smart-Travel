@@ -3,7 +3,7 @@
   <div class="bg-white">
     <div class="mx-auto max-w-6xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
       <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">Find a Flight</h2>
-      <form action="#" class="text-center ">
+      <form action="#" @submit.prevent = "addNewSearch" class="text-center ">
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
 
           <div class="sm:col-span-1">
@@ -53,18 +53,44 @@
 
       </form>
 
+      <div class="bg-gray-200">
+        <div class="mt-8">
+          <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
+            <div v-if="selectedFlight == null">
 
-      <div class="sm:col-span-4">
-        <div class="mt-1">
-          <label for="filter" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Filter</label>
-          <select id="filter" class="bg-gray-50 border border-gray-600 text-gray-900 text-sm rounded-lg focus:ring-blue-400 focus:border-blue-400 block w-full p-2.5 dark:bg-gray-500 dark:border-gray-300 dark:placeholder-gray-200 dark:text-white dark:focus:ring-blue-400 dark:focus:border-blue-400">
-            <option selected>-None-</option>
-            <option value="PL">Price Low to High</option>
-            <option value="PH">Price High to Low</option>
-          </select>
+
+              <ul v-show="flights.length" role="list">
+                <Disclosure as="section" aria-labelledby="filter-heading" class="grid items-center border-t border-b border-gray-200">
+                  <h2 id="filter-heading" class="sr-only">Filters</h2>
+
+
+                  <div class="col-start-1 row-start-1 py-4">
+                    <div class="mx-auto flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
+                      <Menu as="div" class="relative inline-block">
+
+                        <div enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+                          <label for="orderBy" class="block  px-14 w-full text-sm font-medium border-0 border-b-2 text-gray-700">Sort By</label>
+                          <select id="orderBy" name="orderBy" v-model="orderBy"  @input="orderBySelected"
+                                  class=" text-sm font-medium text-gray-700  block py-2 px-7 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 ">
+
+                            <option class="text-sm font-medium text-gray-700" value="PH">Price Ascending</option>
+                            <option class="text-sm font-medium text-gray-700" value="PL">price Descending</option>
+
+                          </select>
+
+
+                        </div>
+                      </Menu>
+                    </div>
+                  </div>
+                </Disclosure>
+              </ul>
+            </div>
+            </div>
         </div>
       </div>
-
+                <div class="min-w-0 flex-1 text-sm">
+                </div>
       <div class="sm:col-span-1">
         <div class="mt-1">
           <label for="Search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Search</label>
@@ -82,46 +108,46 @@
       <div class="w-40 h-40 shadow-md bg-white px-1 absolute block mb-1 text-sm rounded-sm font-medium text-gray-900 dark:text-gray-400">
 
         <div class="flex justify-left">
-          <div>
-            <label class="inline-block lock w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"> Airlines </label>
-            <div class="form-check">
-              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected">Delta
-              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">
+<!--          <div>-->
+<!--            <label class="inline-block lock w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"> Airlines </label>-->
+<!--            <div class="form-check">-->
+<!--              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected">Delta-->
+<!--              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">-->
 
-              </label>
-            </div>
+<!--              </label>-->
+<!--            </div>-->
 
-            <div class="form-check">
-              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected"> SouthWest
-              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">
+<!--            <div class="form-check">-->
+<!--              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected"> SouthWest-->
+<!--              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">-->
 
-              </label>
-            </div>
+<!--              </label>-->
+<!--            </div>-->
 
-            <div class="form-check">
-              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected"> Spirit
-              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">
+<!--            <div class="form-check">-->
+<!--              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected"> Spirit-->
+<!--              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">-->
 
-              </label>
-            </div>
+<!--              </label>-->
+<!--            </div>-->
 
-            <div class="form-check">
-              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected" >United Airlines
-              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">
+<!--            <div class="form-check">-->
+<!--              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected" >United Airlines-->
+<!--              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">-->
 
-              </label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected"> American Airlines
-              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">
+<!--              </label>-->
+<!--            </div>-->
+<!--            <div class="form-check">-->
+<!--              <input class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-left bg-contain float-left mr-2 cursor-pointer" type="checkbox" value="" id="flexCheckIndeterminate" v-model="selected"> American Airlines-->
+<!--              <label class="form-check-label inline-block text-gray-800" for="flexCheckIndeterminate">-->
 
-              </label>
+<!--              </label>-->
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
+<!--    </div>-->
+<!--  </div>-->
 
 
 
@@ -187,10 +213,20 @@
 import { ref } from 'vue';
 import axios from "axios";
 import moment from 'moment';
+// import {addDoc, collection} from "firebase/firestore";
+// import { database } from "@/main";
 export default {
   setup() {
     const Departure = ref();
     const format = ref('yyyy-MM-dd');
+
+    // const addNewSearch = () => {
+    //
+    //   addDoc(collection(database, "mostRated"),
+    //       {
+    //         outgoingCity: going.value
+    //       })
+    // }
     return {
       Departure,
       format,
@@ -201,12 +237,17 @@ export default {
       leaving: '',
       going: '',
       searchResults: [],
+      flightFilters:[],
+      flightPrice:[],
       searchQuery: '',
       date: '',
       adult: 1,
       flights: [],
       detailOpen: false,
       selectedFlight: null,
+      maxFlightPrice: null,
+      minFlightPrice: null,
+      orderBy: '',
     };
   },
   filters:{
@@ -214,21 +255,45 @@ export default {
       return moment(input).format('YYYY-MM-DD')
     }
   },
-  computed: {
-    filterNames: function (){
-      return this.filterFlightByNameDelta(this.filterFlightByNameSouthWest(this.filterFlightByNameSpirit(this.filterFlightByNameUnitedAirlines(this.filterFlightByNameAmericanAirlines()))))
-    }
-  },
+  // computed: {
+  //   filterNames: function (){
+  //     return this.filterFlightByNameDelta(this.filterFlightByNameSouthWest(this.filterFlightByNameSpirit(this.filterFlightByNameUnitedAirlines(this.filterFlightByNameAmericanAirlines()))))
+  //   }
+  // },
   methods: {
+    orderBySelected(event){
+      this.orderBy = event.target.value;
+      if(event.target.value === 'PL') {
+        console.log('sorting by price ascending')
+        this.flights.sort((a, b) => (this.cleanNumber(a.price) > this.cleanNumber(b.price)) ? 1 : -1)
+      }
+      if(event.target.value === 'PH') {
+        console.log('sorting by price descending')
+        this.flights.sort((a, b) => (this.cleanNumber(a.price) < this.cleanNumber(b.price)) ? 1 : -1)
+      }
+    },
+    cleanNumber(value) {
+      if(value) {
+        value = value.replace("$", "");
+        value = value.replace(",", "");
+        return parseInt(value);
+      }
+      console.log('something went seriously wrong here');
+      return 0;
+    } ,
     closeDetails() {
       this.selectedFlight = null;
+      this.flightFilters = null;
+      this.flightPrice = null;
       let datetest = moment(this.date).format('YYYY-MM-DD');
       console.log(datetest);
     },
     openDetails(flight) {
       console.log('selected');
       this.selectedFlight = flight;
+      this.getHotelFilters(flight.flights);
     },
+
     // filterFlightByNameDelta: function (flights) {
     //   return.flights.filter(flight => !flight.Delta.toLowerCase().indexOf(this.Delta.toLowerCase()))
     // },
@@ -265,11 +330,14 @@ export default {
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
         }
       }
+
       axios.request(options).then(function (response) {
         self.flights = response.data.data;
       }).catch(function (error) {
         console.error(error);
       });
+
+
     }
   }
 }

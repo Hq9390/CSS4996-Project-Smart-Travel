@@ -35,7 +35,7 @@
 
             <div class="text-sm flex w-full justify-center font-light " > Already have an account??
 
-              <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/login">Sign in here</router-link></a>
+              <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/login"> Sign in here</router-link></a>
             </div>
           </div>
 

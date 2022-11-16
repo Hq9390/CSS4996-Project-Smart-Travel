@@ -1,11 +1,10 @@
 <template>
 
   <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
-    <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">City Recommendations</h2>
+    <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900 block mb-12">City Recommendations</h2>
     <form action="#" class="text-center">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <div class="flex flex-1 flex-col">
-
           <label for="city" class="text-sm font-medium text-gray-700">Enter your departure airport</label>
           <input type="text" v-model="travelingFrom" name="airport" id="city" autocomplete="city"
                  class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"/>
@@ -14,17 +13,15 @@
           <label for="cities" class="text-sm font-medium text-gray-700">Choose the city type</label>
           <select id="cities" v-model="cityType"
                   class="block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400">
-
             <option value="D">Downtown</option>
             <option value="H">Historical</option>
             <option value="B">Beach</option>
           </select>
-
         </div>
+
+
         <div class="flex flex-1 flex-col">
-
           <label for="date" class="text-sm font-medium text-gray-700">Enter your departure date</label>
-
           <datepicker
               v-model="departuredate "
               class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
@@ -44,11 +41,13 @@
           />
         </div>
       </div>
+
+
+
+
       <div class="mt-4">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
           <div class="flex flex-1 flex-col items-center">
-
-
             <button @click.prevent="queryDb"
                     class=" block w-1/5 py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700">
               Search
@@ -57,8 +56,11 @@
         </div>
       </div>
 
+
     </form>
   </div>
+
+
   <div class="bg-gray-200">
     <div class="mt-6">
       <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
@@ -77,10 +79,16 @@
         </div>
       </div>
 
-      <div class="text-sm flex w-full justify-center font-light " > Already been there?
 
+
+
+      <div class="text-sm flex w-full justify-center font-light " > Already been there?
         <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/rating">Leave a review</router-link></a>
       </div>
+
+      <div class="text-sm flex w-full justify-center font-light " > Recent Reviews
+      </div>
+
 
       <div v-if="selectedCity != null">
         <h1 class="mt-6 text-xl  text-gray-900 font-bold mx-3">{{ selectedCity.city_name }}</h1>
@@ -121,6 +129,13 @@
     </div>
   </div>
 
+  <div class="card">
+    <div class="card-content">
+      <div class ="content is-vcentered">
+        reviews
+      </div>
+    </div>
+  </div>
 
 
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
@@ -144,8 +159,9 @@
 </template>
 
 <script>
-import {ref} from 'vue';
 import {database} from "@/main";
+import {onMounted, ref} from "vue";
+import { collection, onSnapshot } from "firebase/firestore"
 //import firebase from "firebase/compat/app";
 import moment from "moment";
 import axios from "axios";
@@ -154,12 +170,14 @@ export default {
     const departuredate = ref();
     const returndate = ref();
     const format = ref('dd MMMM yyyy');
+
     return {
       departuredate,
       returndate,
       format,
     }
   },
+
   data() {
     return {
       cities: [],
@@ -175,6 +193,7 @@ export default {
       highestFlightPrice: 0,
     }
   },
+
   methods: {
     closeDetails() {
       this.selectedCity = null;
@@ -225,6 +244,8 @@ export default {
         console.error(error);
       });
     },
+
+
     getHotels() {
       let self = this;
       // const axios = require("axios");
@@ -237,6 +258,22 @@ export default {
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
         }
       };
+      const surveys = ref([])
+
+      onMounted(async () => {
+        onSnapshot(collection(database,"Ratings"), (querySnapshot) =>{
+          const fbRatings = []
+          querySnapshot.forEach((doc) =>{
+            const rating = {
+              city: doc.data().city,
+              comments: doc.data().comments
+            }
+            fbRatings.push(rating)
+          })
+          surveys.value = fbRatings
+        })
+      }),
+
       axios.request(options).then(function (response) {
         let entityId = response.data.data[0].entityId;
         let hotelOptions = {
@@ -284,7 +321,9 @@ export default {
       })
       // let recommendations = (await database.collection('recommendation').get()).docs;
       // console.log(recommendations.get());
-    }
+    },
+
+
   }
 }
 </script>

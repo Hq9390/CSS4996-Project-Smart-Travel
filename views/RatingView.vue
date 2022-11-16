@@ -2,39 +2,39 @@
   <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div class="mt-6 space-y-8 ">
-        <h2 class="text-2xl font-bold flex w-full justify-center  text-indigo-900">Leave a Rating</h2>
-        <form action="#"  @submit.prevent="submit"  class="space-y-8">
+        <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900">Leave a Rating</h2>
+        <form action="#"  @submit.prevent="addSurvey"  class="space-y-8">
           <div>
             <label for="city" class=" block text-sm font-medium text-gray-700" >What city did you visit?</label>
             <div class="mt-1">
-              <li v-for = "city of cities" :key="city.cities">
-                {{city.ratings}}
+              <li v-for = "survey in surveys" :key="survey.city">
+                {{survey.city}}
               </li>
-              <input v-model="stars" id="stars" name="stars" type="text" autocomplete="stars" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input v-model="newCity" id="cities" name="cities" type="text" autocomplete="cities" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
 
           <div>
             <label for="stars" class=" block text-sm font-medium text-gray-700" >Enter the Number of Stars 1-5 you would rate your trip</label>
             <div class="mt-1">
-              <li v-for = "star of stars" :key="star.stars">
-                {{star.ratings}}
+              <li v-for = "survey in surveys" :key="survey.stars">
+                {{survey.stars}}
               </li>
-              <input v-model="stars" id="stars" name="stars" type="text" autocomplete="stars" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input v-model="newStarAmount" id="stars" name="stars" type="text" autocomplete="stars" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
 
           <div class="space-y-1">
             <label for="comment" class=" block text-sm font-medium text-gray-700">Enter a Comment about the trip</label>
             <div class="mt-1">
-              <li v-for = "comment of comments" :key="comment.comments">
-                {{comment.ratings}}
+              <li v-for = "survey in surveys" :key="survey.comments">
+                {{survey.comments}}
               </li>
-              <input  v-model="comments" id="comments" name="comments" type="comments" autocomplete="comments" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input  v-model="newComment" id="comments" name="comments" type="comments" autocomplete="comments" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
           <div>
-            <button @click="addRating()" type="submit" value="submit" class="flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
+            <button @click="submit" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
           </div>
         </form>
         <div class="mt-6">
@@ -47,6 +47,8 @@
       </div>
     </div>
   </div>
+
+
 
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
@@ -67,67 +69,46 @@
 
 </template>
 
-<script>
-import axios from "axios";
-export default {
-  data() {
-    return {
-      ratings: [],
-    }
-  },
-async created(){
-    try{
-      const res = await axios.get('http://localhost:3000/ratings');
-      this.rating = res.info;
-    } catch(error) {
-      console.log(error);
-    }
-},
+<script setup>
 
-  // head:{
-  //   title: function(){
-  //     return{
-  //       inner: this.title
-  //     }
-  //   }
-  // },
+import {ref} from "vue";
+import { database } from "@/main";
+import { collection, addDoc } from "firebase/firestore"
 
-   methods:{
-  async addStars() {
-    const res = await axios.post('http://localhost:3000/ratings', {
-      name: this.ratingStars,
-    });
-    this.ratings = [...this.rating, res.info];
-    this.ratingStars = "";
+const surveys =ref([]);
+const newCity = ref('');
+const newStarAmount = ref('');
+const newComment = ref('');
+const errMsg = ref();
 
-   // async addComments()
-   //  {
-   //    const res = await axios.post('http://localhost:3000/ratings', {
-   //      name: this.ratingComments,
-   //    });
-   //    this.ratings = [...this.rating, res.info];
-   //    this.ratingComments = "";
+const addSurvey = () => {
 
-//     talk() {
-//       var user = this.rating;
-//       document.getElementById('consoleLog').innerHTML += user + "<br>";
-//       if (user != ''){
-//         if(user in this.file){
-//           document.getElementById('consoleLog').innerHTML += this.file[0][user] + "<br>" + "<br>";
-//         }
-//         else{
-//           document.getElementById('consoleLog').innerHTML += 'unable to collect ratings <br>' + '<br>';
-//         }
-//       }
-//       console.log(this.rating);
-//       this.rating = '';
-//       const consoleLogDiv = this.$ref.scroll;
-//
-//       consoleLogDiv.scrollTop = consoleLogDiv.scrollHeight
+  addDoc(collection( database,"Ratings"),
+  { city: newCity.value,
+    stars: newStarAmount.value,
+    comments: newComment.value
 
-    },
-   },
- };
+  })
+      .catch((error) => {
+        console.log(error.code);
+        switch (error.code) {
+          case "firestore/No entry in field":
+            errMsg.value = "Please enter something into the field";
+            console.log('No entry in field')
+            break;
+          case "firestore/Not a number":
+            errMsg.value = "Please enter a number";
+            console.log('Not a number')
+            break;
+        }
+      });
+
+  newCity.value = ''
+  newStarAmount.value = ''
+  newComment.value = ''
+}
+
+
 
 
 </script>
