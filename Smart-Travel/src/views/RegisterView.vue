@@ -53,8 +53,10 @@
 
 <script setup>
 import { getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import {doc,addDoc, collection,setDoc } from "firebase/firestore";
 import {ref} from "vue";
 import router from "@/router";
+import {database} from "@/main";
 const auth = getAuth();
 const email = ref("");
 const name = ref("");
@@ -67,10 +69,14 @@ const register = () => {
 
    const user = userCredential.user;
    if (user) {
-     updateProfile(auth.currentUser, {
+     database.collection("users").doc(user.email).set({
        displayName: name.value,
-       photoURL: ''
-     })
+       email: email.value,
+     }, {merge: true})
+         .then(() => {
+           console.log("Document successfully written!");
+         })
+
    }
     console.log('Successfully Registered')
     router.push("/");

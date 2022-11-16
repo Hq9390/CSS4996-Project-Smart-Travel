@@ -26,32 +26,47 @@
       </div>
 
       <div class="mt-4">
-<!--        <vue3-simple-typeahead-->
-<!--            id="typeahead_id"-->
 
-<!--            :items="[{name: 'New York'},{name: 'Florida'},{name: 'Detroit'},{name: 'Las Vegas'},-->
-<!--              {name: 'Los Angeles'},{name: 'Istanbul'},{name: 'Phoenix Arizona'},-->
-<!--              {name: 'Atlanta'},{name: 'Florida'},-->
-<!--              {name:'Cambridge Bay'}, {name:'Windsor'},{name:'New York'}-->
-<!--              ]"-->
-<!--            :minInputLength="1"-->
-<!--            :itemProjection="projection"-->
-<!--            class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "-->
-<!--            @selectItem="citySelected"-->
-<!--            @onInput="updateCurrentOptions"-->
-<!--            placeholder="Going to"-->
-
-<!--        >-->
-<!--        </vue3-simple-typeahead>-->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <div class="flex flex-1 flex-col col-span-2">
-            <input v-model="location"
-                   @input="getLocationResult"
-                   type="text"
-                   name="location" id="location"
-                   class="block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-                   placeholder="Going to"
-            />
+            <vue3-simple-typeahead
+                id="typeahead_id"
+
+                :items="[{name: 'New York, United States','code': 'New York'},{name: 'Nevada, United States','code': 'Nevada'},
+                {name: 'Detroit, United States','code': 'Detroit'},{name: 'Las Vegas,Nevada, United States','code': 'Las Vegas'},
+              {name: 'Los Angeles, California, United States','code': 'Los Angeles'},{name: 'Istanbul, Turkey','code': 'Istanbul'},
+              {name: 'Arizona,United States','code': 'Arizona'},
+              {name: 'Atlanta,Georgia,United States','code': 'Atlanta'},{name: 'Florida,United States','code': 'Florida'},
+              {name:'Cambridge Bay, Canada','code': 'Cambridge Bay'},
+              {name:'Windsor, Canada','code': 'Windsor'},{name:'Texas, United States ','code': 'Texas'},{name:'Ohio, United States','code': 'Ohio'},
+              {name:'Cancun, Mexico','code': 'Cancun'},{name:'Hawaii, United States','code': 'Hawaii'},{name:'Miami, Florida, United States','code': 'Miami'},
+              {name:'London','code': 'London'},{name:'Amsterdam','code': 'Amsterdam'},{name:'Kuwait, Kuwait','code': 'Kuwait'},
+              {name:'Boston, Massachusetts, United States','code': 'Boston'},{name:'Orlando, Florida, United States','code': 'Orlando'},
+              {name:'San Francisco, California, United States','code': 'San Francisco'},
+              {name:'Washington, D.C., United States','code': 'Washington, D.C.'},{name:'Sydney, Australia','code': 'Sydney'},
+              {name:'Houston, Texas, United States','code': 'Houston'},
+              {name:'Jaipur, India','code': 'Jaipur'},{name:'New Orleans,Louisiana, United States','code': 'New Orleans'}
+              ,{name:'Paris, France','code': 'Paris'},{name:'Savannah, Georgia, United States','Savannah': 'Savannah'},
+              {name:'Florence, Italy','code': 'Florence'},
+              {name:'Hong Kong, China','code': 'Hong Kong'},{name:'Rio de Janeiro, Brazil','code': 'Rio de Janeiro'},
+              {name:'Charleston, South Carolina, United States','code': 'Charleston'},{name:'Lisbon, Portugal','code': 'Lisbon'},
+              {name:'Cairo, Egypt','code': 'Cairo'},{name:'Berlin, Germany','code': 'Berlin'}
+              ]"
+                :minInputLength="1"
+                :itemProjection="projection"
+                class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
+                @selectItem="locationSelected"
+                placeholder="Going to"
+
+            >
+            </vue3-simple-typeahead>
+<!--            <input v-model="location"-->
+<!--                   @input="getLocationResult"-->
+<!--                   type="text"-->
+<!--                   name="location" id="location"-->
+<!--                   class="block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"-->
+<!--                   placeholder="Going to"-->
+<!--            />-->
           </div>
           <div class="flex flex-1 flex-col">
             <datepicker
@@ -275,6 +290,7 @@ const reviews = [
 import {ref} from 'vue';
 import axios from "axios";
 import moment from 'moment';
+import 'vue3-simple-typeahead/dist/vue3-simple-typeahead.css';
 
 export default {
   // setup() {
@@ -310,6 +326,14 @@ export default {
   },
 
   methods: {
+    projection(value) {
+
+      return value.name
+    },
+    locationSelected(value){
+      this.location = value.code;
+    },
+
     orderBySelected(event){
       this.orderBy = event.target.value;
 

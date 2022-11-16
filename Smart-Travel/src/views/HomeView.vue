@@ -12,13 +12,15 @@
               :items="[{name: 'New York(JFK)', 'code': 'JFK'},{name: 'Florida(MCO)', 'code': 'MCO'},{name: 'Detroit(DTW)', 'code': 'DTW'},{name: 'Las Vegas(LAS)', 'code': 'LAS'},
               {name: 'Los Angeles(LAX)', 'code': 'LAX'},{name: 'Istanbul(IST)', 'code': 'IST'},{name: 'Phoenix Arizon(PHX)', 'code': 'PHX'},
               {name: 'Atlanta', 'code': 'ATL'},{name: 'Florida', 'code': 'FLL'},
-              {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},{name:'New York(JFK)', 'code': 'JFK'}
+              {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},{name:'New York(JFK)', 'code': 'JFK'},{name:'Barcelona(BCN)', 'code': 'BCN'}
+              ,{name:'ROME(FCO)', 'code': 'FCO'}
+
               ]"
               :minInputLength="1"
               :itemProjection="projection"
               class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
               @selectItem="airportSelected"
-              @onInput="updateCurrentOptions"
+
 
           >
           </vue3-simple-typeahead>
@@ -226,44 +228,7 @@ export default {
     airportSelected(value){
       this.travelingFrom = value.code;
     },
-    updateCurrentOptions(value){
-      const uri = '';
 
-      const options = {
-        method: 'POST',
-        url: 'https://www.air-port-codes.com/api/v1/autocomplete',
-        data: {key: 'term', value : 'new york'},
-        headers: {
-          "Referer": "https://www.google.com/",
-          "Referrer-Policy": "strict-origin-when-cross-origin",
-
-
-          'APC-Auth': '2d392726d7',
-        }
-      };
-
-      // axios.request(options).then(function (response) {
-      //   console.log(response.data);
-      // }).catch(function (error) {
-      //   console.error(error);
-      // });
-
-
-    },
-    validateSelection(selection) {
-      this.travelingFrom = selection.IATA;
-      console.log(selection.name+' has been selected');
-    },
-    getDropdownValues(keyword) {
-
-      let url = "https://airlabs.co/api/v9/suggest?q="+ keyword+ "&api_key=3e3da33c-a4ed-4ced-900a-92db4a73b0e6\n"
-      axios.get(url, {})
-          .then(function (response) {
-            console.log(response.data.airports_by_cities);
-          })
-
-      // console.log('You could refresh options by querying the API with '+keyword);
-    },
 
     unsave(city) {
 
