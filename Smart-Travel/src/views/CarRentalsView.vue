@@ -1,7 +1,7 @@
 <template>
 
   <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
-    <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900 block mb-12">Find a Car Rental</h2>
+  <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900 block mb-12">Find a Car Rental</h2>
     <form action="#" class="text-center">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
 

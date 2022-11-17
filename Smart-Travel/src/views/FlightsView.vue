@@ -2,7 +2,7 @@
 
 
   <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
-
+    <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900 block mb-12">Find a Flight</h2>
     <div class="mt-6 sm:mt-2 2xl:mt-5">
       <div class="border-b border-gray-200">
         <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">

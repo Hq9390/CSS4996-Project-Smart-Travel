@@ -1,7 +1,7 @@
 <template>
 
   <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
-
+    <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900 block mb-12">Recommended Cities Based on Preference </h2>
     <form action="#" class="text-center">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <div class="flex flex-1 flex-col">
@@ -11,7 +11,7 @@
 
               :items="[{name: 'New York(JFK)', 'code': 'JFK'},{name: 'Florida(MCO)', 'code': 'MCO'},{name: 'Detroit(DTW)', 'code': 'DTW'},{name: 'Las Vegas(LAS)', 'code': 'LAS'},
               {name: 'Los Angeles(LAX)', 'code': 'LAX'},{name: 'Istanbul(IST)', 'code': 'IST'},{name: 'Phoenix Arizon(PHX)', 'code': 'PHX'},
-              {name: 'Atlanta', 'code': 'ATL'},{name: 'Florida', 'code': 'FLL'},
+              {name: 'Atlanta', 'code': 'ATL'},
               {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},{name:'New York(JFK)', 'code': 'JFK'}
               ]"
               :minInputLength="1"
@@ -85,10 +85,10 @@
                 <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
                   <img :src="city.images[0]" alt="" class="mx-auto h-190 w-200 flex-shrink-0 ">
                   <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
-                  <div class="text-sm flex w-full justify-center font-light " > Already been there?
 
-                    <a  class=" -ml-1 mr-2 h-5 w-5 text-gray-400" ><router-link to="/rating">Leave a review</router-link></a>
-                  </div>
+<div>
+                    <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1" ><router-link to="/rating">Leave a review if you already visited this city</router-link></a>
+</div>
                 </div>
                 <div v-if=" isLoggedIn">
 
@@ -109,8 +109,10 @@
           <div class=" mx-3 h-full w-full object-cover object-center lg:h-full lg:w-full">
           <img :src="image" alt=""
                class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+
           </div>
         </span>
+
           </div>
           <h2 class=" mt-6 mx-3 text-base text-gray-900">{{ selectedCity.description }}</h2>
           <div class="mt-4 mx-3">

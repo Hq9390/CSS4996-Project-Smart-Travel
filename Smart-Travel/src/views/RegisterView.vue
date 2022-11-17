@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="text-gray-900 text-sm">
-          <p v-if="errMsg"> {{errMsg}} </p>
+            <p v-if="errMsg"> {{errMsg}} </p>
           </div>
 
           <div class="flex items-center justify-between">
@@ -45,16 +45,18 @@
           </div>
         </form>
       </div>
-      </div>
     </div>
+  </div>
 
 
 </template>
 
 <script setup>
 import { getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
+import {doc,addDoc, collection,setDoc } from "firebase/firestore";
 import {ref} from "vue";
 import router from "@/router";
+import {database} from "@/main";
 const auth = getAuth();
 const email = ref("");
 const name = ref("");
@@ -63,41 +65,44 @@ const errMsg = ref()
 const register = () => {
 
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
- .then((userCredential) => {
+    .then((userCredential) => {
 
-   const user = userCredential.user;
-   if (user) {
-     updateProfile(auth.currentUser, {
-       displayName: name.value,
-       photoURL: ''
-     })
-   }
-    console.log('Successfully Registered')
-    router.push("/");
+      const user = userCredential.user;
+      if (user) {
+        database.collection("users").doc(user.email).set({
+          displayName: name.value,
+          email: email.value,
+        }, {merge: true})
+          .then(() => {
+            console.log("Document successfully written!");
+          })
 
-  })
-      .catch((error) => {
-        console.log(error.code);
-        switch (error.code) {
-          case "auth/email-already-in-use":
-            errMsg.value = "email already in use";
-            console.log('email already in-use')
-            break;
-          case "auth/invalid-email":
-            errMsg.value = "invalid email";
-            console.log('invalid email')
-            break;
-          case "auth/weak-password":
-            errMsg.value = "weak password";
-            console.log('weak password')
-            break;
+      }
+      console.log('Successfully Registered')
+      router.push("/");
 
-        }
-      });
+    })
+    .catch((error) => {
+      console.log(error.code);
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          errMsg.value = "email already in use";
+          console.log('email already in-use')
+          break;
+        case "auth/invalid-email":
+          errMsg.value = "invalid email";
+          console.log('invalid email')
+          break;
+        case "auth/weak-password":
+          errMsg.value = "weak password";
+          console.log('weak password')
+          break;
+
+      }
+    });
 };
 
 
 
 
 </script>
-
