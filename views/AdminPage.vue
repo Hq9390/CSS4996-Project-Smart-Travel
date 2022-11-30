@@ -20,7 +20,6 @@
               <li v-for = "survey in surveys" :key="survey.city_name">
                 {{survey.city_name}}
               </li>
-              <input v-model ="docName" id="docName" name="docName" type="text" autocomplete="docName" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
               <input v-model="newCityName" id="city_name" name="city_name" type="text" autocomplete="city_name" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
@@ -135,7 +134,7 @@
 
 import {ref} from "vue";
 import { database } from "@/main";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore"
+import { collection, addDoc } from "firebase/firestore"
 
 const surveys =ref([]);
 const newDescriptionLink = ref('')
@@ -143,22 +142,18 @@ const newAirport = ref('');
 const newCityName = ref('');
 const newDescription = ref('');
 // const newSave = ref ('');
-const docName = ref('');
 // const newImage = ref ([this.photo1]);
 const photo1 = ref ('');
 const photo2 = ref('');
 const photo3 = ref('');
 const type1 = ref('');
 // const newType = ref([]);
-const errMsg = ref()
-
+const errMsg = ref();
 
 const addSurvey = () => {
-const name = this.docName;
-  // addDoc(collection( database,"recommendation", "docName.value"),
-  const docName = doc(database, "recommendation", "name");
-  setDoc(docName,
-  { airport_code: newAirport.value,
+
+  addDoc(collection( database,"recommendation"),
+      { airport_code: newAirport.value,
         city_name: newCityName.value,
         description: newDescription.value,
         descriptionLink: newDescriptionLink.value,
