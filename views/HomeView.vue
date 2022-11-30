@@ -2,7 +2,7 @@
 
   <div class="  mx-auto max-w-6xl py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
 
-    <form action="#" class="text-center ">
+    <form action="#" @submit.prevent="addSearch" class="text-center ">
       <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
         <div class="sm:col-span-1">
           <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
@@ -45,6 +45,10 @@
         <!--        </vue3-simple-typeahead>-->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <div class="flex flex-1 flex-col col-span-2">
+            <li v-for = "survey in surveys" :key="survey.search">
+              {{survey.search}}
+            </li>
+            <input v-model="newLocation" type="text" name="newLocation" id="newLocation"/>
             <input v-model="location"
                    @input="getLocationResult"
                    type="text"
@@ -52,6 +56,7 @@
                    class="block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
                    placeholder="Going to"
             />
+
           </div>
           <div class="flex flex-1 flex-col">
             <datepicker
@@ -72,7 +77,7 @@
             />
           </div>
           <div class="flex flex-1 flex-col">
-            <button @click.prevent="getSearchResults()" value="submit"
+            <button @click.prevent="getSearchResults()"  value="submit"
                     class=" col-span-1 w-1/2 block py-2 p-4 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm  font-medium text-white shadow-sm hover:bg-indigo-700 ">
               Search
             </button>
@@ -149,6 +154,7 @@
                             class="inline-flex items-center rounded-md border border-transparent bg-indigo-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             @click.prevent="openDetails(hotel)">Details
                     </button>
+
                   </div>
                 </div>
               </li>
@@ -193,6 +199,7 @@
               <img :src="image" alt=""
                    class="h-full w-full object-cover object-center lg:h-full lg:w-full"
               />
+
               </div>
             </span>
 
@@ -220,6 +227,9 @@
                           </a>
                         </div>
                       </div>
+                    </div>
+                    <div class="text-sm flex w-full justify-center font-light " > Already been there?
+                      <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/hotelRating">Leave a review</router-link></a>
                     </div>
                     <div class="mt-10">
                       <!--                    <button type="button"-->
@@ -255,21 +265,33 @@
   </footer>
 </template>
 <script setup>
+import {ref} from "vue";
 import {StarIcon} from '@heroicons/vue/20/solid'
 import {ChevronRightIcon} from '@heroicons/vue/20/solid'
 import { ChevronDoubleRightIcon } from "@heroicons/vue/20/solid"
+import { database } from "@/main";
+import {addDoc, collection} from "firebase/firestore";
 const CheckIn = ref();
+const surveys = ref([]);
 const CheckOut = ref();
+const newLocation = ref('');
 const format = ref('yyyy-MM-dd');
-const reviews = [
-  {
-    rating: 5,
-  },
-  // More reviews...
-]
+
+const addSearch = () => {
+  addDoc(collection(database, "PopularLocations"),
+      {search: newLocation.value
+      })
+};
+newLocation.value = '';
+// const reviews = [
+//   {
+//     rating: 5,
+//   },
+//   // More reviews...
+// ]
 </script>
 <script>
-import {ref} from 'vue';
+// import {ref} from 'vue';
 import axios from "axios";
 import moment from 'moment';
 export default {
@@ -285,6 +307,7 @@ export default {
   //     format,
   //   };
   // },
+
   data() {
     return {
       hover: false,
@@ -324,6 +347,8 @@ export default {
         this.hotels.sort((a, b) => (a.stars < b.stars) ? 1 : -1)
       }
     },
+
+
     cleanNumber(value) {
       if(value) {
         value = value.replace("$", "");
@@ -423,6 +448,7 @@ export default {
         console.error(error);
       });
     },
+
     getHotelsDetails(hotelId) {
       let self = this;
       console.log('called');
@@ -466,7 +492,15 @@ export default {
       }).catch(function (error) {
         console.error(error);
       });
+
+
     }
+
   }
+
+
 }
+
+
+
 </script>

@@ -148,7 +148,9 @@
       </div>
 <!--    </div>-->
 <!--  </div>-->
-
+  <div class="text-sm flex w-full justify-center font-light " > Already been there?
+    <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/flightRating">Leave a review</router-link></a>
+  </div>
 
 
   <div v-if="selectedFlight == null" >
@@ -159,6 +161,8 @@
 
         <div class="flex  flex-col  overflow-hidden
           bg-white rounded-lg shadow-2xl  mt-4 w-100 mx-2">
+          class="text-sm flex w-full justify-center font-light " > Already been there?
+          <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/flightRating">Leave a review</router-link></a>
           <button type="button" @click="openDetails(flight)">
 
             <div class=" mx-3 flow-root">
