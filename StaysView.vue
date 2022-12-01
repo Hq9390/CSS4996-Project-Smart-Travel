@@ -148,6 +148,11 @@
                 </div>
                 <div class="w-full py-4 px-5 text-gray-800 flex flex-col justify-between">
                   <span class="sr-only">View details for {{ hotel.name }}</span>
+                  <div class="flex items-center">
+                    <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating"
+                              :class="[hotel.stars > rating ? 'text-yellow-400' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']"
+                              aria-hidden="true"/>
+                              </div>
                   <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
                   <div class="flex items-center">
 
@@ -160,12 +165,10 @@
                     <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p></div>
 
                   <!--            <p class="text-xs text-gray-600">{{ hotel.translations.beach }} </p>-->
+                    
                   <div class="text-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
-                  <div class="flex items-center">
-                    <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating"
-                              :class="[hotel.stars > rating ? 'text-yellow-400' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']"
-                              aria-hidden="true"/>
-                  </div>
+                
+                  
                   <div>
                     <button type="button"
                             class="inline-flex items-center rounded-md border border-transparent bg-indigo-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
