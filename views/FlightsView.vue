@@ -195,7 +195,7 @@
     </div>
   </div>
   <div class="text-sm flex w-full justify-center font-light " > Used this Airline?
-    <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/hotelRating">Leave a review</router-link></a>
+    <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/flightRating">Leave a review</router-link></a>
   </div>
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
@@ -329,7 +329,6 @@ export default {
     newNumber(value) {
       if(value) {
         value = value.replace("$", "");
-        value = value.replace(",", "");
         return toString(value);
       }
       console.log('something went seriously wrong here');

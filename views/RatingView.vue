@@ -49,29 +49,29 @@
             <button @click="say('Thanks for the submission')" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
           </div>
         </form>
-        <div
-          v-for="review in reviews"
-          :key="review.data"
-          >
-          <div class="carousel-content is-mobile">
-            <div class="column">
-              <label> User's Country: </label>
-              {{ review.country}}
-            </div>
-            <div class="column">
-              <label> City Visited: </label>
-              {{ review.city}}
-            </div>
-            <div class="column">
-              <label> User's rating of the city (1-5): </label>
-              {{ review.stars}}
-            </div>
-            <div class="column">
-              <label> User's comment on the city: </label>
-              {{ review.comments}}
-            </div>
-          </div>
-        </div>
+<!--        <div-->
+<!--          v-for="review in reviews"-->
+<!--          :key="review.data"-->
+<!--          >-->
+<!--          <div class="carousel-content is-mobile">-->
+<!--            <div class="column">-->
+<!--              <label> User's Country: </label>-->
+<!--              {{ review.country}}-->
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--              <label> City Visited: </label>-->
+<!--              {{ review.city}}-->
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--              <label> User's rating of the city (1-5): </label>-->
+<!--              {{ review.stars}}-->
+<!--            </div>-->
+<!--            <div class="column">-->
+<!--              <label> User's comment on the city: </label>-->
+<!--              {{ review.comments}}-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <div class="mt-6">
           <div class="relative">
