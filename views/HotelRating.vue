@@ -44,7 +44,7 @@
             </div>
           </div>
           <div>
-            <button @click="submit" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
+            <button @click="say('Thanks for the submission')" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
           </div>
         </form>
         <div class="mt-6">
@@ -120,4 +120,13 @@ const addSurvey = () => {
   newComment.value = ''
 }
 
+</script>
+<script>
+export default {
+  methods: {
+    say(message) {
+      alert(message)
+    }
+  }
+}
 </script>

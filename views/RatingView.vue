@@ -45,9 +45,34 @@
             </div>
           </div>
           <div>
-            <button @click="submit" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
+<!--            <button @click="submit" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>-->
+            <button @click="say('Thanks for the submission')" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
           </div>
         </form>
+        <div
+          v-for="review in reviews"
+          :key="review.data"
+          >
+          <div class="carousel-content is-mobile">
+            <div class="column">
+              <label> User's Country: </label>
+              {{ review.country}}
+            </div>
+            <div class="column">
+              <label> City Visited: </label>
+              {{ review.city}}
+            </div>
+            <div class="column">
+              <label> User's rating of the city (1-5): </label>
+              {{ review.stars}}
+            </div>
+            <div class="column">
+              <label> User's comment on the city: </label>
+              {{ review.comments}}
+            </div>
+          </div>
+        </div>
+
         <div class="mt-6">
           <div class="relative">
             <div class="absolute inset-0 flex items-center">
@@ -87,12 +112,30 @@ import { database } from "@/main";
 import {collection, addDoc, onSnapshot} from "firebase/firestore"
 
 const surveys =ref([]);
-// const reviews = ref([]);
+const reviews = ref([]);
 const newCountry = ref('')
 const newCity = ref('');
 const newStarAmount = ref('');
 const newComment = ref('');
 const errMsg = ref();
+
+
+onMounted(async () => {
+  onSnapshot(collection(database, "Ratings"), (querySnapshot) => {
+    let fbRatings = [];
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data(), "=>")
+      const review = {
+        country: doc.data().country,
+        city: doc.data().city,
+        stars: doc.data().stars,
+        comments: doc.data().comments
+      }
+      fbRatings.push(review)
+    })
+    reviews.value = fbRatings
+  })
+})
 
 const addSurvey = () => {
 
@@ -119,26 +162,24 @@ const addSurvey = () => {
 
    // const surveys = ref([])
 
-  onMounted(async () => {
-    onSnapshot(collection(database,"Ratings"), (querySnapshot) =>{
-      const fbRatings = []
-      querySnapshot.forEach((doc) =>{
-         const survey = {
-          city: doc.data().city,
-           stars: doc.data().stars,
-          comments: doc.data().comments
-        }
-         fbRatings.push(survey)
-      })
-      surveys.value = fbRatings
-    })
-  }),
+
+
 
   newCountry.value = ''
-  newCity.value = ''
-  newStarAmount.value = ''
-  newComment.value = ''
+    newCity.value = ''
+    newStarAmount.value = ''
+    newComment.value = ''
+
 }
 
+</script>
+<script>
+export default {
+  methods: {
+    say(message) {
+      alert(message)
+    }
+  }
+}
 </script>
 

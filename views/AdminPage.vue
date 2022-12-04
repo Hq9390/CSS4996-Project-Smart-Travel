@@ -93,6 +93,15 @@
               <input  v-model="type1" id="save" name="save" type="text" autocomplete="save" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
+          <div class="space-y-1">
+            <label for="comment" class=" block text-sm font-medium text-gray-700">Enter the location type (ex. B, H, D)</label>
+            <div class="mt-1">
+              <li v-for = "survey in surveys" :key="survey.type">
+                {{survey.type}}
+              </li>
+              <input  v-model="type2" id="save" name="save" type="text" autocomplete="save" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+            </div>
+          </div>
 
           <div>
             <button @click="submit" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit New City</button>
@@ -147,6 +156,7 @@ const photo1 = ref ('');
 const photo2 = ref('');
 const photo3 = ref('');
 const type1 = ref('');
+const type2 = ref('');
 // const newType = ref([]);
 const errMsg = ref();
 
@@ -159,7 +169,7 @@ const addSurvey = () => {
         descriptionLink: newDescriptionLink.value,
         images: [photo1.value, photo2.value, photo3.value],
         // save: newSave.value,
-        type: [type1.value],
+        type: [type1.value, type2.value],
       })
       .catch((error) => {
         console.log(error.code);

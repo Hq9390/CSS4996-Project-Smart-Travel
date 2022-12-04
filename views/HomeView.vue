@@ -1,7 +1,5 @@
 <template>
-
   <div class="  mx-auto max-w-6xl py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
-
     <form action="#" @submit.prevent="addSearch" class="text-center ">
       <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
         <div class="sm:col-span-1">
@@ -45,10 +43,10 @@
         <!--        </vue3-simple-typeahead>-->
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <div class="flex flex-1 flex-col col-span-2">
-            <li v-for = "survey in surveys" :key="survey.search">
-              {{survey.search}}
-            </li>
-            <input v-model="newLocation" type="text" name="newLocation" id="newLocation"/>
+<!--            <li v-for = "survey in surveys" :key="survey.search">-->
+<!--              {{survey.search}}-->
+<!--            </li>-->
+<!--            <input v-model="newLocation" type="text" name="newLocation" id="newLocation"/>-->
             <input v-model="location"
                    @input="getLocationResult"
                    type="text"
@@ -91,30 +89,21 @@
     <div class="mt-8">
       <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
         <div v-if="selectedHotel == null">
-
-
           <ul v-show="hotels.length" role="list">
             <Disclosure as="section" aria-labelledby="filter-heading" class="grid items-center border-t border-b border-gray-200">
               <h2 id="filter-heading" class="sr-only">Filters</h2>
-
-
               <div class="col-start-1 row-start-1 py-4">
                 <div class="mx-auto flex max-w-7xl justify-end px-4 sm:px-6 lg:px-8">
                   <Menu as="div" class="relative inline-block">
-
                     <div enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
                       <label for="orderBy" class="block  px-14 w-full text-sm font-medium border-0 border-b-2 text-gray-700">Sort By</label>
                       <select id="orderBy" name="orderBy" v-model="orderBy"  @input="orderBySelected"
                               class=" text-sm font-medium text-gray-700  block py-2 px-7 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 ">
-
                         <option class="text-sm font-medium text-gray-700" value="pricea">Price Ascending</option>
                         <option class="text-sm font-medium text-gray-700" value="priced">price Descending</option>
                         <option class="text-sm font-medium text-gray-700" value="starsa">Stars Ascending</option>
                         <option class="text-sm font-medium text-gray-700" value="starsd">Stars Descending</option>
-
                       </select>
-
-
                     </div>
                   </Menu>
                 </div>
@@ -133,7 +122,6 @@
                   <span class="sr-only">View details for {{ hotel.name }}</span>
                   <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
                   <div class="flex items-center">
-
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
                          class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 384 512">
@@ -141,7 +129,6 @@
                             d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
                     </svg>
                     <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p></div>
-
                   <!--            <p class="text-xs text-gray-600">{{ hotel.translations.beach }} </p>-->
                   <div class="text-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
                   <div class="flex items-center">
@@ -154,7 +141,6 @@
                             class="inline-flex items-center rounded-md border border-transparent bg-indigo-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             @click.prevent="openDetails(hotel)">Details
                     </button>
-
                   </div>
                 </div>
               </li>
@@ -269,20 +255,20 @@ import {ref} from "vue";
 import {StarIcon} from '@heroicons/vue/20/solid'
 import {ChevronRightIcon} from '@heroicons/vue/20/solid'
 import { ChevronDoubleRightIcon } from "@heroicons/vue/20/solid"
-import { database } from "@/main";
-import {addDoc, collection} from "firebase/firestore";
+// import { database } from "@/main";
+// import {addDoc, collection} from "firebase/firestore";
 const CheckIn = ref();
-const surveys = ref([]);
+// const surveys = ref([]);
 const CheckOut = ref();
-const newLocation = ref('');
+// const newLocation = ref('');
 const format = ref('yyyy-MM-dd');
 
-const addSearch = () => {
-  addDoc(collection(database, "PopularLocations"),
-      {search: newLocation.value
-      })
-};
-newLocation.value = '';
+// const addSearch = () => {
+//   addDoc(collection(database, "PopularLocations"),
+//       {search: newLocation.value
+//       })
+// };
+// newLocation.value = '';
 // const reviews = [
 //   {
 //     rating: 5,

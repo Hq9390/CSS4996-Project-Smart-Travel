@@ -16,6 +16,8 @@
             <option value="D">Downtown</option>
             <option value="H">Historical</option>
             <option value="B">Beach</option>
+            <option value="M">Mega-City</option>
+            <option value="T">Tropical</option>
           </select>
         </div>
 
@@ -58,8 +60,30 @@
 
 
     </form>
+    <div
+        v-for="review in reviews"
+        :key="review.data"
+    >
+      <div class="reviewContent">
+        <div class="column">
+          <label> User's Country: </label>
+          {{ review.country}}
+        </div>
+        <div class="column">
+          <label> City Visited: </label>
+          {{ review.city}}
+        </div>
+        <div class="column">
+          <label> User's rating of the city (1-5): </label>
+          {{ review.stars}}
+        </div>
+        <div class="column">
+          <label> User's comment on the city: </label>
+          {{ review.comments}}
+        </div>
+      </div>
+    </div>
   </div>
-
 
   <div class="bg-gray-200">
     <div class="mt-6">
@@ -71,11 +95,11 @@
                 class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
               <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
                 <img :src="city.images[0]" alt="" class="mx-auto h-190 w-200 flex-shrink-0 ">
-
                 <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
               </div>
             </li>
           </ul>
+
         </div>
       </div>
 
@@ -86,8 +110,8 @@
         <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/rating">Leave a review</router-link></a>
       </div>
 
-      <div class="text-sm flex w-full justify-center font-light " > Recent Reviews
-      </div>
+<!--      <div class="text-sm flex w-full justify-center font-light " > Recent Reviews-->
+<!--      </div>-->
 
 
       <div v-if="selectedCity != null">
@@ -119,21 +143,17 @@
             </div>
           </div>
         </div>
+
+
         <div class="mt-8">
           <button @click="closeDetails"
                   class="block py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700">
             Close Details
           </button>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="card">
-    <div class="card-content">
-      <div class ="content is-vcentered">
-        reviews
       </div>
+
     </div>
   </div>
 
@@ -165,6 +185,7 @@ import { collection, onSnapshot } from "firebase/firestore"
 //import firebase from "firebase/compat/app";
 import moment from "moment";
 import axios from "axios";
+
 export default {
   setup() {
     const departuredate = ref();
@@ -186,6 +207,7 @@ export default {
       travelingFrom: '',
       flights: [],
       hotels: [],
+      reviews: [],
       hotelOptions: {},
       lowestHotelPrice: 0,
       highestHotelPrice: 0,
@@ -216,6 +238,7 @@ export default {
       console.log(this.hotels);
       //
     },
+    
     getFlights() {
       let self = this;
       const options = {
@@ -258,21 +281,21 @@ export default {
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
         }
       };
-      const surveys = ref([])
-
-      onMounted(async () => {
-        onSnapshot(collection(database,"Ratings"), (querySnapshot) =>{
-          const fbRatings = []
-          querySnapshot.forEach((doc) =>{
-            const rating = {
-              city: doc.data().city,
-              comments: doc.data().comments
-            }
-            fbRatings.push(rating)
-          })
-          surveys.value = fbRatings
-        })
-      }),
+      // const surveys = ref([])
+      //
+      // onMounted(async () => {
+      //   onSnapshot(collection(database,"Ratings"), (querySnapshot) =>{
+      //     const fbRatings = []
+      //     querySnapshot.forEach((doc) =>{
+      //       const rating = {
+      //         city: doc.data().city,
+      //         comments: doc.data().comments
+      //       }
+      //       fbRatings.push(rating)
+      //     })
+      //     surveys.value = fbRatings
+      //   })
+      // }),
 
       axios.request(options).then(function (response) {
         let entityId = response.data.data[0].entityId;
@@ -326,4 +349,25 @@ export default {
 
   }
 }
+
+</script>
+<script setup>
+const reviews = ref([]);
+
+onMounted(async () => {
+onSnapshot(collection(database, "Ratings"), (querySnapshot) => {
+let fbRatings = [];
+querySnapshot.forEach((doc) => {
+console.log(doc.data(), "=>")
+const review = {
+country: doc.data().country,
+city: doc.data().city,
+stars: doc.data().stars,
+comments: doc.data().comments
+}
+fbRatings.push(review)
+})
+reviews.value = fbRatings
+})
+});
 </script>
