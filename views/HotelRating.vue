@@ -2,8 +2,11 @@
   <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div class="mt-6 space-y-8 ">
+        <!--heading and button action-->
         <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900">Leave a rating for your hotel experience </h2>
         <form action="#"  @submit.prevent="addSurvey"  class="space-y-8">
+          <!--        input fields-->
+          <!--allows for the user to input country, refreshes on submission-->
           <div>
             <label for="city" class=" block text-sm font-medium text-gray-700" >What country are you from?</label>
             <div class="mt-1">
@@ -14,6 +17,7 @@
             </div>
           </div>
 
+          <!--allows for the user to input hotel name, refreshes on submission-->
           <div>
             <label for="city" class=" block text-sm font-medium text-gray-700" >What Hotel did you use?</label>
             <div class="mt-1">
@@ -24,6 +28,7 @@
             </div>
           </div>
 
+          <!--allows for the user to input stars, refreshes on submission-->
           <div>
             <label for="stars" class=" block text-sm font-medium text-gray-700" >Enter the Number of Stars 1-5 you would rate your hotel</label>
             <div class="mt-1">
@@ -34,6 +39,7 @@
             </div>
           </div>
 
+          <!--allows for the user to input a comment, refreshes on submission-->
           <div class="space-y-1">
             <label for="comment" class=" block text-sm font-medium text-gray-700">Enter a Comment about the hotel</label>
             <div class="mt-1">
@@ -43,6 +49,8 @@
               <input  v-model="newComment" id="comments" name="comments" type="comments" autocomplete="comments" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
+
+          <!--Popup for user to say thanks for submission and submits-->
           <div>
             <button @click="say('Thanks for the submission')" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
           </div>
@@ -59,7 +67,7 @@
   </div>
 
 
-
+<!--footer design-->
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
@@ -80,11 +88,11 @@
 </template>
 
 <script setup>
-
+// All imports
 import {ref} from "vue";
 import { database } from "@/main";
 import { collection, addDoc } from "firebase/firestore"
-
+// a list of all const, primarily strings with an array
 const surveys =ref([]);
 const newCountry = ref('')
 const newHotel = ref('');
@@ -92,14 +100,13 @@ const newStarAmount = ref('');
 const newComment = ref('');
 const errMsg = ref();
 
+//Accesses collection recommendation, adds a new document to collection with fields below
 const addSurvey = () => {
-
   addDoc(collection( database,"HotelRatings"),
       { Hotel: newHotel.value,
         stars: newStarAmount.value,
         comments: newComment.value,
         country: newCountry.value
-
       })
       .catch((error) => {
         console.log(error.code);
@@ -114,6 +121,8 @@ const addSurvey = () => {
             break;
         }
       });
+
+  // refreshes on page submit
   newCountry.value = ''
   newHotel.value = ''
   newStarAmount.value = ''
@@ -121,6 +130,8 @@ const addSurvey = () => {
 }
 
 </script>
+
+<!--script for popup-->
 <script>
 export default {
   methods: {

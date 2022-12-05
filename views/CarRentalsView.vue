@@ -148,7 +148,7 @@
     </div>
 
   </div>
-  <div class="text-sm flex w-full justify-center font-light " > Already been there?
+  <div class="text-sm flex w-full justify-center font-light " > Already used this brand?
     <a  class=" font-medium text-indigo-900 hover:text-indigo-500 underline text-primary-600 hover:underline" ><router-link to="/carRating">Leave a review</router-link></a>
   </div>
 

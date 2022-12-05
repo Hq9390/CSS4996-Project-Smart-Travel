@@ -2,9 +2,11 @@
   <div class="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
     <div class="mx-auto w-full max-w-sm lg:w-96">
       <div class="mt-6 space-y-8 ">
+        <!--heading and button action-->
         <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900">Leave a rating for the city</h2>
         <form action="#"  @submit.prevent="addSurvey"  class="space-y-8">
-
+          <!--        input fields-->
+          <!--allows for the user to input country, refreshes on submission-->
           <div>
             <label for="city" class=" block text-sm font-medium text-gray-700" >What country are you from?</label>
             <div class="mt-1">
@@ -14,7 +16,7 @@
               <input v-model="newCountry" id="country" name="country" type="text" autocomplete="country" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
-
+          <!--allows for the user to input city name, refreshes on submission-->
           <div>
             <label for="city" class=" block text-sm font-medium text-gray-700" >What city did you visit?</label>
             <div class="mt-1">
@@ -24,7 +26,7 @@
               <input v-model="newCity" id="cities" name="cities" type="text" autocomplete="cities" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
-
+          <!--allows for the user to enter the stars, refreshes on submission-->
           <div>
             <label for="stars" class=" block text-sm font-medium text-gray-700" >Enter the Number of Stars 1-5 you would rate your trip</label>
             <div class="mt-1">
@@ -34,7 +36,7 @@
               <input v-model="newStarAmount" id="stars" name="stars" type="text" autocomplete="stars" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
-
+          <!--allows for the user to input a comment, refreshes on submission-->
           <div class="space-y-1">
             <label for="comment" class=" block text-sm font-medium text-gray-700">Enter a Comment about the trip</label>
             <div class="mt-1">
@@ -49,29 +51,6 @@
             <button @click="say('Thanks for the submission')" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
           </div>
         </form>
-<!--        <div-->
-<!--          v-for="review in reviews"-->
-<!--          :key="review.data"-->
-<!--          >-->
-<!--          <div class="carousel-content is-mobile">-->
-<!--            <div class="column">-->
-<!--              <label> User's Country: </label>-->
-<!--              {{ review.country}}-->
-<!--            </div>-->
-<!--            <div class="column">-->
-<!--              <label> City Visited: </label>-->
-<!--              {{ review.city}}-->
-<!--            </div>-->
-<!--            <div class="column">-->
-<!--              <label> User's rating of the city (1-5): </label>-->
-<!--              {{ review.stars}}-->
-<!--            </div>-->
-<!--            <div class="column">-->
-<!--              <label> User's comment on the city: </label>-->
-<!--              {{ review.comments}}-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
 
         <div class="mt-6">
           <div class="relative">
@@ -83,7 +62,6 @@
       </div>
     </div>
   </div>
-
 
 
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
@@ -100,45 +78,24 @@
           reserved.</p>
       </div>
     </div>
-
   </footer>
-
 </template>
 
 <script setup>
-
-import {onMounted, ref} from "vue";
+// All imports
+import {ref} from "vue";
 import { database } from "@/main";
-import {collection, addDoc, onSnapshot} from "firebase/firestore"
-
+import {collection, addDoc} from "firebase/firestore"
+// a list of all const, primarily strings with an array
 const surveys =ref([]);
-const reviews = ref([]);
 const newCountry = ref('')
 const newCity = ref('');
 const newStarAmount = ref('');
 const newComment = ref('');
 const errMsg = ref();
 
-
-onMounted(async () => {
-  onSnapshot(collection(database, "Ratings"), (querySnapshot) => {
-    let fbRatings = [];
-    querySnapshot.forEach((doc) => {
-      console.log(doc.data(), "=>")
-      const review = {
-        country: doc.data().country,
-        city: doc.data().city,
-        stars: doc.data().stars,
-        comments: doc.data().comments
-      }
-      fbRatings.push(review)
-    })
-    reviews.value = fbRatings
-  })
-})
-
+// refreshes on page submit
 const addSurvey = () => {
-
   addDoc(collection( database,"Ratings"),
   { city: newCity.value,
     stars: newStarAmount.value,
@@ -146,6 +103,7 @@ const addSurvey = () => {
     country: newCountry.value
 
   })
+      //error handling
       .catch((error) => {
         console.log(error.code);
         switch (error.code) {
@@ -160,19 +118,14 @@ const addSurvey = () => {
         }
       });
 
-   // const surveys = ref([])
-
-
-
-
+  // refreshes the page
   newCountry.value = ''
     newCity.value = ''
     newStarAmount.value = ''
     newComment.value = ''
-
 }
-
 </script>
+<!--script for popup-->
 <script>
 export default {
   methods: {
