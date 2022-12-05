@@ -1,10 +1,11 @@
 <template>
 
   <div class="  mx-auto max-w-6xl py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
-
+    <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900 block mb-12">Find a Hotel</h2>
     <form action="#" class="text-center ">
       <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-8">
         <div class="sm:col-span-1">
+<!--          For inputting the number of rooms-->
           <label for="room" class="block text-sm font-medium text-gray-700">Room</label>
           <input v-model="room"
                  type="number"
@@ -14,6 +15,7 @@
           />
         </div>
         <div class="sm:col-span-1">
+<!--          For inputting the number of guests-->
           <label for="guest" class="block text-sm font-medium text-gray-700">Guest</label>
           <input v-model="guest"
                  type="number"
@@ -29,6 +31,7 @@
 
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-5">
           <div class="flex flex-1 flex-col col-span-2">
+<!--            City autocomplete-->
             <vue3-simple-typeahead
                 id="typeahead_id"
 
@@ -69,6 +72,7 @@
 <!--            />-->
           </div>
           <div class="flex flex-1 flex-col">
+<!--            Inputting the checkin date for the hotel-->
             <datepicker
                 v-model="CheckIn "
                 class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
@@ -77,6 +81,7 @@
                 placeholder="Check-in"
             />
           </div>
+          <!--            Inputting the checkout date for the hotel-->
           <div class="flex flex-1 flex-col">
             <datepicker
                 v-model="CheckOut"
@@ -86,6 +91,7 @@
                 placeholder="Check-out"
             />
           </div>
+<!--          Submit the inputs-->
           <div class="flex flex-1 flex-col">
             <button @click.prevent="getSearchResults()" value="submit"
                     class=" col-span-1 w-1/2 block py-2 p-4 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm  font-medium text-white shadow-sm hover:bg-indigo-700 ">
@@ -101,8 +107,7 @@
     <div class="mt-8">
       <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
         <div v-if="selectedHotel == null">
-
-
+          <!--            Show this section only when displaying the hotel search results-->
           <ul v-show="hotels.length" role="list">
             <Disclosure as="section" aria-labelledby="filter-heading" class="grid items-center border-t border-b border-gray-200">
               <h2 id="filter-heading" class="sr-only">Filters</h2>
@@ -113,6 +118,7 @@
                   <Menu as="div" class="relative inline-block">
 
                     <div enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
+<!--                      Order the hotel results by these options-->
                       <label for="orderBy" class="block  px-14 w-full text-sm font-medium border-0 border-b-2 text-gray-700">Sort By</label>
                         <select id="orderBy" name="orderBy" v-model="orderBy"  @input="orderBySelected"
                                 class=" text-sm font-medium text-gray-700  block py-2 px-7 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 ">
@@ -130,36 +136,43 @@
                 </div>
               </div>
             </Disclosure>
-            <div class="min-w-0 flex-1 text-sm">
+            <div class="">
             </div>
             <div  class="divide-y divide-gray-200">
+<!--              Display a list of all the hotels with their details -->
               <li v-for="hotel in hotels" :key="hotel.hotelId" class="flex flex-col md:flex-row overflow-hidden
-          bg-white rounded-lg shadow-xl h-50 mt-4 w-100 mx-2">
+          bg-white rounded-lg shadow-xl  mt-4 w-90 ">
                 <div class="p-3 rounded-md shadow-lg md:w-3/4">
                   <img :src="hotel.heroImage" alt="hotel.name" height='30'
-                       class=" inset-0 w-90 h-80 w-full object-cover object-center"/>
+                       class=" inset-0 w-90 h-80 w-full object-center"/>
                 </div>
                 <div class="w-full py-4 px-5 text-gray-800 flex flex-col justify-between">
                   <span class="sr-only">View details for {{ hotel.name }}</span>
-                  <div class="text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
-                  <div class="flex items-center">
+                  <div class="  flow-root">
+                  <div class="float-left text-lg font-semibold text-gray-600">{{ hotel.name }}</div>
+                    <div class="float-right flex items-center">
+                      <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating"
+                                :class="[hotel.stars > rating ? 'text-yellow-400' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']"
+                                aria-hidden="true"/>
+                    </div>
+                  </div>
+                  <div class="  flow-root">
+                  <div class="float-left flex items-center">
 
+                      <div></div>
                     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
                          class="h-3 w-3 text-blue-500 fill-current mr-1" role="img" xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 384 512">
                       <path fill="currentColor"
                             d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"></path>
                     </svg>
-                    <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p></div>
+                    <p class="text-xs text-gray-600">{{ hotel.distance }} and {{ hotel.relevantPoiDistance }}</p>
+                    </div>
 
                   <!--            <p class="text-xs text-gray-600">{{ hotel.translations.beach }} </p>-->
-                  <div class="text-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
-                  <div class="flex items-center">
-                    <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating"
-                              :class="[hotel.stars > rating ? 'text-yellow-400' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']"
-                              aria-hidden="true"/>
+                  <div class="float-right text-xl leading-tight text-gray-600 font-semibold">{{ hotel.price }}</div>
                   </div>
-                  <div>
+                  <div class="text-right">
                     <button type="button"
                             class="inline-flex items-center rounded-md border border-transparent bg-indigo-900 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                             @click.prevent="openDetails(hotel)">Details
@@ -172,7 +185,7 @@
         </div>
       </div>
 
-
+<!--Displaying details of the selected hotel-->
       <div v-if="selectedHotel !== null">
         <div v-if="hotelDetails !== null">
           <div v-if="HotelPrice !== null">
@@ -182,6 +195,7 @@
                 <div class="min-w-0 flex-1">
 
                   <div class=" mt-6 space-y-2">
+
                     <div class="text-lg font-semibold text-gray-600">{{ selectedHotel.name }}</div>
                     <div class="flex items-center">
                       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="map-marker-alt"
@@ -225,6 +239,7 @@
                       <div class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
                         <div class="ml-4 mt-2">
                         </div>
+<!--                        Booking link-->
                         <div class="ml-4 mt-2 flex-shrink-0">
                           <a :href="'http://' + HotelPrice.rates[0].deeplink" target="_blank">
                             <button
@@ -252,7 +267,7 @@
     </div>
 
   </div>
-
+<!--Footer section-->
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
@@ -324,7 +339,6 @@ export default {
       orderBy: '',
     };
   },
-
   methods: {
     projection(value) {
 
@@ -333,33 +347,31 @@ export default {
     locationSelected(value){
       this.location = value.code;
     },
-
+  // Sorting the hotel search results
     orderBySelected(event){
       this.orderBy = event.target.value;
-
+     // Sorting by price in ascending order
       if(event.target.value === 'pricea') {
         console.log('sorting by price ascending')
 
         this.hotels.sort((a, b) => (this.cleanNumber(a.price) > this.cleanNumber(b.price)) ? 1 : -1)
       }
-
+      // Sorting by price in descending order
       if(event.target.value === 'priced') {
         console.log('sorting by price descending')
         this.hotels.sort((a, b) => (this.cleanNumber(a.price) < this.cleanNumber(b.price)) ? 1 : -1)
       }
-
+      // Sorting by stars in ascending order
       if(event.target.value === 'starsa') {
         console.log('sorting by stars ascending')
         this.hotels.sort((a, b) => (a.stars > b.stars) ? 1 : -1)
 
       }
-
+      // Sorting by stars in descending order
       if(event.target.value === 'starsd') {
         console.log('sorting by stars descending')
         this.hotels.sort((a, b) => (a.stars < b.stars) ? 1 : -1)
       }
-
-
     },
     cleanNumber(value) {
       if(value) {
@@ -385,6 +397,7 @@ export default {
       this.getHotelFilters(hotel.hotelId);
       this.getHotelPrice(hotel.hotelId, hotel);
     },
+    //Fetching the hotel search results from the API
     getSearchResults() {
       let self = this;
       // const axios = require("axios");
@@ -406,6 +419,7 @@ export default {
         console.error(error);
       });
     },
+    //Fetching the hotel filters from the API
     getHotelFilters(entityId) {
       let self = this;
 
@@ -431,6 +445,7 @@ export default {
         console.error(error);
       });
     },
+    //Fetching the hotel API
     getHotels(entityId) {
       let self = this;
       console.log('called');
@@ -455,13 +470,6 @@ export default {
 
       }
 
-      if (this.maxHotelPrice !== null) {
-        options.params.maxPrice = this.maxHotelPrice;
-      }
-      if (this.minHotelPrice !== null) {
-        options.params.minPrice = this.minHotelPrice;
-      }
-
       axios.request(options).then(function (response) {
         self.hotels = response.data.data.hotels;
       }).catch(function (error) {
@@ -469,6 +477,7 @@ export default {
       });
 
     },
+    //Fetching hotel details from the API
     getHotelsDetails(hotelId) {
       let self = this;
       console.log('called');
@@ -488,6 +497,7 @@ export default {
         console.error(error);
       });
     },
+    //Fetching more hotel details from the API. This one has the booking link
     getHotelPrice(hotelId, entityId) {
       let self = this;
       const options = {

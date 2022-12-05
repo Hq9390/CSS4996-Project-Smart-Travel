@@ -1,7 +1,8 @@
 <template>
-
+<!--Flights Page-->
 
   <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
+    <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900 block mb-12">Find a Flight</h2>
 
     <div class="mt-6 sm:mt-2 2xl:mt-5">
       <div class="border-b border-gray-200">
@@ -39,18 +40,54 @@
         <div class="mt-4 sm:mt-4">
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-6">
             <div class="flex flex-1 flex-col col-span-2" >
-              <input  v-model="leaving"
-                      type="text"
-                      name="leaving" id="leaving"
-                      class=" block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-                      placeholder="Leaving from" />
+              <vue3-simple-typeahead
+                  id="typeahead_id"
+
+                  :items="[{name: 'New York(JFK)', 'code': 'JFK'},{name: 'Florida(MCO)', 'code': 'MCO'},{name: 'Detroit(DTW)', 'code': 'DTW'},{name: 'Las Vegas(LAS)', 'code': 'LAS'},
+              {name: 'Los Angeles(LAX)', 'code': 'LAX'},{name: 'Istanbul(IST)', 'code': 'IST'},{name: 'Phoenix Arizon(PHX)', 'code': 'PHX'},
+              {name: 'Atlanta', 'code': 'ATL'},{name: 'Florida', 'code': 'FLL'},
+              {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},
+              {name:'New York(JFK)', 'code': 'JFK'},{name:'Barcelona(BCN)', 'code': 'BCN'}
+              ,{name:'ROME(FCO)', 'code': 'FCO'}
+
+              ]"
+                  :minInputLength="1"
+                  :itemProjection="projection"
+                  class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
+                  @selectItem="airportSelected"
+
+
+              >
+              </vue3-simple-typeahead>
+<!--              <input  v-model="leaving"-->
+<!--                      type="text"-->
+<!--                      name="leaving" id="leaving"-->
+<!--                      class=" block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"-->
+<!--                      placeholder="Leaving from" />-->
             </div>
             <div class="flex flex-1 flex-col col-span-2">
-              <input  v-model="going"
-                      type="text"
-                      name="going" id="going"
-                      class="block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
-                      placeholder="Going to" />
+              <vue3-simple-typeahead
+                  id="typeahead_id"
+
+                  :items="[{name: 'New York(JFK)', 'code': 'JFK'},{name: 'Florida(MCO)', 'code': 'MCO'},{name: 'Detroit(DTW)', 'code': 'DTW'},{name: 'Las Vegas(LAS)', 'code': 'LAS'},
+              {name: 'Los Angeles(LAX)', 'code': 'LAX'},{name: 'Istanbul(IST)', 'code': 'IST'},{name: 'Phoenix Arizon(PHX)', 'code': 'PHX'},
+              {name: 'Atlanta', 'code': 'ATL'},{name: 'Florida', 'code': 'FLL'},
+              {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},
+              {name:'New York(JFK)', 'code': 'JFK'},{name:'Barcelona(BCN)', 'code': 'BCN'}
+              ,{name:'ROME(FCO)', 'code': 'FCO'}]"
+                  :minInputLength="1"
+                  :itemProjection="projection1"
+                  class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
+                  @selectItem="airportSelected1"
+
+
+              >
+              </vue3-simple-typeahead>
+<!--              <input  v-model="going"-->
+<!--                      type="text"-->
+<!--                      name="going" id="going"-->
+<!--                      class="block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"-->
+<!--                      placeholder="Going to" />-->
             </div>
             <div class="flex flex-1 flex-col">
               <datepicker
@@ -141,15 +178,18 @@
 
   <div class="bg-gray-200">
     <div class="mt-8">
-      <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
-        <div v-if="selectedFlight == null" >
+      <div class="container w-80 lg:w-4/5 mx-auto flex flex-col">
+
+        <div v-if="selectedFlight == null"  >
+          <div v-show="flights.length"  class="mt-12">
+          </div>
           <ul role="list"  class="divide-y divide-gray-200">
 
             <li v-for="flight in flights" >
 
 
               <div class="flex flex-col overflow-hidden
-          bg-white rounded-lg  mt-4 w-100 mx-2">
+          bg-white rounded-md  mt-5 w-90 mx-2">
                 <button type="button" @click="openDetails(flight)">
 
                   <div class=" mx-3 flow-root">
@@ -157,12 +197,14 @@
                     <p class="font-bold float-left">{{getFormattedDate(flight.legs[0].departure)}} - {{getFormattedDate(flight.legs[0].arrival)}}</p>
 
                   </div>
-                  <div class="text-left mx-3">
+                  <div class="mx-2 inline-flex justify-center items-center w-full">
 
-                    {{flight.legs[0].origin.name}} - {{flight.legs[0].destination.name }} <br>
+                     {{flight.legs[0].origin.name}}   <hr class="mx-2 my-5 w-60 h-0.5 bg-gray-500 rounded border-0 dark:bg-gray-500">
+                    <svg style="color: rgb(158, 158, 158);" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 512 512"><title>ionicons-v5-a</title><path d="M407.72,208c-2.72,0-14.44.08-18.67.31l-57.77,1.52L198.06,48H135.25l74.59,164.61-97.31,1.44L68.25,160H16.14l20.61,94.18c.15.54.33,1.07.53,1.59a.26.26,0,0,1,0,.15,15.42,15.42,0,0,0-.53,1.58L15.86,352H67.64l45.45-55,96.77,2.17L135.24,464h63l133-161.75,57.77,1.54c4.29.23,16,.31,18.66.31,24.35,0,44.27-3.34,59.21-9.94C492.22,283,496,265.46,496,256,496,225.94,463,208,407.72,208Zm-71.29,87.9v0Z" fill="#9e9e9e"></path></svg>
+                    <p class="mx-2">{{flight.legs[0].destination.name }}</p>
                   </div>
                   <div class="text-left mx-3">
-                    {{flight.legs[0].carriers[0].name}}
+                   {{flight.legs[0].carriers[0].name}}
                   </div>
                 </button>
               </div>
@@ -170,16 +212,60 @@
             </li>
 
           </ul>
+          <div  class="mt-12">
+          </div>
         </div>
       </div>
     </div>
+    <div class="container w-80 lg:w-4/5 mx-auto flex flex-col">
     <div v-if="selectedFlight !== null" >
-      {{selectedFlight.legs[0].carriers[0].name}}
-      <div>
-        <button type="button" class="mt-6 w-1/2 items-center py-2  p-2.5 rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 text-center" @click="closeDetails(flight)">Close Details</button>
+      <div v-if="FlightsDetails !== null">
+        <div v-show="flights.length"  class="mt-12">
+        </div>
+        <ul role="list"  >
+        <li v-for="price in pricingOptions">
+          <div class=" flex flex-col overflow-hidden
+          bg-white rounded-md  mt-3 w-100 mx-2">
+            <div class="mt-2 mx-3">
+
+              <div> {{price.agents[0].name}}</div>
+              <div class="flex items-center">
+                <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating"
+                                  :class="[price.agents[0].rating.value > rating ? 'text-yellow-400' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']"
+                                  aria-hidden="true"/>
+<!--                {{price.agents[0].rating.value}}-->
+              </div>
+            </div>
+            <div class="flow-root mt-2 mx-3">
+
+              <div class="float-right">
+                <a :href="price.agents[0].url"><button  class="relative inline-flex items-center rounded-md border border-gray-300 bg-indigo-900 px-2 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:z-10 focus:border-indigo-700 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+                Book Now
+                <ChevronDoubleRightIcon class=" h-5 w-5" aria-hidden="true"/>
+              </button>
+                </a>
+              </div>
+              <div class="mx-2 float-right float-right text-l leading-tight text-gray-700 font-bold">Price is ${{price.totalPrice}}</div>
+            </div>
+<div class="mt-2">
+
+</div>
+          </div>
+        </li>
+
+        </ul>
+        <div>
+          <button type="button"
+                  class="block mt-4 mx-3 py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700"
+                  @click="closeDetails(flight)">Close Details</button>
+        </div>
+        <div   class="mt-12">
+        </div>
       </div>
     </div>
+    </div>
   </div>
+
 
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
@@ -194,27 +280,40 @@
         <p class="text-base text-gray-400 flex w-full justify-center">&copy; 2022 Smart Travel, Inc. All rights reserved.</p>
       </div>
     </div>
-
   </footer>
 
 </template>
+<script setup>
+import { ChevronDoubleRightIcon } from "@heroicons/vue/20/solid"
+import {StarIcon} from '@heroicons/vue/20/solid'
+import {ref} from "vue";
+const format = ref('yyyy-MM-dd');
+const Departure = ref();
 
+const reviews = [
+  {
+
+    rating: 5,
+
+  },
+  // More reviews...
+]
+</script>
 
 <script>
+
 import { ref } from 'vue';
 import axios from "axios";
 import moment from 'moment';
 
 export default {
-  setup() {
-    const Departure = ref();
-    const format = ref('yyyy-MM-dd');
-
-    return {
-      Departure,
-      format,
-    };
-  },
+  // setup() {
+  //
+  //
+  //   return {
+  //     Departure,
+  //   };
+  // },
   data() {
     return {
       leaving: '',
@@ -222,12 +321,14 @@ export default {
       searchResults: [],
 
       MultipleStops: [],
+      FlightsDetails: [],
       searchQuery: '',
       date: '',
       adult: 1,
       flights: [],
       detailOpen: false,
       selectedFlight: null,
+      pricingOptions:[],
       tabs: [
         {name: 'One-way', href: '#', current: true},
         {name: 'Rountrip', href: '#', current: false},
@@ -242,6 +343,21 @@ export default {
   },
 
   methods: {
+    projection(value) {
+
+      return value.name
+    },
+    airportSelected(value){
+      this.leaving = value.code;
+    },
+    projection1(value) {
+
+      return value.name
+    },
+    airportSelected1(value){
+      this.going = value.code;
+    },
+
     getFormattedDate(date) {
       return moment(date).format("HH:mm")
     },
@@ -260,17 +376,18 @@ export default {
     closeDetails() {
       this.selectedFlight = null;
       this.MultipleStops = null;
+      this.FlightsDetails = null;
       let datetest = moment(this.date).format('YYYY-MM-DD');
       console.log(datetest);
     },
     openDetails(flight) {
       console.log('selected');
       this.selectedFlight = flight;
+      this.getFlightsDetails(flight)
       this.getMultipleStops();
     },
     getSearchResults() {
       let self = this;
-      console.log('called');
       console.log(this.date);
       const options = {
         method: 'GET',
@@ -294,24 +411,26 @@ export default {
       }
       axios.request(options).then(function (response) {
         self.flights = response.data.data;
+        // console.log(itineraryId);
+        // self.getFlightsDetails(itineraryId);
       }).catch(function (error) {
         console.error(error);
       });
     },
     getMultipleStops() {
       let legsData =[ {"origin":this.leaving,"destination":this.going,"date": moment(this.Departure).format('YYYY-MM-DD')}];
-      // if (this.tabs[0].current !== true){
-      //   legsData.push(
-      //       {"origin":this.going,"destination":this.leaving,"date": moment(this.returnDate).format('YYYY-MM-DD')}
-      //   );
-      // }
+      if (this.tabs[0].current !== true){
+        legsData.push(
+            {"origin":this.going,"destination":this.leaving,"date": moment(this.returnDate).format('YYYY-MM-DD')}
+        );
+      }
       let self = this;
       console.log('called');
       const options = {
         method: 'GET',
         url: 'https://skyscanner50.p.rapidapi.com/api/v1/searchFlightsMultiStops',
         params: {
-          legs: legsData,
+          legs: [legsData],
           waitTime: '5000',
           adults: this.adult,
           currency: 'USD',
@@ -326,6 +445,42 @@ export default {
 
       axios.request(options).then(function (response) {
         self.MultipleStops = response.data.data;
+      }).catch(function (error) {
+        console.error(error);
+      });
+    },
+    getFlightsDetails(flight){
+      let itineraryId = flight.id;
+
+      let legsData =[ {"origin":this.leaving,"destination":this.going,"date": moment(this.Departure).format('YYYY-MM-DD')}];
+      if (this.tabs[0].current !== true){
+        legsData.push(
+            {"origin":this.going,"destination":this.leaving,"date": moment(this.returnDate).format('YYYY-MM-DD')}
+        );
+      }
+      let self = this;
+      console.log('called');
+      const options = {
+        method: 'GET',
+        url: 'https://skyscanner50.p.rapidapi.com/api/v1/getFlightDetails',
+        params: {
+          itineraryId:  itineraryId,
+          legs: [legsData],
+          adults: this.adult,
+          currency: 'USD',
+          countryCode: 'US',
+          market: 'en-US'
+        },
+        headers: {
+          'X-RapidAPI-Key': '2756954a36mshd7f9836f6a3787bp186d1djsn79f785078e5b',
+          'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
+        }
+      };
+
+      axios.request(options).then(function (response) {
+        console.log('assigning');
+        self.FlightsDetails = response.data.data;
+        self.pricingOptions = response.data.data.pricingOptions;
       }).catch(function (error) {
         console.error(error);
       });

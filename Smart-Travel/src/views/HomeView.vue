@@ -1,18 +1,21 @@
 <template>
-
+  <!--Recommended Cities page-->
   <div class="mx-auto max-w-5xl py-10 px-4 sm:py-20 sm:px-5 lg:px-8">
-
+    <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900 block mb-12">Recommended Cities Based on
+      Preference </h2>
     <form action="#" class="text-center">
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         <div class="flex flex-1 flex-col">
+          <!--          Inputting the city that they're traveling from-->
           <label for="city" class="text-sm font-medium text-gray-700">Enter your city</label>
+          <!--          Airport code autocomplete-->
           <vue3-simple-typeahead
               id="typeahead_id"
-
               :items="[{name: 'New York(JFK)', 'code': 'JFK'},{name: 'Florida(MCO)', 'code': 'MCO'},{name: 'Detroit(DTW)', 'code': 'DTW'},{name: 'Las Vegas(LAS)', 'code': 'LAS'},
               {name: 'Los Angeles(LAX)', 'code': 'LAX'},{name: 'Istanbul(IST)', 'code': 'IST'},{name: 'Phoenix Arizon(PHX)', 'code': 'PHX'},
               {name: 'Atlanta', 'code': 'ATL'},{name: 'Florida', 'code': 'FLL'},
-              {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},{name:'New York(JFK)', 'code': 'JFK'},{name:'Barcelona(BCN)', 'code': 'BCN'}
+              {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},
+              {name:'Alaska(ANC)', 'code': 'ANC'},{name:'Barcelona(BCN)', 'code': 'BCN'}
               ,{name:'ROME(FCO)', 'code': 'FCO'}
 
               ]"
@@ -20,13 +23,10 @@
               :itemProjection="projection"
               class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
               @selectItem="airportSelected"
-
-
           >
           </vue3-simple-typeahead>
-<!--          <input type="text" v-model="travelingFrom" name="airport" id="city" autocomplete="city"-->
-<!--                 class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"/>-->
         </div>
+        <!--        Choosing one of the city type options-->
         <div class="flex flex-1 flex-col">
           <label for="cities" class="text-sm font-medium text-gray-700">Choose the city type</label>
           <select id="cities" v-model="cityType"
@@ -38,6 +38,7 @@
           </select>
 
         </div>
+        <!--        Inputting the departure date-->
         <div class="flex flex-1 flex-col">
 
           <label for="date" class="text-sm font-medium text-gray-700">Enter your departure date</label>
@@ -50,6 +51,7 @@
               placeholder="Departure Date"
           />
         </div>
+        <!--        Inputting the return date-->
         <div class="flex flex-1 flex-col">
           <label for="date" class="text-sm font-medium text-gray-700">Enter your returning date</label>
           <datepicker
@@ -63,9 +65,8 @@
       </div>
       <div class="mt-4">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1">
+          <!--          Submit button-->
           <div class="flex flex-1 flex-col items-center">
-
-
             <button @click.prevent="queryDb"
                     class=" block w-1/5 py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700">
               Search
@@ -79,71 +80,129 @@
   <div class="mt-6 bg-gray-200">
     <div class="mt-10">
       <div class="container w-90 lg:w-4/5 mx-auto flex flex-col">
-<div v-show="cities.length" class="mt-12" >
-        <div v-if="selectedCity === null">
-          <ul role="list" class=" grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
-            <li v-for="city in cities" v-bind:key="city.id"
-                class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
-              <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
-                <img :src="city.images[0]" alt="" class="mx-auto h-190 w-200 flex-shrink-0 ">
-                <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
-              </div>
-              <div v-if=" isLoggedIn">
-
-              <button v-if=" city.is_saved === undefined" type="button" class="savebtn" @click="onclickSave(city)" >Save</button>
-              <button v-if="city.is_saved === true" class="savebtn"  >Saved</button>
-              </div>
-            </li>
-          </ul>
+        <div v-show="cities.length" class="mt-12">
+          <div v-if="selectedCity === null">
+            <ul role="list" class=" grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+              <!--              Viewing a list of flights-->
+              <li v-for="city in cities" v-bind:key="city.id"
+                  class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+                <div class="flex flex-1 flex-col p-8 cursor-pointer" @click="selectCity(city)">
+                  <img :src="city.images[0]" alt=""
+                       class=" mx-3 h-full w-full object-cover object-center lg:h-full lg:w-full">
+                  <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
+                  <div>
+                    <a class=" font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1">
+                      <router-link to="/rating">Leave a review if you already visited this city</router-link>
+                    </a>
+                  </div>
+                </div>
+                <!--                Show this only if logged in-->
+                <div v-if=" isLoggedIn">
+                  <!--Save button to save a city to the profile page-->
+                  <button v-if=" city.is_saved === undefined" type="button" class="savebtn" @click="onclickSave(city)">
+                    Save
+                  </button>
+                  <!--Unsave button to unsave a city from the profile page-->
+                  <button v-if="city.is_saved === true" class="savebtn" @click="unsave(city)">Unsave</button>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-        <div v-show="cities.length"  class="mt-12">
+        <!--        Show this only if showing the flights search results-->
+        <div v-show="cities.length" class="mt-12">
         </div>
-          <div v-if="selectedCity != null">
-        <h1 class=" text-xl  text-gray-900 font-bold mx-3">{{ selectedCity.city_name }}</h1>
+        <!--        Show the details of the selected flight-->
+        <div v-if="selectedCity != null" class="rounded-lg">
+          <div class="mt-10   divide-y divide-gray-200">
+            <div class="flex flex-col overflow-hidden
+          bg-white  rounded-xl w-100 ">
+              <h1 class=" mt-4 text-xl  text-gray-900 font-bold mx-3">{{ selectedCity.city_name }}</h1>
 
-          <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+              <div
+                  class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
         <span v-for="image in selectedCity.images" class="group relative">
           <div class=" mx-3 h-full w-full object-cover object-center lg:h-full lg:w-full">
           <img :src="image" alt=""
                class="h-full w-full object-cover object-center lg:h-full lg:w-full">
           </div>
         </span>
-          </div>
-        <h2 class=" mt-6 mx-3 text-base text-gray-900">{{ selectedCity.description }}</h2>
-        <div class="mt-4 mx-3">
-        <a  :href=" selectedCity.descriptionLink" target="_blank"> <button class=" font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1">Click here for more info about the city </button></a>
-        </div>
-        <div class="mt-8">
-          <div class="bg-gray-400  px-4 py-5 sm:px-6">
-            <div class="flex space-x-3">
-              <div class="text-xl text-gray-900 font-bold"> Pricing:
-                <h4 class="text-lg font-medium text-gray-900 ">Hotel Prices</h4>
-                <p class="text-sm text-gray-900">Lowest Hotel Price: {{ lowestHotelPrice }}</p>
-                <p class="text-sm text-gray-900">Highest Hotel Price: {{ highestHotelPrice }}</p>
+              </div>
+              <h2 class=" mt-6 mx-3 text-base text-gray-900">{{ selectedCity.description }}</h2>
+              <!--          Flight booking link-->
+              <div class="mt-4 mx-3">
+                <a :href=" selectedCity.descriptionLink" target="_blank">
+                  <button class=" font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1">Click
+                    here for more info about the city
+                  </button>
+                </a>
+              </div>
+              <div class="mt-8">
+                <div class="bg-gray-400  px-4 py-5 sm:px-6">
+                  <div class="flex space-x-3">
+                    <!--                Showing the lowest and the highest hotel and flight prices-->
+                    <div class="text-xl text-gray-900 font-bold"> Pricing:
+                      <h4 class="text-lg font-medium text-gray-900 ">Hotel Prices</h4>
+                      <p class="text-sm text-gray-900">Lowest Hotel Price: {{ lowestHotelPrice }}</p>
+                      <p class="text-sm text-gray-900">Highest Hotel Price: {{ highestHotelPrice }}</p>
 
-                <h4 class="text-lg font-medium text-gray-900">Flight Prices</h4>
-                <p class="text-sm text-gray-900">Lowest Flight Price: ${{ lowestFlightPrice }}</p>
-                <p class="text-sm text-gray-900">Highest Flight Price: ${{ highestFlightPrice }}</p>
+                      <h4 class="text-lg font-medium text-gray-900">Flight Prices</h4>
+                      <p class="text-sm text-gray-900">Lowest Flight Price: ${{ lowestFlightPrice }}</p>
+                      <p class="text-sm text-gray-900">Highest Flight Price: ${{ highestFlightPrice }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-10  divide-y divide-gray-200">
+              <div class="flex flex-col overflow-hidden
+          bg-white  rounded-xl w-100 ">
+                <div class="mt-5 mx-3 text-xl text-gray-900 font-bold"> Reviews</div>
+                <ul role="list" class="mt-4 divide-y divide-gray-200">
+
+                  <li v-for="review in reviews" :key="review.data">
+
+                    <div class="flex flex-col overflow-hidden
+          bg-white   w-100 ">
+                      <div class="mx-3 mt-2">
+                        User's Country:
+                        {{ review.country }}
+                      </div>
+                      <div class="mx-3 mt-2">
+                        City Visited:
+                        {{ review.city }}
+                      </div>
+                      <div class="mx-3 mt-2">
+                        User's rating of the city (1-5):
+                        {{ review.stars }}
+                      </div>
+                      <div class="mx-3 mt-2">
+                        User's comment on the city:
+                        {{ review.comments }}
+                      </div>
+                    </div>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
 
-        <div class="mt-8">
-          <button @click="closeDetails"
-                  class="block py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700">
-            Close Details
-          </button>
-        </div>
+          <!--Closing the details of the selected flight to go back to flights results -->
+          <div class="mt-8">
+            <button @click="closeDetails"
+                    class="block py-2 p-4 rounded-md border border-transparent bg-indigo-900  text-sm  font-medium text-white shadow-sm hover:bg-indigo-700">
+              Close Details
+            </button>
+          </div>
           <div class="mt-8">
 
           </div>
+        </div>
       </div>
-
     </div>
   </div>
-  </div>
-  </div>
+
+
   <footer class="mx-auto w-full  bg-white mt-auto" aria-labelledby="footer-heading">
     <div class="mx-auto  py-15 px-4 sm:px-6 lg:py-20 lg:px-8">
 
@@ -164,11 +223,31 @@
 
 import {onMounted, ref} from "vue";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {collection, onSnapshot} from "firebase/firestore"
+
+const reviews = ref([]);
+onMounted(async () => {
+  onSnapshot(collection(database, "Ratings"), (querySnapshot) => {
+    let fbRatings = [];
+    querySnapshot.forEach((doc) => {
+      console.log(doc.data(), "=>")
+      const review = {
+        country: doc.data().country,
+        city: doc.data().city,
+        stars: doc.data().stars,
+        comments: doc.data().comments
+      }
+      fbRatings.push(review)
+    })
+    reviews.value = fbRatings
+  })
+});
 
 
 const format = ref('dd MMMM yyyy');
 const departuredate = ref();
 const returndate = ref();
+//To show a specific thing only when logged in
 const isLoggedIn = ref(false)
 let auth
 onMounted(() => {
@@ -189,9 +268,10 @@ import {database} from "@/main";
 import firebase from "firebase/compat/app";
 import moment from "moment";
 import axios from "axios";
-import { collection, query, doc, where, getDocs } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import {collection, query, doc, where, getDocs} from "firebase/firestore";
+import {getAuth} from "firebase/auth";
 import 'vue3-simple-typeahead/dist/vue3-simple-typeahead.css';
+
 export default {
 
 
@@ -208,29 +288,38 @@ export default {
       highestHotelPrice: 0,
       lowestFlightPrice: 0,
       highestFlightPrice: 0,
-      options:[],
-      currentAirportOptions:[],
+      options: [],
+      currentAirportOptions: [],
 
 
     }
   },
   mounted() {
-    // fetch("../assets/cities.json")
-    //     .then(response => response.json())
-    //     .then(data => (this.options = data));
 
   },
   methods: {
+    //For autocomplete
     projection(value) {
 
       return value.name
     },
-    airportSelected(value){
+    airportSelected(value) {
       this.travelingFrom = value.code;
     },
 
-
-    unsave(city) {
+    //Unsaving a city
+    async unsave(city) {
+      city.is_saved = undefined;
+      const auth = getAuth();
+      const user = auth.currentUser;
+      //Delete the city from the favorites collection
+      console.log(user.email);
+      database.collection("favorites").doc(user.email).update({
+        [city.city_name]: firebase.firestore.FieldValue.delete(),
+      })
+          .then(() => {
+            console.log("Document successfully removed city!");
+          })
 
     },
     closeDetails() {
@@ -257,6 +346,7 @@ export default {
       //
 
     },
+    //Fetching the flight details from the flight API
     getFlights() {
       let self = this;
       const options = {
@@ -287,7 +377,7 @@ export default {
 
 
     },
-
+    //Fetching the hotel details from the flight API
     getHotels() {
       let self = this;
       // const axios = require("axios");
@@ -334,35 +424,27 @@ export default {
         console.error(error);
       });
 
-      // this.lowestHotelPrice = this.hotels[0].price;
-      // this.highestHotelPrice = this.hotels[this.hotels.length -1].price;
-      //
-
     },
+    //Fetch the cities that are in recommendation collection from the firebase API
     queryDb() {
       console.log('called');
       let recommendations = database.collection('recommendation');
-      // recommendations.where('type', 'array-contains',
-      //     ['b']);
+
       let query = recommendations.where('type', 'array-contains', this.cityType);
       query.get().then((data) => {
         const documents = data.docs.map(doc => doc.data())
         this.cities = documents;
       })
-      // let recommendations = (await database.collection('recommendation').get()).docs;
-
-      // console.log(recommendations.get());
     },
-    async onclickSave(city){
+    //Save the clicked city to the favorites collection
+    async onclickSave(city) {
       city.is_saved = true;
       console.log('clicked');
-      // const favorites = await getDocs(collection(database, "favorites"));
-
-
       const auth = getAuth();
       const user = auth.currentUser;
 
       console.log(user.email);
+      //Saving the cities clicked in the users document
       database.collection("favorites").doc(user.email).set({
         [city.city_name]: city,
       }, {merge: true})
@@ -370,7 +452,7 @@ export default {
             console.log("Document successfully written!");
           })
       //alert box popup
-      alert("Added to Profile")
+      // alert("Added to Profile")
     },
   }
 
