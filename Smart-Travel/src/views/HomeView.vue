@@ -154,14 +154,14 @@
                 </div>
               </div>
             </div>
+            
+              <!--UI for fetch. Displays the reviews from collection "ratings"-->
             <div class="mt-10  divide-y divide-gray-200">
               <div class="flex flex-col overflow-hidden
           bg-white  rounded-xl w-100 ">
                 <div class="mt-5 mx-3 text-xl text-gray-900 font-bold"> Reviews</div>
                 <ul role="list" class="mt-4 divide-y divide-gray-200">
-
                   <li v-for="review in reviews" :key="review.data">
-
                     <div class="flex flex-col overflow-hidden
           bg-white   w-100 ">
                       <div class="mx-3 mt-2">
@@ -224,7 +224,7 @@
 import {onMounted, ref} from "vue";
 import {getAuth, onAuthStateChanged} from "firebase/auth";
 import {collection, onSnapshot} from "firebase/firestore"
-
+// fetching the review data from the database
 const reviews = ref([]);
 onMounted(async () => {
   onSnapshot(collection(database, "Ratings"), (querySnapshot) => {
