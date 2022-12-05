@@ -281,18 +281,6 @@ const format = ref('yyyy-MM-dd');
 import axios from "axios";
 import moment from 'moment';
 export default {
-  // setup() {
-  //   const CheckIn = ref();
-  //   const CheckOut = ref();
-  //   const format = ref('yyyy-MM-dd');
-  //
-  //
-  //   return {
-  //     CheckIn,
-  //     CheckOut,
-  //     format,
-  //   };
-  // },
 
   data() {
     return {

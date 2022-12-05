@@ -253,12 +253,30 @@ export default {
       orderBy: '',
     };
   },
-  filters:{
-    // converttime: function(dateit) {
-    //   return moment(dateit).format('HH:mm')
-    // }
-  },
+
   methods: {
+    orderBySelected(event){
+      this.orderBy = event.target.value;
+      if(event.target.value === 'pricea') {
+        console.log('sorting by price ascending')
+        this.flights.sort((a, b) => (this.Number(a.price.amount) > this.Number(b.price.amount)) ? 1 : -1)
+      }
+      if(event.target.value === 'priced') {
+        console.log('sorting by price descending')
+        this.flights.sort((a, b) => (this.Number(a.price.amount) < this.Number(b.price.amount)) ? 1 : -1)
+      }
+    },
+
+    Number(value) {
+      if(value) {
+        value = value.toString().replace("$", "");
+        value = value.toString().replace(",", "");
+        return parseInt(value);
+      }
+      console.log('something went wrong');
+      return 0;
+    } ,
+
     getFormattedDate(date) {
       return moment(date).format("HH:mm")
     },
@@ -314,26 +332,26 @@ export default {
       });
     },
 
-    orderBySelected(event){
-      this.orderBy = event.target.value;
-      if(event.target.value === 'pricea') {
-        console.log('sorting by price ascending')
-        this.flights.sort((a, b) => (this.newNumber(a.price) > this.newNumber(b.price)) ? 1 : -1)
-      }
-      if(event.target.value === 'priced') {
-        console.log('sorting by price descending')
-        this.flights.sort((a, b) => (this.newNumber(a.price) < this.newNumber(b.price)) ? 1 : -1)
-      }
-    },
-
-    newNumber(value) {
-      if(value) {
-        value = value.replace("$", "");
-        return toString(value);
-      }
-      console.log('something went seriously wrong here');
-      return 0;
-    } ,
+    // orderBySelected(event){
+    //   this.orderBy = event.target.value;
+    //   if(event.target.value === 'pricea') {
+    //     console.log('sorting by price ascending')
+    //     this.flights.sort((a, b) => (this.newNumber(a.price) > this.newNumber(b.price)) ? 1 : -1)
+    //   }
+    //   if(event.target.value === 'priced') {
+    //     console.log('sorting by price descending')
+    //     this.flights.sort((a, b) => (this.newNumber(a.price) < this.newNumber(b.price)) ? 1 : -1)
+    //   }
+    // },
+    //
+    // newNumber(value) {
+    //   if(value) {
+    //     value = value.replace("$", "");
+    //     return toString(value);
+    //   }
+    //   console.log('something went wrong');
+    //   return 0;
+    // } ,
 
     getMultipleStops() {
       let legsData =[ {"origin":this.leaving,"destination":this.going,"date": moment(this.Departure).format('YYYY-MM-DD')}];
