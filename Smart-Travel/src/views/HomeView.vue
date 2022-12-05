@@ -44,6 +44,7 @@
               v-model="departuredate "
               class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
               autoApply :format="format"
+
               :min-date='new Date()'
               placeholder="Departure Date"
           />
@@ -54,9 +55,9 @@
               v-model="returndate"
               class="col-span-1 block text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400"
               autoApply :format="format"
-              :min-date='new Date()'
-              placeholder="Returning Date"
-          />
+              :min-date='departuredate'
+              placeholder="Returning Date"/>
+         <!-- This stops the user from selecting days that are past the pick up day  -->
         </div>
       </div>
       <div class="mt-4">
