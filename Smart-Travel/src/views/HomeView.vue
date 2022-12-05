@@ -228,7 +228,7 @@ import {collection, onSnapshot} from "firebase/firestore"
 const reviews = ref([]);
 onMounted(async () => {
   onSnapshot(collection(database, "Ratings"), (querySnapshot) => {
-    let fbRatings = [];
+    let collectRatings = [];
     querySnapshot.forEach((doc) => {
       console.log(doc.data(), "=>")
       const review = {
@@ -237,9 +237,9 @@ onMounted(async () => {
         stars: doc.data().stars,
         comments: doc.data().comments
       }
-      fbRatings.push(review)
+      collectRatings.push(review)
     })
-    reviews.value = fbRatings
+    reviews.value = collectRatings
   })
 });
 
