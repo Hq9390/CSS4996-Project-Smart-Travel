@@ -6,7 +6,8 @@
         <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900">Leave a rating for the city</h2>
         <form action="#"  @submit.prevent="addSurvey"  class="space-y-8">
           <!--        input fields-->
-          <!--allows for the user to input country, refreshes on submission-->
+
+<!--          Allows the user to add some identity-->
           <div>
             <label for="city" class=" block text-sm font-medium text-gray-700" >Enter a name or nickname</label>
             <div class="mt-1">
@@ -16,7 +17,7 @@
               <input v-model="newUserName" id="userName" name="userName" type="text" autocomplete="userName" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
-
+          <!--allows for the user to input country, refreshes on submission-->
           <div>
             <label for="city" class=" block text-sm font-medium text-gray-700" >What country are you from?</label>
             <div class="mt-1">
