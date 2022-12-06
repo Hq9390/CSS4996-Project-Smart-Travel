@@ -3,7 +3,7 @@ The Smart Travel web application is meant to make the lives of people who want t
 
 ## Pre-Requisites
     1. NodeJS Installation
-    2.  NPM Installation
+    2. NPM Installation
     
 ### NodeJS Installation
 Smart Travel application is written in JavaScript using VueJS framework. To be able to run the application locally you would need to install NodeJS first.
