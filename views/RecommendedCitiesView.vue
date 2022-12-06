@@ -356,7 +356,7 @@ const reviews = ref([]);
 
 onMounted(async () => {
 onSnapshot(collection(database, "Ratings"), (querySnapshot) => {
-let fbRatings = [];
+let collectRatings = [];
 querySnapshot.forEach((doc) => {
 console.log(doc.data(), "=>")
 const review = {
@@ -365,9 +365,9 @@ city: doc.data().city,
 stars: doc.data().stars,
 comments: doc.data().comments
 }
-fbRatings.push(review)
+collectRatings.push(review)
 })
-reviews.value = fbRatings
+reviews.value = collectRatings
 })
 });
 </script>

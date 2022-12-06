@@ -8,6 +8,16 @@
           <!--        input fields-->
           <!--allows for the user to input country, refreshes on submission-->
           <div>
+            <label for="city" class=" block text-sm font-medium text-gray-700" >Enter a name or nickname</label>
+            <div class="mt-1">
+              <li v-for = "survey in surveys" :key="survey.userName">
+                {{survey.userName}}
+              </li>
+              <input v-model="newUserName" id="userName" name="userName" type="text" autocomplete="userName" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+            </div>
+          </div>
+
+          <div>
             <label for="city" class=" block text-sm font-medium text-gray-700" >What country are you from?</label>
             <div class="mt-1">
               <li v-for = "survey in surveys" :key="survey.country">
@@ -48,7 +58,8 @@
           </div>
           <div>
 <!--            <button @click="submit" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>-->
-            <button @click="say('Thanks for the submission')" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
+            <button @click="say('Thanks for the submission')" id="submit" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit Rating</button>
+<!--          <p id="popup"></p>-->
           </div>
         </form>
 
@@ -88,7 +99,8 @@ import { database } from "@/main";
 import {collection, addDoc} from "firebase/firestore"
 // a list of all const, primarily strings with an array
 const surveys =ref([]);
-const newCountry = ref('')
+const newUserName = ref('');
+const newCountry = ref('');
 const newCity = ref('');
 const newStarAmount = ref('');
 const newComment = ref('');
@@ -100,7 +112,8 @@ const addSurvey = () => {
   { city: newCity.value,
     stars: newStarAmount.value,
     comments: newComment.value,
-    country: newCountry.value
+    country: newCountry.value,
+    userName: newUserName.value,
 
   })
       //error handling
@@ -123,10 +136,18 @@ const addSurvey = () => {
     newCity.value = ''
     newStarAmount.value = ''
     newComment.value = ''
+  newUserName.value=''
 }
 </script>
 <!--script for popup-->
 <script>
+// const pop = document.getElementById('submit');
+// const newText = document.getElementById('popup')
+// pop.addEventListener('click', function ()
+// {
+//   const innerText = 'Thanks for the submission';
+//   newText.innerHTML = innerText;
+// })
 export default {
   methods: {
     say(message) {
