@@ -31,7 +31,7 @@ Since this project utilizes Firebase as it's storage system as well as it’s au
 ### Firebase API Installation Steps
 1. Open the project in the current IDE (WebStorm IDE is recommended for JavaScript projects)
 2. From within the IDE open the command terminal
-3. enter CD (file folder), this allows you to install it where you would like
+3. Enter CD (file folder), this allows you to install it where you would like
 4. After you are in the folder you want enter NPM I or Install firebase
 5. Check for it to ensure it's been installed using dpkg-query -I firebase
 6. Ensure you are running the latest version of Firebase by entering $ firebase –v
@@ -48,7 +48,7 @@ Git clone https://github.com/Hq9390/CSS4996-Project-Smart-Travel.git
 
 ### Run the Application
 1. Open your console and cd Smart-Travel on your IDE Terminal
-2. run the command
+2. Run the command
 npm run dev 
 3. Visit the local host 
 
