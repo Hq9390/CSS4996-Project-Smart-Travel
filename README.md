@@ -11,21 +11,21 @@ Smart Travel application is written in JavaScript using VueJS framework. To be a
 2. Download NodeJS v16.16.0 or later versions installer
 4. After the installer has finished downloading, launch it
 
-### Verify Installation
+#### Verify Installation
 Open your command prompt and enter
 node -v  
 If NodeJS was successfully installed, the system would display the version you your NodeJS
 
-## NPM Installation
+### NPM Installation
 NPM is a package manager for NodeJS 
 1. On your command prompt, run the command “npm install” to install it on your computer
 
-### Verify Installation
+#### Verify Installation
 Open your command prompt and enter
 npm -v  
 If NPM was successfully installed, the system would display the version you your NPM
 
-### Firebase Setup
+## Firebase Setup
 Since this project utilizes Firebase as it's storage system as well as it’s authentication system, Firebase API must be installed within the project. This allows for seamless communication between web application and the Firestore database. You will also need to create a serviceAccountjson.file. The instructions to do so are provided in the link Add the Firebase Admin SDK to your server. 
 
 ### Firebase API Installation Steps
