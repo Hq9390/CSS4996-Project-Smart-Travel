@@ -27,8 +27,16 @@
 {name:' Minsk (MSQ)', 'code': 'MSQ'}, {name:'Bangkok(BKK)', 'code': 'BKK'}, {name:' Mink (NTR)', 'code': 'NTR'} ,{name:'Dehli(DEL)', 'code':'DEL'},
 ,{name:'Bamburi(BMQ)', 'code':'BMQ'},{name:'Amsterdam(AMS)', 'code': 'AMS'},{name:'Dallas (DFW)', 'code': 'DFW'},
 {name:'Stockholm(ARN)', 'code': 'ARN'}, {name:'Oslo(OSL)', 'code': 'OSL'},
-  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}]"
-
+  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}, {name:'Boston(BOS)', 'code':'Bos'}, {name:'Buffalo(BUF', 'code':'BUF'}, {name:'Burbank(BUR)', 'code':'BUR'}, {name:'Charleston(CHS)','code':'CHS'},
+   {name:'Charlotte(CLT)', 'code':'CLT'}, {name:'Cleveland(CLE)','code':'CLE'}, {name:'Clarksburg(CKB)','code':'CKB'},
+   {name:'Cheyenne(CYS)','code':'CYS'}, {name:'Billings(BIL)','code':'BIL'},
+   {name:'Biloxi/Gulfport(GPT)', 'code':'GPT'}, {name:'Birmingham(BHM)', 'code':'BHM'},
+   {name:'Boise(BOI)', 'code':'BOI'}, {name:'Boulder(WBU)', 'code':'WBU'}, {name:'Casper(CPR)', 'code':'CPR'},
+   {name:'Chicago(MDW)', 'code':'MDW'}, {name:'Chicago(ORD)', 'code':'ORD'}, {name:'Denver(DEN)', 'code':'DEN'},
+   {name:'Dayton(DAY)', 'code':'DAY'}, {name:'Durham(RDU)', 'code':'RDU'}, {name:'Eugene(EUG)', 'code':'EUG'},
+   {name:'Eureka(EUE)', 'code':'EUE'}, {name:'Fargo(FAR)', 'code':'FAR'}, {name:'Austin(AUS)', 'code':'AUS'}, {name:'Gary(GYY)', 'code':'GYY'}, {name:'Honolulu(HNL)', 'code':'HNL'}, {name:'Huntsville(HSV)', 'code':'HSV'}, {name:'Indianapolis(IND)', 'code':'IND'}, {name:'Jacksonville(JAX)', 'code':'JAX'}, {name:'Kalamazoo(AZO)', 'code':'AZO'}, {name:'Lafayette(LFT)', 'code':'LFT'}, {name:'Lansing(LAN)', 'code':'LAN'}, {name:'Lexington(LEX)', 'code':'LEX'}, {name:'Madison(MSN)', 'code':'MSN'}, {name:'Marquette(MQT)', 'code':'MQT'}, {name:'Maui(OGG)', 'code':'OGG'}, {name:'Minneapolis(MSP)', 'code':'MSP'}, {name:'Newark(EWR)', 'code':'EWR'}, {name:'Oakland(OAK)', 'code':'OAK'}, {name:'Orlando(MCO)', 'code':'MCO'}, {name:'Palm Springs(PSP)', 'code':'PSP'}, {name:'Philadelphia(PHL)', 'code':'PHL'}, {name:'Phoenox(PHX)', 'code':'PHX'}, {name:'Pittsburgh(PIT)', 'code':'PIT'}, {name:'Portland(PDX)', 'code':'PDX'}, {name:'Reno(RNO)', 'code':'RNO'}, {name:'Sacramento(SMF)', 'code':'SMF'}, {name:'San Antonio(SAT)', 'code':'SAT'}, {name:'San Diego(SAN)', 'code':'SAN'}, {name:'San Francisco(SFO)', 'code':'SFO'}, {name:'San Jose(SJC)', 'code':'SJC'}, {name:'San Juan(SJU)', 'code':'SJU'}, {name:'Savannah(SAV)', 'code':'SAV'}, {name:'Tulsa(TUL)', 'code':'TUL'}, {name:'Seoul(ICN)', 'code':'ICN'}, {name:'Tokyo(HND)', 'code':'HND'}, {name:'Milan(MXP)', 'code':'MXP'},
+    {name:'Glasgow(GLA)', 'code':'GLA'}, {name:'Taiwan(TPE)', 'code':'TPE'},
+  ]"
               :minInputLength="1"
               :itemProjection="projection"
               class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
@@ -104,7 +112,7 @@
                        class=" mx-auto h-full w-full sm:h-20 md:h-35 lg:h-40 xl:h-56 xl:w-450">
                   <p class="mt-6 text-xl  text-gray-900 font-bold">{{ city.city_name }}</p>
                   <div>
-<!--                    A link to redirect you to the ratings page-->
+                    <!--                    A link to redirect you to the ratings page-->
                     <a class=" font-medium text-indigo-900 hover:text-indigo-500 underline underline-offset-1">
                       <router-link to="/rating">Leave a review if you already visited this city</router-link>
                     </a>
@@ -177,22 +185,24 @@
                   <div v-for="review in reviews" :key="review.id" class="flex space-x-3 text-sm text-gray-500">
 
                     <div :class="[reviewIdx === 0 ? '' : 'border-t border-gray-200', 'flex-1 py-10']">
-                      <h3 class="font-medium text-gray-900">{{review.userName}}</h3>
+                      <h3 class="font-medium text-gray-900">{{ review.userName }}</h3>
                       <p>
-                        <time :datetime="review.datetime">from {{ review.country}}</time>
+                        <time :datetime="review.datetime">from {{ review.country }}</time>
                       </p>
 
                       <div class="mt-4 flex items-center">
-                        <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating" :class="[review.stars  > rating ? 'text-yellow-400' : 'text-gray-300', 'h-5 w-5 flex-shrink-0']" aria-hidden="true" />
+                        <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating"
+                                  :class="[review.stars  > rating ? 'text-yellow-400' : 'text-gray-300', 'h-5 w-5 flex-shrink-0']"
+                                  aria-hidden="true"/>
                       </div>
                       <p class="sr-only">{{ review.rating }} out of 5 stars</p>
 
-                      <div class="prose prose-sm mt-4 max-w-none text-gray-500" v-html="review.comments" />
+                      <div class="prose prose-sm mt-4 max-w-none text-gray-500" v-html="review.comments"/>
                     </div>
                   </div>
                 </div>
               </div>
-          </div>
+            </div>
           </div>
           <!--Closing the details of the selected flight to go back to flights results -->
           <div class="mt-8">
@@ -227,12 +237,10 @@
   </footer>
 </template>
 <script setup>
-
-import {onMounted, ref} from "vue";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
-import {collection, onSnapshot, doc} from "firebase/firestore"
-import { StarIcon } from '@heroicons/vue/20/solid'
-
+import {onMounted} from "vue";
+import {onAuthStateChanged} from "firebase/auth";
+import {onSnapshot, collection} from "firebase/firestore"
+import {StarIcon} from '@heroicons/vue/20/solid'
 const review = [
   {
 
@@ -286,12 +294,10 @@ import {database} from "@/main";
 import firebase from "firebase/compat/app";
 import moment from "moment";
 import axios from "axios";
-import {collection, query, doc, where, getDocs} from "firebase/firestore";
 import {getAuth} from "firebase/auth";
 import 'vue3-simple-typeahead/dist/vue3-simple-typeahead.css';
 
 export default {
-
 
   data() {
     return {
@@ -308,8 +314,7 @@ export default {
       highestFlightPrice: 0,
       options: [],
       currentAirportOptions: [],
-
-
+      favorites: [],
     }
   },
   mounted() {
@@ -324,7 +329,7 @@ export default {
     airportSelected(value) {
       this.travelingFrom = value.code;
     },
-
+  
     //Unsaving a city
     async unsave(city) {
       city.is_saved = undefined;

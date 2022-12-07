@@ -61,7 +61,17 @@
 {name:' Minsk (MSQ)', 'code': 'MSQ'}, {name:'Bangkok(BKK)', 'code': 'BKK'}, {name:' Mink (NTR)', 'code': 'NTR'} ,{name:'Dehli(DEL)', 'code':'DEL'},
 ,{name:'Bamburi(BMQ)', 'code':'BMQ'},{name:'Amsterdam(AMS)', 'code': 'AMS'},{name:'Dallas (DFW)', 'code': 'DFW'},
 {name:'Stockholm(ARN)', 'code': 'ARN'}, {name:'Oslo(OSL)', 'code': 'OSL'},
-  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}]"
+  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}, {name:'Boston(BOS)', 'code':'Bos'}, {name:'Buffalo(BUF', 'code':'BUF'}, {name:'Burbank(BUR)', 'code':'BUR'}, {name:'Charleston(CHS)','code':'CHS'},
+   {name:'Charlotte(CLT)', 'code':'CLT'}, {name:'Cleveland(CLE)','code':'CLE'}, {name:'Clarksburg(CKB)','code':'CKB'},
+   {name:'Cheyenne(CYS)','code':'CYS'}, {name:'Billings(BIL)','code':'BIL'},
+   {name:'Biloxi/Gulfport(GPT)', 'code':'GPT'}, {name:'Birmingham(BHM)', 'code':'BHM'},
+   {name:'Boise(BOI)', 'code':'BOI'}, {name:'Boulder(WBU)', 'code':'WBU'}, {name:'Casper(CPR)', 'code':'CPR'},
+   {name:'Chicago(MDW)', 'code':'MDW'}, {name:'Chicago(ORD)', 'code':'ORD'}, {name:'Denver(DEN)', 'code':'DEN'},
+   {name:'Dayton(DAY)', 'code':'DAY'}, {name:'Durham(RDU)', 'code':'RDU'}, {name:'Eugene(EUG)', 'code':'EUG'},
+   {name:'Eureka(EUE)', 'code':'EUE'}, {name:'Fargo(FAR)', 'code':'FAR'}, {name:'Austin(AUS)', 'code':'AUS'}, {name:'Gary(GYY)', 'code':'GYY'}, {name:'Honolulu(HNL)', 'code':'HNL'}, {name:'Huntsville(HSV)', 'code':'HSV'}, {name:'Indianapolis(IND)', 'code':'IND'}, {name:'Jacksonville(JAX)', 'code':'JAX'}, {name:'Kalamazoo(AZO)', 'code':'AZO'}, {name:'Lafayette(LFT)', 'code':'LFT'}, {name:'Lansing(LAN)', 'code':'LAN'}, {name:'Lexington(LEX)', 'code':'LEX'}, {name:'Madison(MSN)', 'code':'MSN'}, {name:'Marquette(MQT)', 'code':'MQT'}, {name:'Maui(OGG)', 'code':'OGG'}, {name:'Minneapolis(MSP)', 'code':'MSP'}, {name:'Newark(EWR)', 'code':'EWR'}, {name:'Oakland(OAK)', 'code':'OAK'}, {name:'Orlando(MCO)', 'code':'MCO'}, {name:'Palm Springs(PSP)', 'code':'PSP'}, {name:'Philadelphia(PHL)', 'code':'PHL'}, {name:'Phoenox(PHX)', 'code':'PHX'}, {name:'Pittsburgh(PIT)', 'code':'PIT'}, {name:'Portland(PDX)', 'code':'PDX'}, {name:'Reno(RNO)', 'code':'RNO'}, {name:'Sacramento(SMF)', 'code':'SMF'}, {name:'San Antonio(SAT)', 'code':'SAT'}, {name:'San Diego(SAN)', 'code':'SAN'}, {name:'San Francisco(SFO)', 'code':'SFO'}, {name:'San Jose(SJC)', 'code':'SJC'}, {name:'San Juan(SJU)', 'code':'SJU'}, {name:'Savannah(SAV)', 'code':'SAV'}, {name:'Tulsa(TUL)', 'code':'TUL'}, {name:'Seoul(ICN)', 'code':'ICN'}, {name:'Tokyo(HND)', 'code':'HND'}, {name:'Milan(MXP)', 'code':'MXP'},
+    {name:'Glasgow(GLA)', 'code':'GLA'}, {name:'Taiwan(TPE)', 'code':'TPE'},
+  ]"
+
                   :minInputLength="1"
                   :itemProjection="projection"
                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
@@ -90,7 +100,17 @@
 {name:' Minsk (MSQ)', 'code': 'MSQ'}, {name:'Bangkok(BKK)', 'code': 'BKK'}, {name:' Mink (NTR)', 'code': 'NTR'} ,{name:'Dehli(DEL)', 'code':'DEL'},
 ,{name:'Bamburi(BMQ)', 'code':'BMQ'},{name:'Amsterdam(AMS)', 'code': 'AMS'},{name:'Dallas (DFW)', 'code': 'DFW'},
 {name:'Stockholm(ARN)', 'code': 'ARN'}, {name:'Oslo(OSL)', 'code': 'OSL'},
-  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}]"
+  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}, {name:'Boston(BOS)', 'code':'Bos'}, {name:'Buffalo(BUF', 'code':'BUF'}, {name:'Burbank(BUR)', 'code':'BUR'}, {name:'Charleston(CHS)','code':'CHS'},
+   {name:'Charlotte(CLT)', 'code':'CLT'}, {name:'Cleveland(CLE)','code':'CLE'}, {name:'Clarksburg(CKB)','code':'CKB'},
+   {name:'Cheyenne(CYS)','code':'CYS'}, {name:'Billings(BIL)','code':'BIL'},
+   {name:'Biloxi/Gulfport(GPT)', 'code':'GPT'}, {name:'Birmingham(BHM)', 'code':'BHM'},
+   {name:'Boise(BOI)', 'code':'BOI'}, {name:'Boulder(WBU)', 'code':'WBU'}, {name:'Casper(CPR)', 'code':'CPR'},
+   {name:'Chicago(MDW)', 'code':'MDW'}, {name:'Chicago(ORD)', 'code':'ORD'}, {name:'Denver(DEN)', 'code':'DEN'},
+   {name:'Dayton(DAY)', 'code':'DAY'}, {name:'Durham(RDU)', 'code':'RDU'}, {name:'Eugene(EUG)', 'code':'EUG'},
+   {name:'Eureka(EUE)', 'code':'EUE'}, {name:'Fargo(FAR)', 'code':'FAR'}, {name:'Austin(AUS)', 'code':'AUS'}, {name:'Gary(GYY)', 'code':'GYY'}, {name:'Honolulu(HNL)', 'code':'HNL'}, {name:'Huntsville(HSV)', 'code':'HSV'}, {name:'Indianapolis(IND)', 'code':'IND'}, {name:'Jacksonville(JAX)', 'code':'JAX'}, {name:'Kalamazoo(AZO)', 'code':'AZO'}, {name:'Lafayette(LFT)', 'code':'LFT'}, {name:'Lansing(LAN)', 'code':'LAN'}, {name:'Lexington(LEX)', 'code':'LEX'}, {name:'Madison(MSN)', 'code':'MSN'}, {name:'Marquette(MQT)', 'code':'MQT'}, {name:'Maui(OGG)', 'code':'OGG'}, {name:'Minneapolis(MSP)', 'code':'MSP'}, {name:'Newark(EWR)', 'code':'EWR'}, {name:'Oakland(OAK)', 'code':'OAK'}, {name:'Orlando(MCO)', 'code':'MCO'}, {name:'Palm Springs(PSP)', 'code':'PSP'}, {name:'Philadelphia(PHL)', 'code':'PHL'}, {name:'Phoenox(PHX)', 'code':'PHX'}, {name:'Pittsburgh(PIT)', 'code':'PIT'}, {name:'Portland(PDX)', 'code':'PDX'}, {name:'Reno(RNO)', 'code':'RNO'}, {name:'Sacramento(SMF)', 'code':'SMF'}, {name:'San Antonio(SAT)', 'code':'SAT'}, {name:'San Diego(SAN)', 'code':'SAN'}, {name:'San Francisco(SFO)', 'code':'SFO'}, {name:'San Jose(SJC)', 'code':'SJC'}, {name:'San Juan(SJU)', 'code':'SJU'}, {name:'Savannah(SAV)', 'code':'SAV'}, {name:'Tulsa(TUL)', 'code':'TUL'}, {name:'Seoul(ICN)', 'code':'ICN'}, {name:'Tokyo(HND)', 'code':'HND'}, {name:'Milan(MXP)', 'code':'MXP'},
+    {name:'Glasgow(GLA)', 'code':'GLA'}, {name:'Taiwan(TPE)', 'code':'TPE'},
+  ]"
+
                   :minInputLength="1"
                   :itemProjection="projection1"
                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
@@ -163,7 +183,17 @@
 {name:' Minsk (MSQ)', 'code': 'MSQ'}, {name:'Bangkok(BKK)', 'code': 'BKK'}, {name:' Mink (NTR)', 'code': 'NTR'} ,{name:'Dehli(DEL)', 'code':'DEL'},
 ,{name:'Bamburi(BMQ)', 'code':'BMQ'},{name:'Amsterdam(AMS)', 'code': 'AMS'},{name:'Dallas (DFW)', 'code': 'DFW'},
 {name:'Stockholm(ARN)', 'code': 'ARN'}, {name:'Oslo(OSL)', 'code': 'OSL'},
-  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}]"
+  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}, {name:'Boston(BOS)', 'code':'Bos'}, {name:'Buffalo(BUF', 'code':'BUF'}, {name:'Burbank(BUR)', 'code':'BUR'}, {name:'Charleston(CHS)','code':'CHS'},
+   {name:'Charlotte(CLT)', 'code':'CLT'}, {name:'Cleveland(CLE)','code':'CLE'}, {name:'Clarksburg(CKB)','code':'CKB'},
+   {name:'Cheyenne(CYS)','code':'CYS'}, {name:'Billings(BIL)','code':'BIL'},
+   {name:'Biloxi/Gulfport(GPT)', 'code':'GPT'}, {name:'Birmingham(BHM)', 'code':'BHM'},
+   {name:'Boise(BOI)', 'code':'BOI'}, {name:'Boulder(WBU)', 'code':'WBU'}, {name:'Casper(CPR)', 'code':'CPR'},
+   {name:'Chicago(MDW)', 'code':'MDW'}, {name:'Chicago(ORD)', 'code':'ORD'}, {name:'Denver(DEN)', 'code':'DEN'},
+   {name:'Dayton(DAY)', 'code':'DAY'}, {name:'Durham(RDU)', 'code':'RDU'}, {name:'Eugene(EUG)', 'code':'EUG'},
+   {name:'Eureka(EUE)', 'code':'EUE'}, {name:'Fargo(FAR)', 'code':'FAR'}, {name:'Austin(AUS)', 'code':'AUS'}, {name:'Gary(GYY)', 'code':'GYY'}, {name:'Honolulu(HNL)', 'code':'HNL'}, {name:'Huntsville(HSV)', 'code':'HSV'}, {name:'Indianapolis(IND)', 'code':'IND'}, {name:'Jacksonville(JAX)', 'code':'JAX'}, {name:'Kalamazoo(AZO)', 'code':'AZO'}, {name:'Lafayette(LFT)', 'code':'LFT'}, {name:'Lansing(LAN)', 'code':'LAN'}, {name:'Lexington(LEX)', 'code':'LEX'}, {name:'Madison(MSN)', 'code':'MSN'}, {name:'Marquette(MQT)', 'code':'MQT'}, {name:'Maui(OGG)', 'code':'OGG'}, {name:'Minneapolis(MSP)', 'code':'MSP'}, {name:'Newark(EWR)', 'code':'EWR'}, {name:'Oakland(OAK)', 'code':'OAK'}, {name:'Orlando(MCO)', 'code':'MCO'}, {name:'Palm Springs(PSP)', 'code':'PSP'}, {name:'Philadelphia(PHL)', 'code':'PHL'}, {name:'Phoenox(PHX)', 'code':'PHX'}, {name:'Pittsburgh(PIT)', 'code':'PIT'}, {name:'Portland(PDX)', 'code':'PDX'}, {name:'Reno(RNO)', 'code':'RNO'}, {name:'Sacramento(SMF)', 'code':'SMF'}, {name:'San Antonio(SAT)', 'code':'SAT'}, {name:'San Diego(SAN)', 'code':'SAN'}, {name:'San Francisco(SFO)', 'code':'SFO'}, {name:'San Jose(SJC)', 'code':'SJC'}, {name:'San Juan(SJU)', 'code':'SJU'}, {name:'Savannah(SAV)', 'code':'SAV'}, {name:'Tulsa(TUL)', 'code':'TUL'}, {name:'Seoul(ICN)', 'code':'ICN'}, {name:'Tokyo(HND)', 'code':'HND'}, {name:'Milan(MXP)', 'code':'MXP'},
+    {name:'Glasgow(GLA)', 'code':'GLA'}, {name:'Taiwan(TPE)', 'code':'TPE'},
+  ]"
+
                   :minInputLength="1"
                   :itemProjection="projection"
                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
@@ -184,6 +214,7 @@
 {name:'Cambridge Bay(YCB)', 'code': 'YCB'}, {name:'Windsor(YQG)', 'code': 'YQG'},
 {name:'Barcelona(BCN)', 'code': 'BCN'}
 ,{name:'ROME(FCO)', 'code': 'FCO'}, {name:'Alexander City(ALX)', 'code': 'ALX'}, {name:'Anniston, Al (ANB)', 'code': 'ANB'},
+
 {name:'Edmonton (YEG)', 'code': 'YEG'},  {name:'Dubai (YEG)', 'code': 'YEG'}, {name:'Aberdeen(ABR)', 'code': 'ABR'}
 , {name:'Hana, HI(HNM)', 'code': 'HNM'}, {name:'Doha (DIA)', 'code': 'DIA'}, {name:'Akron(CAK)', 'code': 'CAK'},
 {name:'Athens,TN(MMI)', 'code': 'MMI'}, {name:'Seattle (SEA)', 'code': 'SEA'},{name:'Doha (DIA)', 'code': 'DIA'},
@@ -192,7 +223,17 @@
 {name:' Minsk (MSQ)', 'code': 'MSQ'}, {name:'Bangkok(BKK)', 'code': 'BKK'}, {name:' Mink (NTR)', 'code': 'NTR'} ,{name:'Dehli(DEL)', 'code':'DEL'},
 ,{name:'Bamburi(BMQ)', 'code':'BMQ'},{name:'Amsterdam(AMS)', 'code': 'AMS'},{name:'Dallas (DFW)', 'code': 'DFW'},
 {name:'Stockholm(ARN)', 'code': 'ARN'}, {name:'Oslo(OSL)', 'code': 'OSL'},
-  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}]"
+  {name:'Brisbane(BNE)','code':'BNE'}, {name:'Hanga Roa(IPC)', 'code':'IPC'}, {name:'Auckland(AKL)', 'code':'AKL'}, {name:'Boston(BOS)', 'code':'Bos'}, {name:'Buffalo(BUF', 'code':'BUF'}, {name:'Burbank(BUR)', 'code':'BUR'}, {name:'Charleston(CHS)','code':'CHS'},
+   {name:'Charlotte(CLT)', 'code':'CLT'}, {name:'Cleveland(CLE)','code':'CLE'}, {name:'Clarksburg(CKB)','code':'CKB'},
+   {name:'Cheyenne(CYS)','code':'CYS'}, {name:'Billings(BIL)','code':'BIL'},
+   {name:'Biloxi/Gulfport(GPT)', 'code':'GPT'}, {name:'Birmingham(BHM)', 'code':'BHM'},
+   {name:'Boise(BOI)', 'code':'BOI'}, {name:'Boulder(WBU)', 'code':'WBU'}, {name:'Casper(CPR)', 'code':'CPR'},
+   {name:'Chicago(MDW)', 'code':'MDW'}, {name:'Chicago(ORD)', 'code':'ORD'}, {name:'Denver(DEN)', 'code':'DEN'},
+   {name:'Dayton(DAY)', 'code':'DAY'}, {name:'Durham(RDU)', 'code':'RDU'}, {name:'Eugene(EUG)', 'code':'EUG'},
+   {name:'Eureka(EUE)', 'code':'EUE'}, {name:'Fargo(FAR)', 'code':'FAR'}, {name:'Austin(AUS)', 'code':'AUS'}, {name:'Gary(GYY)', 'code':'GYY'}, {name:'Honolulu(HNL)', 'code':'HNL'}, {name:'Huntsville(HSV)', 'code':'HSV'}, {name:'Indianapolis(IND)', 'code':'IND'}, {name:'Jacksonville(JAX)', 'code':'JAX'}, {name:'Kalamazoo(AZO)', 'code':'AZO'}, {name:'Lafayette(LFT)', 'code':'LFT'}, {name:'Lansing(LAN)', 'code':'LAN'}, {name:'Lexington(LEX)', 'code':'LEX'}, {name:'Madison(MSN)', 'code':'MSN'}, {name:'Marquette(MQT)', 'code':'MQT'}, {name:'Maui(OGG)', 'code':'OGG'}, {name:'Minneapolis(MSP)', 'code':'MSP'}, {name:'Newark(EWR)', 'code':'EWR'}, {name:'Oakland(OAK)', 'code':'OAK'}, {name:'Orlando(MCO)', 'code':'MCO'}, {name:'Palm Springs(PSP)', 'code':'PSP'}, {name:'Philadelphia(PHL)', 'code':'PHL'}, {name:'Phoenox(PHX)', 'code':'PHX'}, {name:'Pittsburgh(PIT)', 'code':'PIT'}, {name:'Portland(PDX)', 'code':'PDX'}, {name:'Reno(RNO)', 'code':'RNO'}, {name:'Sacramento(SMF)', 'code':'SMF'}, {name:'San Antonio(SAT)', 'code':'SAT'}, {name:'San Diego(SAN)', 'code':'SAN'}, {name:'San Francisco(SFO)', 'code':'SFO'}, {name:'San Jose(SJC)', 'code':'SJC'}, {name:'San Juan(SJU)', 'code':'SJU'}, {name:'Savannah(SAV)', 'code':'SAV'}, {name:'Tulsa(TUL)', 'code':'TUL'}, {name:'Seoul(ICN)', 'code':'ICN'}, {name:'Tokyo(HND)', 'code':'HND'}, {name:'Milan(MXP)', 'code':'MXP'},
+    {name:'Glasgow(GLA)', 'code':'GLA'}, {name:'Taiwan(TPE)', 'code':'TPE'},
+  ]"
+
                   :minInputLength="1"
                   :itemProjection="projection1"
                   class="block w-full mb-2 text-sm rounded-lg font-medium text-gray-900 dark:text-gray-400 "
