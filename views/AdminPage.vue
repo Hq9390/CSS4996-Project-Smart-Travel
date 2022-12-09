@@ -4,7 +4,7 @@
       <div class="mt-6 space-y-8 ">
 <!--heading and button action-->
         <h2 class="text-2xl font-bold flex w-full justify-center text-indigo-900">Enter new city information</h2>
-        <form action="#"  @submit.prevent="addSurvey"  class="space-y-8">
+        <form action="#"  @submit.prevent="addSurvey"  class="space-y-8" >
           <div>
             <!--        input fields-->
             <label for="city" class=" block text-sm font-medium text-gray-700" >Enter the Airport code (ex. DTW)</label>
@@ -83,14 +83,28 @@
               <li v-for = "survey in surveys" :key="survey.type">
                 {{survey.type}}
               </li>
-              <input  v-model="cityType2" id="save" name="save" type="text" autocomplete="save" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input  v-model="cityType2" id="save" name="save" type="text" autocomplete="save"  class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
           </div>
+
+          <b-alert
+              v-model="dismissCountDown"
+              dismissible
+              variant="success"
+              @dismissed="dismissCountDown=0"
+              @dismiss-count-down="countDownChanged"
+          >
+            Thank you for the Submission!
+          </b-alert>
           <!--adds button to submit, sends form to database-->
           <div>
-            <button @click="submit" type="submit" value="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">Submit New City</button>
+            <button @click="showAlert" type="submit" class=" flex w-full justify-center rounded-md border border-transparent bg-indigo-900 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 ">
+              Submit New City
+            </button>
           </div>
         </form>
+
+
         <div class="mt-6">
           <div class="relative">
             <div class="absolute inset-0 flex items-center">
@@ -118,16 +132,39 @@
           reserved.</p>
       </div>
     </div>
-
   </footer>
 
 </template>
 
+
+<script>
+// import Vue from "vue";
+// import { BAlert } from 'bootstrap-vue'
+// Vue.component('b-alert', BAlert)
+export default {
+  data(){
+    return{
+      dismissSecs: 3,
+      dismissCountDown: 0,
+    }
+  },
+  methods: {
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert(){
+      this.dismissCountDown = this.dismissSecs
+    }
+  }
+}
+</script>
+
 <script setup>
 // All imports
-import {ref} from "vue";
+import {ref} from 'vue'
 import { database } from "@/main";
 import { collection, addDoc } from "firebase/firestore"
+// Vue.component('b-button', BButton)
 
 // a list of all const, primarily strings with an array
 const surveys =ref([]);
@@ -174,5 +211,6 @@ const addSurvey = () => {
   cityType1.value=''
   cityType2.value=''
 }
+
 
 </script>

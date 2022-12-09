@@ -360,6 +360,7 @@ let collectRatings = [];
 querySnapshot.forEach((doc) => {
 console.log(doc.data(), "=>")
 const review = {
+
 country: doc.data().country,
 city: doc.data().city,
 stars: doc.data().stars,
