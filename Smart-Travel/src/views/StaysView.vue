@@ -289,7 +289,7 @@ import {ref} from 'vue';
 const CheckIn = ref();
 const CheckOut = ref();
 //Date formatting
-const format = ref('yyyy-MM-dd');
+const format = ref('MMM dd yyyy');
 const reviews = [
   {
 
@@ -401,7 +401,6 @@ export default {
         let entityId = response.data.data[0].entityId;
         console.log(entityId);
         self.getHotels(entityId);
-
       }).catch(function (error) {
         console.error(error);
       });
@@ -409,7 +408,6 @@ export default {
     //Fetching the data for the hotel filters from the API
     getHotelFilters(entityId) {
       let self = this;
-
       const options = {
         method: 'GET',
         url: 'https://skyscanner50.p.rapidapi.com/api/v1/getHotelFilters',
@@ -457,8 +455,19 @@ export default {
 
       }
 
+      if (this.maxHotelPrice !== null) {
+        options.params.maxPrice = this.maxHotelPrice;
+      }
+      if (this.minHotelPrice !== null) {
+        options.params.minPrice = this.minHotelPrice;
+      }
+
       axios.request(options).then(function (response) {
         self.hotels = response.data.data.hotels;
+        self.hotels = self.hotels.filter(function( obj ) {
+          return obj.price !== null;
+        });
+
       }).catch(function (error) {
         console.error(error);
       });
@@ -477,7 +486,6 @@ export default {
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
         }
       };
-
       axios.request(options).then(function (response) {
         self.hotelDetails = response.data.data;
       }).catch(function (error) {
@@ -505,7 +513,6 @@ export default {
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
         }
       };
-
       axios.request(options).then(function (response) {
         self.HotelPrice = response.data.data;
       }).catch(function (error) {

@@ -270,7 +270,7 @@ onMounted(async () => {
 });
 
 
-const format = ref('dd MMMM yyyy');
+const format = ref('MMMM dd yyyy');
 const departuredate = ref();
 const returndate = ref();
 //To show a specific thing only when logged in
@@ -329,7 +329,7 @@ export default {
     airportSelected(value) {
       this.travelingFrom = value.code;
     },
-  
+
     //Unsaving a city
     async unsave(city) {
       city.is_saved = undefined;
@@ -393,9 +393,23 @@ export default {
         }
       }
       axios.request(options).then(function (response) {
-        self.flights = response.data.data;
+        self.flights = response.data.data.flights;
         self.lowestFlightPrice = response.data.data[0].price.amount
-        self.highestFlightPrice = response.data.data[response.data.data.length - 1].price.amount
+        self.highestFlightPrice = response.data.data[response.data.data.length-1].price.amount
+      }).catch(function (error) {
+        console.error(error);
+      });
+      axios.request(options).then(function (response) {
+        self.flights = response.data.data.flights;
+        self.lowestFlightPrice = response.data.data[0].price.amount
+        self.highestFlightPrice = response.data.data[response.data.data.length-1].price.amount
+      }).catch(function (error) {
+        console.error(error);
+      });
+      axios.request(options).then(function (response) {
+        self.flights = response.data.data.flights;
+        self.lowestFlightPrice = response.data.data[0].price.amount
+        self.highestFlightPrice = response.data.data[response.data.data.length-1].price.amount
       }).catch(function (error) {
         console.error(error);
       });

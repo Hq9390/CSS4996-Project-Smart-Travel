@@ -1,6 +1,5 @@
 <template>
   <div class="flex  flex-1 flex-col overflow-hidden">
-
     <div class="relative z-0 flex flex-1 overflow-hidden">
       <main class="relative z-0 flex-1 overflow-y-auto focus:outline-none ">
         <article>
@@ -26,13 +25,11 @@
                   </div>
                 </div>
               </div>
-
               <div class="mt-6 hidden min-w-0 flex-1 sm:block 2xl:hidden">
                 <h1 class="truncate text-2xl font-bold text-gray-900">{{ users.displayName }}</h1>
               </div>
             </div>
           </div>
-
           <!-- Tabs -->
           <div class="mt-6 sm:mt-2 2xl:mt-5">
             <div class="border-b border-gray-200">
@@ -94,7 +91,7 @@
                         </div>
                         <div class="col-span-6 sm:col-span-3 lg:col-span-3">
                           <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                          <input v-model="users.phone" type="tel" id="phone" name="phone" autocomplete="phone"
+                          <input v-model="users.phone" @input="acceptNumber" type="tel" id="phone" name="phone" autocomplete="phone"
                                  class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"/>
                         </div>
                         <div class="col-span-6 sm:col-span-3 lg:col-span-3">
@@ -128,7 +125,7 @@
                 <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
                   <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Phone</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ users.phone }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900">{{users.phone }}</dd>
                   </div>
                   <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Email</dt>
@@ -140,7 +137,7 @@
                   </div>
                   <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500">Birthday</dt>
-                    <dd class="mt-1 text-sm text-gray-900">{{ users.birthday }}</dd>
+                    <dd class="mt-1 text-sm text-gray-900">{{ getFormattedDate(users.birthday) }}</dd>
                   </div>
                 </dl>
               </div>
@@ -206,10 +203,8 @@
 <script setup>
 
 //Imports
-import {ref, onMounted, watch} from 'vue';
-import {database} from "@/main";
+import {ref} from 'vue';
 
-import {getAuth} from "firebase/auth";
 import {PencilIcon} from '@heroicons/vue/24/outline'
 const open = ref(true)
 const auth = getAuth();
@@ -224,6 +219,7 @@ import {getAuth} from "firebase/auth";
 import {database} from "@/main";
 import {mapState} from "pinia";
 import firebase from "firebase/compat";
+import moment from "moment/moment";
 
 
 export default {
@@ -238,16 +234,12 @@ export default {
       ],
       favorites: [],
       users: {},
+      objectName: {},
 
     };
   },
 
-  computed: {
-    isModalVisible() {
-      return this.isOpen;
-    },
 
-  },
 
   methods: {
     //Unsaving a city from the user document in the favorites collecion
@@ -264,6 +256,13 @@ export default {
 
       this.getFavorites();
 
+    },
+    getFormattedDate(birthday) {
+      return moment(birthday).format('MMMM DD, YYYY')
+    },
+    acceptNumber() {
+      var x = this.users.phone.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+      this.users.phone = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
     },
     //For current tab
     setCurrentTab(tab) {
@@ -328,7 +327,7 @@ export default {
       database.collection("users").doc(this.users.email).set({
         location: this.users.location,
         phone: this.users.phone,
-        birthday: this.users.birthday
+        birthday:  this.users.birthday
       }, {merge: true})
           .then(() => {
             console.log("Document successfully written!");

@@ -54,11 +54,12 @@
 </template>
 
 <script setup>
-import { getAuth, createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'
-import {doc,addDoc, collection,setDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
+
 import {ref} from "vue";
 import router from "@/router";
 import {database} from "@/main";
+import moment from "moment";
 const auth = getAuth();
 const email = ref("");
 const name = ref("");
@@ -67,6 +68,8 @@ const phone = ref("");
 const birthday = ref("");
 const password = ref("");
 const errMsg = ref()
+const format = ref('dd MMMM yyyy');
+
 const register = () => {
 //Create a user account using password and email
   createUserWithEmailAndPassword(getAuth(), email.value, password.value)
@@ -80,7 +83,7 @@ const register = () => {
        email: email.value,
        location: location.value,
        phone: phone.value,
-       birthday:birthday.value
+       birthday:moment(birthday.value).format('YYYY-MM-DD')
      }, {merge: true})
          .then(() => {
            console.log("Document successfully written!");

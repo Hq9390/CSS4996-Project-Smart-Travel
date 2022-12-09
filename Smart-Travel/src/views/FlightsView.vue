@@ -316,7 +316,7 @@
           bg-white rounded-md  mt-3 w-100 mx-auto px-4 sm:px-6 lg:px-8">
                 <button type="button" @click="openDetails(flight)">
                   <div class=" mx-3 flow-root">
-                    <p class="float-right text-xl leading-tight text-gray-600 font-bold">${{ flight.price.amount }}</p>
+<!--                    <p class="float-right text-xl leading-tight text-gray-600 font-bold">${{ flight.price.amount }}</p>-->
                     <p class="font-bold float-left">{{ getFormattedDate(flight.legs[0].departure) }} -
                       {{ getFormattedDate(flight.legs[0].arrival) }}</p>
 
@@ -425,7 +425,7 @@ import {ChevronDoubleRightIcon} from "@heroicons/vue/20/solid"
 import {StarIcon} from '@heroicons/vue/20/solid'
 import {ref} from "vue";
 // Format the date
-const format = ref('yyyy-MM-dd');
+const format = ref('MMM dd yyyy');
 const Departure = ref();
 
 const reviews = [
