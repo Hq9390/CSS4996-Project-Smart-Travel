@@ -300,11 +300,24 @@ const reviews = [
 ]
 </script>
 <script>
+import {ref} from 'vue';
 import axios from "axios";
 import moment from 'moment';
 import 'vue3-simple-typeahead/dist/vue3-simple-typeahead.css';
 
 export default {
+  // setup() {
+  //   const CheckIn = ref();
+  //   const CheckOut = ref();
+  //   const format = ref('yyyy-MM-dd');
+  //
+  //
+  //   return {
+  //     CheckIn,
+  //     CheckOut,
+  //     format,
+  //   };
+  // },
   data() {
     return {
       hover: false,
@@ -324,59 +337,60 @@ export default {
       orderBy: '',
     };
   },
+
   methods: {
     projection(value) {
 
       return value.name
     },
-    locationSelected(value) {
+    locationSelected(value){
       this.location = value.code;
     },
-    // Sorting the hotel search results
-    orderBySelected(event) {
+
+    orderBySelected(event){
       this.orderBy = event.target.value;
-      // Sorting by price in ascending order
-      if (event.target.value === 'pricea') {
+
+      if(event.target.value === 'pricea') {
         console.log('sorting by price ascending')
 
         this.hotels.sort((a, b) => (this.cleanNumber(a.price) > this.cleanNumber(b.price)) ? 1 : -1)
       }
-      // Sorting by price in descending order
-      if (event.target.value === 'priced') {
+
+      if(event.target.value === 'priced') {
         console.log('sorting by price descending')
         this.hotels.sort((a, b) => (this.cleanNumber(a.price) < this.cleanNumber(b.price)) ? 1 : -1)
       }
-      // Sorting by stars in ascending order
-      if (event.target.value === 'starsa') {
+
+      if(event.target.value === 'starsa') {
         console.log('sorting by stars ascending')
         this.hotels.sort((a, b) => (a.stars > b.stars) ? 1 : -1)
 
       }
-      // Sorting by stars in descending order
-      if (event.target.value === 'starsd') {
+
+      if(event.target.value === 'starsd') {
         console.log('sorting by stars descending')
         this.hotels.sort((a, b) => (a.stars < b.stars) ? 1 : -1)
       }
+
+
     },
-    //Removing any character from the price
     cleanNumber(value) {
-      if (value) {
+      if(value) {
         value = value.replace("$", "");
         value = value.replace(",", "");
         return parseInt(value);
 
       }
       console.log('something went seriously wrong here');
+
       return 0;
-    },
-    //Closing the hotel details
+    } ,
     closeDetails() {
       this.selectedHotel = null;
       this.hotelDetails = null;
       this.HotelFilters = null;
       this.HotelPrice = null;
     },
-    //Showing the hotel details
     openDetails(hotel) {
       console.log('selected ');
       this.selectedHotel = hotel;
@@ -384,7 +398,6 @@ export default {
       this.getHotelFilters(hotel.hotelId);
       this.getHotelPrice(hotel.hotelId, hotel);
     },
-    //Fetching the data for searching for places from the API
     getSearchResults() {
       let self = this;
       // const axios = require("axios");
@@ -401,13 +414,14 @@ export default {
         let entityId = response.data.data[0].entityId;
         console.log(entityId);
         self.getHotels(entityId);
+
       }).catch(function (error) {
         console.error(error);
       });
     },
-    //Fetching the data for the hotel filters from the API
     getHotelFilters(entityId) {
       let self = this;
+
       const options = {
         method: 'GET',
         url: 'https://skyscanner50.p.rapidapi.com/api/v1/getHotelFilters',
@@ -426,11 +440,14 @@ export default {
 
       axios.request(options).then(function (response) {
         self.hotels = response.data.data.hotels;
+        self.hotels = self.hotels.filter(function( obj ) {
+          return obj.price !== null;
+        });
+
       }).catch(function (error) {
         console.error(error);
       });
     },
-    //Fetching the data for searching for hotels from the hotel API
     getHotels(entityId) {
       let self = this;
       console.log('called');
@@ -473,7 +490,6 @@ export default {
       });
 
     },
-    //Fetching the data for the hotel details from the API
     getHotelsDetails(hotelId) {
       let self = this;
       console.log('called');
@@ -486,13 +502,13 @@ export default {
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
         }
       };
+
       axios.request(options).then(function (response) {
         self.hotelDetails = response.data.data;
       }).catch(function (error) {
         console.error(error);
       });
     },
-    //Fetching more hotel details from the API. This one has the booking link
     getHotelPrice(hotelId, entityId) {
       let self = this;
       const options = {
@@ -513,6 +529,7 @@ export default {
           'X-RapidAPI-Host': 'skyscanner50.p.rapidapi.com'
         }
       };
+
       axios.request(options).then(function (response) {
         self.HotelPrice = response.data.data;
       }).catch(function (error) {
